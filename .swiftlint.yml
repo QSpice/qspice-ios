@@ -18,6 +18,9 @@ opt_in_rules:
   - explicit_init
   - shorthand_operator
 
+excluded:
+  - Pods
+
 trailing_semicolon: error
 empty_count: error
 closing_brace: error
