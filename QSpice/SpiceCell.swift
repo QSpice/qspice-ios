@@ -14,6 +14,8 @@ class SpiceCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        selectionStyle = .none
+
         setupSubviews()
     }
 
@@ -25,7 +27,6 @@ class SpiceCell: UITableViewCell {
 
     let colorView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .black
 
         return view
@@ -33,7 +34,6 @@ class SpiceCell: UITableViewCell {
 
     let spiceNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Fonts.cStdMedium
         label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
 
@@ -42,8 +42,15 @@ class SpiceCell: UITableViewCell {
 
     let spiceWeightLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Fonts.cStdBook?.withSize(12.0)
+        label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
+
+        return label
+    }()
+
+    let numberLabel: UILabel = {
+        let label = UILabel()
+        label.font = Fonts.cStdBold?.withSize(24.0)
         label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
 
         return label
@@ -54,21 +61,42 @@ class SpiceCell: UITableViewCell {
     private func setupStyling() {
         if let actionView = actionView {
             actionView.removeFromSuperview()
+            self.actionView = nil
         }
+
+        var multiplier: Float = 1.0
 
         switch type {
         case .unselected:
+            colorView.backgroundColor = UIColor(r: 238.0, g: 238.0, b: 238.0, a: 1.0)
             spiceNameLabel.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
             spiceWeightLabel.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
+
+            actionView = {
+                let imageView = UIImageView()
+                imageView.image = UIImage(named: "plus")
+                imageView.tintColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
+                return imageView
+            }()
+
+            multiplier = 1.80
+            contentView.addSubview(actionView!)
+        }
+
+        actionView?.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview().multipliedBy(multiplier)
+            make.centerY.equalToSuperview()
+            make.top.greaterThanOrEqualTo(8)
         }
     }
 
     private func setupSubviews() {
+        colorView.addSubview(numberLabel)
         contentView.addSubview(colorView)
         contentView.addSubview(spiceNameLabel)
         contentView.addSubview(spiceWeightLabel)
 
-        colorView.snp.makeConstraints { (make) -> Void in
+        colorView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -85,12 +113,13 @@ class SpiceCell: UITableViewCell {
             make.top.equalTo(spiceNameLabel.snp.bottom)
         }
 
-    }
+        numberLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        setupStyling()
 
-        // Configure the view for the selected state
     }
 
 }

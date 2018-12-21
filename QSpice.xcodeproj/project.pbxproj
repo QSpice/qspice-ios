@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9291F95421CD6C3900A15F15 /* spices.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9291F95321CD6C3900A15F15 /* spices.csv */; };
+		9291F95621CD6EEC00A15F15 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F95521CD6EEC00A15F15 /* Helpers.swift */; };
 		92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF192E21CAD18B0028BE0F /* SpiceCell.swift */; };
 		92DF193421CB1AE80028BE0F /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */; };
 		92DF193521CB1AE80028BE0F /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */; };
 		92DF193621CB1AE80028BE0F /* CircularStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193321CB1AE80028BE0F /* CircularStd-Medium.otf */; };
 		92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF193821CB1C9E0028BE0F /* UIColor+Extension.swift */; };
+		92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */; };
 		92EFAB562149625400F25837 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB552149625400F25837 /* AppDelegate.swift */; };
 		92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */; };
 		92EFAB5B2149625400F25837 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EFAB592149625400F25837 /* Main.storyboard */; };
@@ -24,11 +27,14 @@
 
 /* Begin PBXFileReference section */
 		86B00A485558FFFE02A67051 /* Pods-QSpice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QSpice.release.xcconfig"; path = "Pods/Target Support Files/Pods-QSpice/Pods-QSpice.release.xcconfig"; sourceTree = "<group>"; };
+		9291F95321CD6C3900A15F15 /* spices.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = spices.csv; sourceTree = "<group>"; };
+		9291F95521CD6EEC00A15F15 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		92DF192E21CAD18B0028BE0F /* SpiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceCell.swift; sourceTree = "<group>"; };
 		92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.otf"; sourceTree = "<group>"; };
 		92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
 		92DF193321CB1AE80028BE0F /* CircularStd-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.otf"; sourceTree = "<group>"; };
 		92DF193821CB1C9E0028BE0F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceSelectionViewController.swift; sourceTree = "<group>"; };
 		92EFAB522149625400F25837 /* QSpice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSpice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EFAB552149625400F25837 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSpicesViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 			children = (
 				92EFAB552149625400F25837 /* AppDelegate.swift */,
 				92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */,
+				92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */,
 				92DF192E21CAD18B0028BE0F /* SpiceCell.swift */,
 				92EFAB592149625400F25837 /* Main.storyboard */,
 				92EFAB5F2149625500F25837 /* Assets.xcassets */,
@@ -119,8 +126,10 @@
 				92EFAB642149625600F25837 /* Info.plist */,
 				92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */,
 				92EFAB6D2149CD4E00F25837 /* Constants.swift */,
+				9291F95521CD6EEC00A15F15 /* Helpers.swift */,
 				92DF193721CB1C7A0028BE0F /* Extensions */,
 				92DF193021CB1AE80028BE0F /* fonts */,
+				9291F95321CD6C3900A15F15 /* spices.csv */,
 			);
 			path = QSpice;
 			sourceTree = "<group>";
@@ -187,6 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9291F95421CD6C3900A15F15 /* spices.csv in Resources */,
 				92DF193521CB1AE80028BE0F /* CircularStd-Bold.otf in Resources */,
 				92EFAB632149625500F25837 /* LaunchScreen.storyboard in Resources */,
 				92EFAB602149625500F25837 /* Assets.xcassets in Resources */,
@@ -289,8 +299,10 @@
 				92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */,
 				92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */,
 				92EFAB5E2149625400F25837 /* QSpice.xcdatamodeld in Sources */,
+				9291F95621CD6EEC00A15F15 /* Helpers.swift in Sources */,
 				92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */,
 				92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */,
+				92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */,
 				92EFAB562149625400F25837 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
