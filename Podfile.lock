@@ -1,15 +1,21 @@
 PODS:
+  - DynamicColor (4.0.3)
   - SnapKit (4.2.0)
   - SwiftLint (0.27.0)
+  - UITextView+Placeholder (1.2.1)
 
 DEPENDENCIES:
+  - DynamicColor (~> 4.0.3)
   - SnapKit (~> 4.2.0)
   - SwiftLint
+  - UITextView+Placeholder
 
 SPEC CHECKSUMS:
+  DynamicColor: bf19b33fe404c59a68e64af95cc6b017346e7e75
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  UITextView+Placeholder: 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 5643940d30e5a0f6292c5794c22ff84b4f28b6de
+PODFILE CHECKSUM: 5c738fe53f01f92d9f030d1e7e8ce231f1600c7e
 
 COCOAPODS: 1.4.0

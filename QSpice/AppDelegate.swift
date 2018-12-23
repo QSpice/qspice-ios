@@ -12,13 +12,42 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    let window: UIWindow = UIWindow(frame: UIScreen.main.bounds)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        let spiceService = SpiceService(context: persistentContainer.viewContext)
+        let spiceController = SpiceController(spiceService: spiceService)
         
-        print(try! Helpers.readCSV(file: "spices"))
+        spiceController.initializeSpicesIfNeeded()
         
+        let tabBarController = QSTabBarController()
+        
+        let rootViewController = ActiveSpicesViewController(controller: spiceController)
+        
+        let recipesViewController = RecipesViewController()
+
+        let tabBarItemInfo = [
+            (name: "Spices", image: UIImage(named: "spice")),
+            (name: "Recipes", image: UIImage(named: "chef"))
+        ]
+        
+        let viewControllers = [
+            UINavigationController(rootViewController: rootViewController),
+            UINavigationController(rootViewController: recipesViewController)
+        ]
+        
+        for (i, viewController) in viewControllers.enumerated() {
+            let (name, image) = tabBarItemInfo[i]
+            viewController.tabBarItem = UITabBarItem(title: name, image: image, selectedImage: image)
+        }
+        
+        tabBarController.viewControllers = viewControllers
+        
+        window.rootViewController = tabBarController
+
+        window.makeKeyAndVisible()
+
         return true
     }
 

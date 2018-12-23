@@ -7,8 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9238E95221CEBEBB00136BAB /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238E95121CEBEBB00136BAB /* RecipesViewController.swift */; };
+		92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */; };
+		92916A4A21CECAEC004349C2 /* Recipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4821CECAEC004349C2 /* Recipe+CoreDataProperties.swift */; };
+		92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */; };
+		92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4F21CEE3BA004349C2 /* LinkCell.swift */; };
+		92916A5221CEED68004349C2 /* RecipeDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A5121CEED68004349C2 /* RecipeDescCell.swift */; };
 		9291F95421CD6C3900A15F15 /* spices.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9291F95321CD6C3900A15F15 /* spices.csv */; };
 		9291F95621CD6EEC00A15F15 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F95521CD6EEC00A15F15 /* Helpers.swift */; };
+		9291F95A21CD78D200A15F15 /* QSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F95921CD78D200A15F15 /* QSTabBarController.swift */; };
+		9291F95C21CD85EB00A15F15 /* SpiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F95B21CD85EB00A15F15 /* SpiceController.swift */; };
+		9291F96421CD8A0C00A15F15 /* Spice+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96221CD8A0C00A15F15 /* Spice+CoreDataClass.swift */; };
+		9291F96521CD8A0C00A15F15 /* Spice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96321CD8A0C00A15F15 /* Spice+CoreDataProperties.swift */; };
+		9291F96721CD8C7700A15F15 /* SpiceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96621CD8C7700A15F15 /* SpiceService.swift */; };
+		9291F96921CDB0A100A15F15 /* SpiceSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */; };
 		92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF192E21CAD18B0028BE0F /* SpiceCell.swift */; };
 		92DF193421CB1AE80028BE0F /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */; };
 		92DF193521CB1AE80028BE0F /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */; };
@@ -17,7 +29,6 @@
 		92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */; };
 		92EFAB562149625400F25837 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB552149625400F25837 /* AppDelegate.swift */; };
 		92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */; };
-		92EFAB5B2149625400F25837 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EFAB592149625400F25837 /* Main.storyboard */; };
 		92EFAB5E2149625400F25837 /* QSpice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */; };
 		92EFAB602149625500F25837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EFAB5F2149625500F25837 /* Assets.xcassets */; };
 		92EFAB632149625500F25837 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EFAB612149625500F25837 /* LaunchScreen.storyboard */; };
@@ -27,8 +38,20 @@
 
 /* Begin PBXFileReference section */
 		86B00A485558FFFE02A67051 /* Pods-QSpice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QSpice.release.xcconfig"; path = "Pods/Target Support Files/Pods-QSpice/Pods-QSpice.release.xcconfig"; sourceTree = "<group>"; };
+		9238E95121CEBEBB00136BAB /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
+		92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		92916A4821CECAEC004349C2 /* Recipe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
+		92916A4F21CEE3BA004349C2 /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
+		92916A5121CEED68004349C2 /* RecipeDescCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescCell.swift; sourceTree = "<group>"; };
 		9291F95321CD6C3900A15F15 /* spices.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = spices.csv; sourceTree = "<group>"; };
 		9291F95521CD6EEC00A15F15 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		9291F95921CD78D200A15F15 /* QSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSTabBarController.swift; sourceTree = "<group>"; };
+		9291F95B21CD85EB00A15F15 /* SpiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceController.swift; sourceTree = "<group>"; };
+		9291F96221CD8A0C00A15F15 /* Spice+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spice+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9291F96321CD8A0C00A15F15 /* Spice+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spice+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9291F96621CD8C7700A15F15 /* SpiceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceService.swift; sourceTree = "<group>"; };
+		9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceSelectionController.swift; sourceTree = "<group>"; };
 		92DF192E21CAD18B0028BE0F /* SpiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceCell.swift; sourceTree = "<group>"; };
 		92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.otf"; sourceTree = "<group>"; };
 		92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
@@ -38,7 +61,6 @@
 		92EFAB522149625400F25837 /* QSpice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSpice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EFAB552149625400F25837 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSpicesViewController.swift; sourceTree = "<group>"; };
-		92EFAB5A2149625400F25837 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92EFAB5D2149625400F25837 /* QSpice.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QSpice.xcdatamodel; sourceTree = "<group>"; };
 		92EFAB5F2149625500F25837 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92EFAB622149625500F25837 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,6 +97,62 @@
 				86B00A485558FFFE02A67051 /* Pods-QSpice.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9238E95321CEC46D00136BAB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9291F95B21CD85EB00A15F15 /* SpiceController.swift */,
+				9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9238E95421CEC48700136BAB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92DF192E21CAD18B0028BE0F /* SpiceCell.swift */,
+				92916A4F21CEE3BA004349C2 /* LinkCell.swift */,
+				92916A5121CEED68004349C2 /* RecipeDescCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9238E95521CEC49800136BAB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */,
+				92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */,
+				9238E95121CEBEBB00136BAB /* RecipesViewController.swift */,
+				92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */,
+				9291F95921CD78D200A15F15 /* QSTabBarController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9238E95621CEC4B800136BAB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				92EFAB5F2149625500F25837 /* Assets.xcassets */,
+				92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */,
+				92EFAB612149625500F25837 /* LaunchScreen.storyboard */,
+				92EFAB642149625600F25837 /* Info.plist */,
+				92DF193021CB1AE80028BE0F /* fonts */,
+				9291F95321CD6C3900A15F15 /* spices.csv */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9291F96121CD89F700A15F15 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */,
+				92916A4821CECAEC004349C2 /* Recipe+CoreDataProperties.swift */,
+				9291F96621CD8C7700A15F15 /* SpiceService.swift */,
+				9291F96221CD8A0C00A15F15 /* Spice+CoreDataClass.swift */,
+				9291F96321CD8A0C00A15F15 /* Spice+CoreDataProperties.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		92DF193021CB1AE80028BE0F /* fonts */ = {
@@ -117,19 +195,14 @@
 			isa = PBXGroup;
 			children = (
 				92EFAB552149625400F25837 /* AppDelegate.swift */,
-				92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */,
-				92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */,
-				92DF192E21CAD18B0028BE0F /* SpiceCell.swift */,
-				92EFAB592149625400F25837 /* Main.storyboard */,
-				92EFAB5F2149625500F25837 /* Assets.xcassets */,
-				92EFAB612149625500F25837 /* LaunchScreen.storyboard */,
-				92EFAB642149625600F25837 /* Info.plist */,
-				92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */,
 				92EFAB6D2149CD4E00F25837 /* Constants.swift */,
 				9291F95521CD6EEC00A15F15 /* Helpers.swift */,
+				9238E95521CEC49800136BAB /* ViewControllers */,
+				9238E95321CEC46D00136BAB /* Controllers */,
+				9238E95421CEC48700136BAB /* Views */,
+				9291F96121CD89F700A15F15 /* Models */,
 				92DF193721CB1C7A0028BE0F /* Extensions */,
-				92DF193021CB1AE80028BE0F /* fonts */,
-				9291F95321CD6C3900A15F15 /* spices.csv */,
+				9238E95621CEC4B800136BAB /* Supporting Files */,
 			);
 			path = QSpice;
 			sourceTree = "<group>";
@@ -200,7 +273,6 @@
 				92DF193521CB1AE80028BE0F /* CircularStd-Bold.otf in Resources */,
 				92EFAB632149625500F25837 /* LaunchScreen.storyboard in Resources */,
 				92EFAB602149625500F25837 /* Assets.xcassets in Resources */,
-				92EFAB5B2149625400F25837 /* Main.storyboard in Resources */,
 				92DF193421CB1AE80028BE0F /* CircularStd-Book.otf in Resources */,
 				92DF193621CB1AE80028BE0F /* CircularStd-Medium.otf in Resources */,
 			);
@@ -259,13 +331,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-QSpice/Pods-QSpice-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -297,12 +373,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */,
+				92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */,
 				92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */,
+				9291F96421CD8A0C00A15F15 /* Spice+CoreDataClass.swift in Sources */,
+				9291F96921CDB0A100A15F15 /* SpiceSelectionController.swift in Sources */,
+				92916A4A21CECAEC004349C2 /* Recipe+CoreDataProperties.swift in Sources */,
+				92916A5221CEED68004349C2 /* RecipeDescCell.swift in Sources */,
+				92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */,
 				92EFAB5E2149625400F25837 /* QSpice.xcdatamodeld in Sources */,
+				9291F96721CD8C7700A15F15 /* SpiceService.swift in Sources */,
+				9291F96521CD8A0C00A15F15 /* Spice+CoreDataProperties.swift in Sources */,
 				9291F95621CD6EEC00A15F15 /* Helpers.swift in Sources */,
+				92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */,
 				92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */,
 				92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */,
+				9291F95C21CD85EB00A15F15 /* SpiceController.swift in Sources */,
+				9291F95A21CD78D200A15F15 /* QSTabBarController.swift in Sources */,
 				92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */,
+				9238E95221CEBEBB00136BAB /* RecipesViewController.swift in Sources */,
 				92EFAB562149625400F25837 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,14 +398,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		92EFAB592149625400F25837 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				92EFAB5A2149625400F25837 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		92EFAB612149625500F25837 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
