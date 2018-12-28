@@ -1,11 +1,3 @@
-//
-//  RecipeDetailViewController.swift
-//  QSpice
-//
-//  Created by Anthony Fiorito on 2018-12-22.
-//  Copyright © 2018 Anthony Fiorito. All rights reserved.
-//
-
 import UIKit
 
 class RecipeDetailViewController: UIViewController {
@@ -15,9 +7,12 @@ class RecipeDetailViewController: UIViewController {
     enum RecipeDetailMode {
         case view
         case edit
+        case new
     }
     
     var mode: RecipeDetailMode = .edit
+    
+    var controller: RecipeDetailController
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -27,6 +22,7 @@ class RecipeDetailViewController: UIViewController {
     
     let recipeImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
 
         return imageView
     }()
@@ -38,12 +34,11 @@ class RecipeDetailViewController: UIViewController {
         return view
     }()
     
-    let cameraImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = .white
-        imageView.image = UIImage(named: "camera")
+    let doneButton: ActionButton = {
+        let button = ActionButton()
+        button.setTitle("Done", for: .normal)
         
-        return imageView
+        return button
     }()
     
     let recipeNameTextField: UITextField = {
@@ -55,22 +50,43 @@ class RecipeDetailViewController: UIViewController {
         return textField
     }()
     
+    var recipeContentTextView: UITextView? {
+        return (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? RecipeDescCell)?.descriptionTextView
+    }
+    
+    var recipeLinkTextField: UITextField? {
+        return (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LinkCell)?.linkTextField
+    }
+    
+    init(controller: RecipeDetailController) {
+        self.controller = controller
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.tintColor = .white
         
-        // Do any additional setup after loading the view.
         view.backgroundColor = .white
-        view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
+        let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        gesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(gesture)
+        
+        doneButton.addTarget(self, action: #selector(completeRecipeTapped), for: .touchUpInside)
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 50
+        tableView.estimatedRowHeight = 60
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.register(LinkCell.self, forCellReuseIdentifier: LinkCell.reuseId)
         tableView.register(RecipeDescCell.self, forCellReuseIdentifier: RecipeDescCell.reuseId)
+        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
         tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -79,6 +95,36 @@ class RecipeDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupSubviews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
+    @objc func completeRecipeTapped() {
+        let name = recipeNameTextField.text ?? ""
+        let link = recipeLinkTextField?.text ?? ""
+        let content = recipeContentTextView?.text ?? ""
+        
+        do {
+            if mode == .new {
+                try controller.addRecipe(name: name, link: link, content: content, image: nil)
+            } else {
+                try controller.updateRecipe(name: name, link: link, content: content, image: nil)
+            }
+        } catch {
+            print("Error: ", error.localizedDescription)
+        }
+    }
+    
+    @objc func recipeImageTapped() {
+        let mediaPicker = MediaPickerViewController()
+        mediaPicker.pickerDelegate = self
+        mediaPicker.modalPresentationStyle = .custom
+        
+        present(mediaPicker, animated: true, completion: nil)
     }
     
     deinit {
@@ -90,6 +136,7 @@ class RecipeDetailViewController: UIViewController {
         view.addSubview(dimView)
         view.addSubview(recipeNameTextField)
         view.addSubview(tableView)
+        view.addSubview(doneButton)
         
         recipeImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -111,7 +158,14 @@ class RecipeDetailViewController: UIViewController {
             make.top.equalTo(dimView.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(doneButton.snp.top).offset(-8)
+        }
+        
+        doneButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.snp.bottomMargin).offset(-8)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(40.0)
         }
         
         setupStyling()
@@ -119,15 +173,12 @@ class RecipeDetailViewController: UIViewController {
     
     private func setupStyling() {
         switch mode {
-        case .edit:
+        case .edit, .new:
             recipeNameTextField.isEnabled = true
-            dimView.addSubview(cameraImageView)
             
-            cameraImageView.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-                make.height.equalTo(60.0*0.8125)
-                make.width.equalTo(60)
-            }
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "camera"), style: .plain, target: self, action: #selector(recipeImageTapped))
+            
+            
             
         case .view:
             recipeNameTextField.isEnabled = false
@@ -135,11 +186,30 @@ class RecipeDetailViewController: UIViewController {
         
     }
     
+    @objc func keyboardChangedFrame(notification: Notification) {
+        guard let textView = recipeContentTextView else {
+            return
+        }
+        
+        if textView.isFirstResponder {
+            
+            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                var insets = UIEdgeInsets.zero
+                insets.bottom = min(tableView.frame.height - textView.frame.height, keyboardFrame.height)
+                tableView.contentInset = insets
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        tableView.contentInset = .zero
+    }
+    
 }
 
 extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section < 2 {
@@ -147,7 +217,7 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         switch mode {
-        case .edit:
+        case .edit, .new:
             return AppConfig.maxNumberOfActiveSpices
         case .view:
             return 0
@@ -172,12 +242,18 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             return cell
         case 2:
-            switch mode {
-            case .edit:
-                break
-            case .view:
-                break
+            let cell = tableView.dequeueReusableCell(withIdentifier: SpiceCell.reuseId, for: indexPath) as! SpiceCell
+            
+            if let spice = controller.recipeDetail.spices[indexPath.row + 1] {
+                cell.type = .display
+                cell.color = UIColor(hexString: spice.color)
+                cell.spiceNameLabel.text = spice.name
+                cell.weight = "\(spice.weight)"
+            } else {
+                cell.type = .unselected
             }
+            
+            return cell
             
         default:
             break
@@ -186,24 +262,14 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
         return UITableViewCell()
     }
     
-    @objc func keyboardChangedFrame(notification: Notification) {
-        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? RecipeDescCell
-        guard let textView = cell?.descriptionTextView else {
-            return
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 {
+            let destination = SpiceSelectionViewController(controller: SpiceSelectionController(spiceService: SpiceService(context: controller.recipeService.context)))
+            destination.spiceNumber = indexPath.row + 1
+            destination.delegate = self
+            
+            navigationController?.pushViewController(destination, animated: true)
         }
-        
-        if textView.isFirstResponder {
-        
-            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                var insets = UIEdgeInsets.zero
-                insets.bottom = min(tableView.frame.height - textView.frame.height, keyboardFrame.height)
-                tableView.contentInset = insets
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: Notification) {
-        tableView.contentInset = .zero
     }
     
 }
@@ -222,4 +288,22 @@ extension RecipeDetailViewController: UITextViewDelegate {
         }
         UIView.setAnimationsEnabled(true)
     }
+}
+
+extension RecipeDetailViewController: MediaPickerDelegate {
+    func mediaPicker(_ mediaPicker: MediaPickerViewController, didFinishPicking media: UIImage?) {
+        dismiss(animated: true, completion: nil)
+        
+        recipeImageView.image = media
+    }
+}
+
+extension RecipeDetailViewController: SpiceSelectionDelegate {
+    func didSelect(spice: Spice, for slot: Int) {
+        controller.addSpice(spice, for: slot)
+        tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
 }

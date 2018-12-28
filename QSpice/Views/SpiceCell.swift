@@ -152,6 +152,7 @@ class SpiceCell: UITableViewCell {
         spiceWeightLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(spiceNameLabel.snp.leading)
             make.top.equalTo(spiceNameLabel.snp.bottom)
+            make.bottom.equalToSuperview().offset(-8)
         }
 
         numberLabel.snp.makeConstraints { (make) in

@@ -1,15 +1,19 @@
-//
-//  RecipesViewController.swift
-//  QSpice
-//
-//  Created by Anthony Fiorito on 2018-12-22.
-//  Copyright © 2018 Anthony Fiorito. All rights reserved.
-//
-
 import UIKit
 
 class RecipesViewController: UITableViewController {
 
+    var controller: RecipeController
+    
+    init(controller: RecipeController) {
+        self.controller = controller
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +33,8 @@ class RecipesViewController: UITableViewController {
     }
     
     @objc func addRecipeTapped() {
-        let recipeDetailViewController = RecipeDetailViewController()
+        let recipeDetailViewController = RecipeDetailViewController(controller: RecipeDetailController(recipeService: controller.recipeService))
+        recipeDetailViewController.mode = .new
         
         navigationController?.pushViewController(recipeDetailViewController, animated: true)
     }
@@ -45,7 +50,6 @@ class RecipesViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
-    
     
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

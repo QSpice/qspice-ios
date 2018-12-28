@@ -57,7 +57,7 @@ class LinkCell: UITableViewCell {
     
     private func setupStyling() {
         switch mode {
-        case .edit:
+        case .edit, .new:
             linkTextField.isEnabled = true
         case .view:
             linkTextField.isEnabled = false

@@ -63,7 +63,7 @@ class RecipeDescCell: UITableViewCell {
     
     private func setupStyling() {
         switch mode {
-        case .edit:
+        case .edit, .new:
             descriptionTextView.isEditable = true
         case .view:
             descriptionTextView.isEditable = false

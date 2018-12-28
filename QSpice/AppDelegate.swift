@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         let spiceService = SpiceService(context: persistentContainer.viewContext)
+        let recipeService = RecipeService(context: persistentContainer.viewContext)
         let spiceController = SpiceController(spiceService: spiceService)
+        let recipeController = RecipeController(recipeService: recipeService)
         
         spiceController.initializeSpicesIfNeeded()
         
@@ -25,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let rootViewController = ActiveSpicesViewController(controller: spiceController)
         
-        let recipesViewController = RecipesViewController()
+        let recipesViewController = RecipesViewController(controller: recipeController)
 
         let tabBarItemInfo = [
             (name: "Spices", image: UIImage(named: "spice")),

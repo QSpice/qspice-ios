@@ -16,6 +16,7 @@ extension Recipe {
         return NSFetchRequest<Recipe>(entityName: "Recipe")
     }
 
+    @NSManaged public var name: String
     @NSManaged public var content: String?
     @NSManaged public var image: String?
     @NSManaged public var link: String?

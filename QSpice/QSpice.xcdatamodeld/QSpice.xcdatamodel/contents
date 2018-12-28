@@ -4,6 +4,7 @@
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="spices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Spice" inverseName="recipes" inverseEntity="Spice" syncable="YES"/>
     </entity>
     <entity name="Spice" representedClassName="Spice" syncable="YES">
@@ -20,7 +21,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Recipe" positionX="154.16796875" positionY="-11.04296875" width="128" height="105"/>
+        <element name="Recipe" positionX="154.16796875" positionY="-11.04296875" width="128" height="120"/>
         <element name="Spice" positionX="-61.3359375" positionY="22.3046875" width="128" height="135"/>
     </elements>
 </model>

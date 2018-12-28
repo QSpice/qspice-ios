@@ -21,6 +21,32 @@
 		9291F96521CD8A0C00A15F15 /* Spice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96321CD8A0C00A15F15 /* Spice+CoreDataProperties.swift */; };
 		9291F96721CD8C7700A15F15 /* SpiceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96621CD8C7700A15F15 /* SpiceService.swift */; };
 		9291F96921CDB0A100A15F15 /* SpiceSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */; };
+		92ABEB9D21D56E8600ADA054 /* CroppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB8D21D56E8600ADA054 /* CroppingView.swift */; };
+		92ABEB9E21D56E8600ADA054 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB8E21D56E8600ADA054 /* PreviewView.swift */; };
+		92ABEB9F21D56E8600ADA054 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9021D56E8600ADA054 /* CameraButton.swift */; };
+		92ABEBA021D56E8600ADA054 /* FlashButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9121D56E8600ADA054 /* FlashButton.swift */; };
+		92ABEBA121D56E8600ADA054 /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9221D56E8600ADA054 /* PhotoPickerViewController.swift */; };
+		92ABEBA221D56E8600ADA054 /* MediaPickerTransitionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9321D56E8600ADA054 /* MediaPickerTransitionContext.swift */; };
+		92ABEBA321D56E8600ADA054 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9421D56E8600ADA054 /* PhotoEditingViewController.swift */; };
+		92ABEBA421D56E8600ADA054 /* PhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9521D56E8600ADA054 /* PhotoCaptureProcessor.swift */; };
+		92ABEBA521D56E8600ADA054 /* PhotoLibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9621D56E8600ADA054 /* PhotoLibraryController.swift */; };
+		92ABEBA621D56E8600ADA054 /* MediaPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9721D56E8600ADA054 /* MediaPickerViewController.swift */; };
+		92ABEBA721D56E8600ADA054 /* PHPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9821D56E8600ADA054 /* PHPhotoCollectionViewCell.swift */; };
+		92ABEBA821D56E8600ADA054 /* MediaPickerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9921D56E8600ADA054 /* MediaPickerTransition.swift */; };
+		92ABEBA921D56E8600ADA054 /* MediaPickerTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9A21D56E8600ADA054 /* MediaPickerTransitionDriver.swift */; };
+		92ABEBAA21D56E8600ADA054 /* CameraCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9B21D56E8600ADA054 /* CameraCaptureController.swift */; };
+		92ABEBAB21D56E8600ADA054 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9C21D56E8600ADA054 /* GridView.swift */; };
+		92ABEBAD21D56EC300ADA054 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBAC21D56EC300ADA054 /* UIImage+Extension.swift */; };
+		92ABEBAF21D56F4A00ADA054 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBAE21D56F4A00ADA054 /* Math.swift */; };
+		92ABEBB421D56F7900ADA054 /* ModalCardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB121D56F7900ADA054 /* ModalCardTransition.swift */; };
+		92ABEBB521D56F7900ADA054 /* ModalCardTransitionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB221D56F7900ADA054 /* ModalCardTransitionContext.swift */; };
+		92ABEBB621D56F7900ADA054 /* ModalCardTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB321D56F7900ADA054 /* ModalCardTransitionDriver.swift */; };
+		92ABEBB821D56F9900ADA054 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB721D56F9900ADA054 /* CancelButton.swift */; };
+		92ABEBBA21D570F000ADA054 /* AVFoundation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB921D570EF00ADA054 /* AVFoundation+Extension.swift */; };
+		92ABEBBE21D586CF00ADA054 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBBD21D586CF00ADA054 /* ActionButton.swift */; };
+		92ABEBC021D597B300ADA054 /* RecipeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBBF21D597B300ADA054 /* RecipeDetailController.swift */; };
+		92ABEBC221D599AB00ADA054 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBC121D599AB00ADA054 /* RecipeService.swift */; };
+		92ABEBC421D59B1600ADA054 /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBC321D59B1600ADA054 /* RecipeController.swift */; };
 		92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF192E21CAD18B0028BE0F /* SpiceCell.swift */; };
 		92DF193421CB1AE80028BE0F /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */; };
 		92DF193521CB1AE80028BE0F /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */; };
@@ -52,6 +78,32 @@
 		9291F96321CD8A0C00A15F15 /* Spice+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spice+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9291F96621CD8C7700A15F15 /* SpiceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceService.swift; sourceTree = "<group>"; };
 		9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceSelectionController.swift; sourceTree = "<group>"; };
+		92ABEB8D21D56E8600ADA054 /* CroppingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CroppingView.swift; sourceTree = "<group>"; };
+		92ABEB8E21D56E8600ADA054 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		92ABEB9021D56E8600ADA054 /* CameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraButton.swift; sourceTree = "<group>"; };
+		92ABEB9121D56E8600ADA054 /* FlashButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashButton.swift; sourceTree = "<group>"; };
+		92ABEB9221D56E8600ADA054 /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
+		92ABEB9321D56E8600ADA054 /* MediaPickerTransitionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerTransitionContext.swift; sourceTree = "<group>"; };
+		92ABEB9421D56E8600ADA054 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		92ABEB9521D56E8600ADA054 /* PhotoCaptureProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCaptureProcessor.swift; sourceTree = "<group>"; };
+		92ABEB9621D56E8600ADA054 /* PhotoLibraryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryController.swift; sourceTree = "<group>"; };
+		92ABEB9721D56E8600ADA054 /* MediaPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerViewController.swift; sourceTree = "<group>"; };
+		92ABEB9821D56E8600ADA054 /* PHPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		92ABEB9921D56E8600ADA054 /* MediaPickerTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerTransition.swift; sourceTree = "<group>"; };
+		92ABEB9A21D56E8600ADA054 /* MediaPickerTransitionDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerTransitionDriver.swift; sourceTree = "<group>"; };
+		92ABEB9B21D56E8600ADA054 /* CameraCaptureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCaptureController.swift; sourceTree = "<group>"; };
+		92ABEB9C21D56E8600ADA054 /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		92ABEBAC21D56EC300ADA054 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		92ABEBAE21D56F4A00ADA054 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		92ABEBB121D56F7900ADA054 /* ModalCardTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTransition.swift; sourceTree = "<group>"; };
+		92ABEBB221D56F7900ADA054 /* ModalCardTransitionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTransitionContext.swift; sourceTree = "<group>"; };
+		92ABEBB321D56F7900ADA054 /* ModalCardTransitionDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTransitionDriver.swift; sourceTree = "<group>"; };
+		92ABEBB721D56F9900ADA054 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
+		92ABEBB921D570EF00ADA054 /* AVFoundation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVFoundation+Extension.swift"; sourceTree = "<group>"; };
+		92ABEBBD21D586CF00ADA054 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		92ABEBBF21D597B300ADA054 /* RecipeDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailController.swift; sourceTree = "<group>"; };
+		92ABEBC121D599AB00ADA054 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
+		92ABEBC321D59B1600ADA054 /* RecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeController.swift; sourceTree = "<group>"; };
 		92DF192E21CAD18B0028BE0F /* SpiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceCell.swift; sourceTree = "<group>"; };
 		92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.otf"; sourceTree = "<group>"; };
 		92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
@@ -104,6 +156,8 @@
 			children = (
 				9291F95B21CD85EB00A15F15 /* SpiceController.swift */,
 				9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */,
+				92ABEBBF21D597B300ADA054 /* RecipeDetailController.swift */,
+				92ABEBC321D59B1600ADA054 /* RecipeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -114,6 +168,7 @@
 				92DF192E21CAD18B0028BE0F /* SpiceCell.swift */,
 				92916A4F21CEE3BA004349C2 /* LinkCell.swift */,
 				92916A5121CEED68004349C2 /* RecipeDescCell.swift */,
+				92ABEBBD21D586CF00ADA054 /* ActionButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +201,7 @@
 		9291F96121CD89F700A15F15 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92ABEBC121D599AB00ADA054 /* RecipeService.swift */,
 				92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */,
 				92916A4821CECAEC004349C2 /* Recipe+CoreDataProperties.swift */,
 				9291F96621CD8C7700A15F15 /* SpiceService.swift */,
@@ -153,6 +209,47 @@
 				9291F96321CD8A0C00A15F15 /* Spice+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		92ABEB8C21D56E8600ADA054 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				92ABEB8D21D56E8600ADA054 /* CroppingView.swift */,
+				92ABEB8E21D56E8600ADA054 /* PreviewView.swift */,
+				92ABEB8F21D56E8600ADA054 /* Buttons */,
+				92ABEB9221D56E8600ADA054 /* PhotoPickerViewController.swift */,
+				92ABEB9321D56E8600ADA054 /* MediaPickerTransitionContext.swift */,
+				92ABEB9421D56E8600ADA054 /* PhotoEditingViewController.swift */,
+				92ABEB9521D56E8600ADA054 /* PhotoCaptureProcessor.swift */,
+				92ABEB9621D56E8600ADA054 /* PhotoLibraryController.swift */,
+				92ABEB9721D56E8600ADA054 /* MediaPickerViewController.swift */,
+				92ABEB9821D56E8600ADA054 /* PHPhotoCollectionViewCell.swift */,
+				92ABEB9921D56E8600ADA054 /* MediaPickerTransition.swift */,
+				92ABEB9A21D56E8600ADA054 /* MediaPickerTransitionDriver.swift */,
+				92ABEB9B21D56E8600ADA054 /* CameraCaptureController.swift */,
+				92ABEB9C21D56E8600ADA054 /* GridView.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		92ABEB8F21D56E8600ADA054 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				92ABEBB721D56F9900ADA054 /* CancelButton.swift */,
+				92ABEB9021D56E8600ADA054 /* CameraButton.swift */,
+				92ABEB9121D56E8600ADA054 /* FlashButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		92ABEBB021D56F7900ADA054 /* ModalCardTransition */ = {
+			isa = PBXGroup;
+			children = (
+				92ABEBB121D56F7900ADA054 /* ModalCardTransition.swift */,
+				92ABEBB221D56F7900ADA054 /* ModalCardTransitionContext.swift */,
+				92ABEBB321D56F7900ADA054 /* ModalCardTransitionDriver.swift */,
+			);
+			path = ModalCardTransition;
 			sourceTree = "<group>";
 		};
 		92DF193021CB1AE80028BE0F /* fonts */ = {
@@ -168,7 +265,10 @@
 		92DF193721CB1C7A0028BE0F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				92ABEBB921D570EF00ADA054 /* AVFoundation+Extension.swift */,
 				92DF193821CB1C9E0028BE0F /* UIColor+Extension.swift */,
+				92ABEBAC21D56EC300ADA054 /* UIImage+Extension.swift */,
+				92ABEBAE21D56F4A00ADA054 /* Math.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -198,6 +298,8 @@
 				92EFAB6D2149CD4E00F25837 /* Constants.swift */,
 				9291F95521CD6EEC00A15F15 /* Helpers.swift */,
 				9238E95521CEC49800136BAB /* ViewControllers */,
+				92ABEBB021D56F7900ADA054 /* ModalCardTransition */,
+				92ABEB8C21D56E8600ADA054 /* Media */,
 				9238E95321CEC46D00136BAB /* Controllers */,
 				9238E95421CEC48700136BAB /* Views */,
 				9291F96121CD89F700A15F15 /* Models */,
@@ -372,26 +474,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92ABEBB621D56F7900ADA054 /* ModalCardTransitionDriver.swift in Sources */,
+				92ABEBBA21D570F000ADA054 /* AVFoundation+Extension.swift in Sources */,
 				92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */,
 				92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */,
+				92ABEB9F21D56E8600ADA054 /* CameraButton.swift in Sources */,
+				92ABEBAD21D56EC300ADA054 /* UIImage+Extension.swift in Sources */,
+				92ABEBAB21D56E8600ADA054 /* GridView.swift in Sources */,
 				92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */,
+				92ABEBA421D56E8600ADA054 /* PhotoCaptureProcessor.swift in Sources */,
+				92ABEBB821D56F9900ADA054 /* CancelButton.swift in Sources */,
+				92ABEB9E21D56E8600ADA054 /* PreviewView.swift in Sources */,
+				92ABEBA921D56E8600ADA054 /* MediaPickerTransitionDriver.swift in Sources */,
 				9291F96421CD8A0C00A15F15 /* Spice+CoreDataClass.swift in Sources */,
+				92ABEBA621D56E8600ADA054 /* MediaPickerViewController.swift in Sources */,
+				92ABEBA721D56E8600ADA054 /* PHPhotoCollectionViewCell.swift in Sources */,
 				9291F96921CDB0A100A15F15 /* SpiceSelectionController.swift in Sources */,
+				92ABEBAA21D56E8600ADA054 /* CameraCaptureController.swift in Sources */,
 				92916A4A21CECAEC004349C2 /* Recipe+CoreDataProperties.swift in Sources */,
 				92916A5221CEED68004349C2 /* RecipeDescCell.swift in Sources */,
 				92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */,
+				92ABEBB521D56F7900ADA054 /* ModalCardTransitionContext.swift in Sources */,
+				92ABEBA521D56E8600ADA054 /* PhotoLibraryController.swift in Sources */,
+				92ABEBA121D56E8600ADA054 /* PhotoPickerViewController.swift in Sources */,
 				92EFAB5E2149625400F25837 /* QSpice.xcdatamodeld in Sources */,
 				9291F96721CD8C7700A15F15 /* SpiceService.swift in Sources */,
+				92ABEBC221D599AB00ADA054 /* RecipeService.swift in Sources */,
 				9291F96521CD8A0C00A15F15 /* Spice+CoreDataProperties.swift in Sources */,
 				9291F95621CD6EEC00A15F15 /* Helpers.swift in Sources */,
+				92ABEBAF21D56F4A00ADA054 /* Math.swift in Sources */,
+				92ABEBA021D56E8600ADA054 /* FlashButton.swift in Sources */,
+				92ABEBA321D56E8600ADA054 /* PhotoEditingViewController.swift in Sources */,
+				92ABEBB421D56F7900ADA054 /* ModalCardTransition.swift in Sources */,
+				92ABEBBE21D586CF00ADA054 /* ActionButton.swift in Sources */,
 				92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */,
 				92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */,
 				92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */,
 				9291F95C21CD85EB00A15F15 /* SpiceController.swift in Sources */,
 				9291F95A21CD78D200A15F15 /* QSTabBarController.swift in Sources */,
+				92ABEBA221D56E8600ADA054 /* MediaPickerTransitionContext.swift in Sources */,
+				92ABEBC421D59B1600ADA054 /* RecipeController.swift in Sources */,
+				92ABEBC021D597B300ADA054 /* RecipeDetailController.swift in Sources */,
 				92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */,
+				92ABEB9D21D56E8600ADA054 /* CroppingView.swift in Sources */,
 				9238E95221CEBEBB00136BAB /* RecipesViewController.swift in Sources */,
 				92EFAB562149625400F25837 /* AppDelegate.swift in Sources */,
+				92ABEBA821D56E8600ADA054 /* MediaPickerTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
