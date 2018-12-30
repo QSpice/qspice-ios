@@ -1,14 +1,40 @@
 import UIKit
 import SnapKit
 
+protocol SpiceCellDelegate: class {
+    func spiceCellDidIncrement(cell: SpiceCell)
+    func spiceCellDidDecrement(cell: SpiceCell)
+    func spiceCellDidChangeMetric(cell: SpiceCell)
+}
+
 class SpiceCell: UITableViewCell {
 
     static let reuseId = "SpiceCell"
+    
+    weak var delegate: SpiceCellDelegate?
+    
+    var amount: Float = 1.0 {
+        didSet {
+            if let actionView = actionView as? AdjustableAmountView {
+                actionView.amountLabel.text = Spice.mapSpiceAmount(value: amount)
+            }
+        }
+    }
+    
+    var metric: String = "tsp" {
+        didSet {
+            if let actionView = actionView as? AdjustableAmountView {
+                actionView.metricButton.setTitle(metric, for: .normal)
+            }
+        }
+    }
 
     enum CellType {
         case unselected
         case display
         case displayActive
+        case ingredientEditable
+        case ingredient
     }
 
     var type: CellType = .unselected {
@@ -36,13 +62,11 @@ class SpiceCell: UITableViewCell {
 
         setupSubviews()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
     private let colorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -121,6 +145,25 @@ class SpiceCell: UITableViewCell {
                 multiplier = 1.8
                 contentView.addSubview(actionView!)
             }
+        case .ingredient, .ingredientEditable:
+            spiceNameLabel.textColor = Colors.darkGrey
+            spiceWeightLabel.textColor = Colors.lightGrey
+            
+            actionView = {
+                let view = AdjustableAmountView()
+                if type == .ingredientEditable {
+                    view.isCaretHidden = false
+                    view.incrementButton.addTarget(self, action: #selector(incrementTapped), for: .touchUpInside)
+                    view.decrementButton.addTarget(self, action: #selector(decrementTapped), for: .touchUpInside)
+                } else {
+                    view.isCaretHidden = true
+                }
+                view.metricButton.addTarget(self, action: #selector(metricTapped), for: .touchUpInside)
+                return view
+            }()
+            
+            multiplier = 1.8
+            contentView.addSubview(actionView!)
             
         }
 
@@ -129,6 +172,17 @@ class SpiceCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.top.greaterThanOrEqualTo(8)
         }
+    }
+    
+    @objc func incrementTapped() {
+        delegate?.spiceCellDidIncrement(cell: self)
+    }
+    
+    @objc func decrementTapped() {
+        delegate?.spiceCellDidDecrement(cell: self)
+    }
+    @objc func metricTapped() {
+        delegate?.spiceCellDidChangeMetric(cell: self)
     }
 
     private func setupSubviews() {
@@ -163,5 +217,4 @@ class SpiceCell: UITableViewCell {
         setupStyling()
 
     }
-
 }

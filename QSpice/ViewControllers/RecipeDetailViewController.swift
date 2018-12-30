@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 class RecipeDetailViewController: UIViewController {
 
@@ -10,9 +11,13 @@ class RecipeDetailViewController: UIViewController {
         case new
     }
     
+    var imageChanged = false
+    
     var mode: RecipeDetailMode = .edit
     
     var controller: RecipeDetailController
+    
+    var doneButtonBottomConstraint: Constraint!
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -70,11 +75,12 @@ class RecipeDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         
         view.backgroundColor = .white
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .white
+        
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         gesture.cancelsTouchesInView = false
         view.addGestureRecognizer(gesture)
@@ -94,13 +100,12 @@ class RecipeDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChangedFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        setupSubviews()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        recipeNameTextField.text = controller.recipeDetail.name
+        if let imageData = controller.recipeDetail.image {
+            recipeImageView.image = UIImage(data: imageData, scale: UIScreen.main.scale)
+        }
         
-        navigationController?.navigationBar.tintColor = .white
+        setupSubviews()
     }
     
     @objc func completeRecipeTapped() {
@@ -110,10 +115,18 @@ class RecipeDetailViewController: UIViewController {
         
         do {
             if mode == .new {
-                try controller.addRecipe(name: name, link: link, content: content, image: nil)
+                try controller.addRecipe(name: name, link: link, content: content, image: imageChanged ? recipeImageView.image?.jpegData(compressionQuality: 0.75) : nil)
+                
             } else {
-                try controller.updateRecipe(name: name, link: link, content: content, image: nil)
+                try controller.updateRecipe(name: name, link: link, content: content, image: imageChanged ? recipeImageView.image?.jpegData(compressionQuality: 0.75) : nil)
             }
+            
+            imageChanged = false
+            mode = .view
+            setupStyling()
+            tableView.setContentOffset(.zero, animated: true)
+            tableView.reloadData()
+            
         } catch {
             print("Error: ", error.localizedDescription)
         }
@@ -125,6 +138,12 @@ class RecipeDetailViewController: UIViewController {
         mediaPicker.modalPresentationStyle = .custom
         
         present(mediaPicker, animated: true, completion: nil)
+    }
+    
+    @objc func editRecipeTapped() {
+        mode = .edit
+        setupStyling()
+        tableView.reloadData()
     }
     
     deinit {
@@ -162,7 +181,7 @@ class RecipeDetailViewController: UIViewController {
         }
         
         doneButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.snp.bottomMargin).offset(-8)
+            doneButtonBottomConstraint = make.bottom.equalTo(view.snp.bottomMargin).offset(-8).constraint
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40.0)
@@ -178,10 +197,20 @@ class RecipeDetailViewController: UIViewController {
             
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "camera"), style: .plain, target: self, action: #selector(recipeImageTapped))
             
-            
-            
+            doneButtonBottomConstraint.update(offset: -8)
+
         case .view:
             recipeNameTextField.isEnabled = false
+            
+            doneButtonBottomConstraint.update(offset: 48.0)
+            
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "pencil"), style: .plain, target: self, action: #selector(editRecipeTapped))
+        }
+        
+        if mode == .edit {
+            UIView.animate(withDuration: 0.25) {
+                self.view.layoutIfNeeded()
+            }
         }
         
     }
@@ -192,7 +221,6 @@ class RecipeDetailViewController: UIViewController {
         }
         
         if textView.isFirstResponder {
-            
             if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 var insets = UIEdgeInsets.zero
                 insets.bottom = min(tableView.frame.height - textView.frame.height, keyboardFrame.height)
@@ -220,7 +248,7 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
         case .edit, .new:
             return AppConfig.maxNumberOfActiveSpices
         case .view:
-            return 0
+            return controller.recipeDetail.ingredients.count
         }
     }
     
@@ -231,6 +259,7 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.width * 2, bottom: 0.0, right: 0.0)
             cell.mode = mode
+            cell.linkTextField.text = mode == .edit ? controller.recipeDetail.link : controller.recipeDetail.link ?? "-"
             
             return cell
         case 1:
@@ -239,16 +268,24 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.width * 2, bottom: 0.0, right: 0.0)
             cell.mode = mode
             cell.descriptionTextView.delegate = self
-            
+            cell.descriptionTextView.text = mode == .edit ? controller.recipeDetail.content : controller.recipeDetail.content ?? "-"
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: SpiceCell.reuseId, for: indexPath) as! SpiceCell
             
-            if let spice = controller.recipeDetail.spices[indexPath.row + 1] {
-                cell.type = .display
-                cell.color = UIColor(hexString: spice.color)
-                cell.spiceNameLabel.text = spice.name
-                cell.weight = "\(spice.weight)"
+            if let ingredient = controller.recipeDetail.ingredients[indexPath.row + 1] {
+                if mode == .edit || mode == .new {
+                    cell.type = .ingredientEditable
+                } else {
+                    cell.type = .ingredient
+                }
+                
+                cell.delegate = self
+                cell.color = UIColor(hexString: ingredient.spice.color)
+                cell.spiceNameLabel.text = ingredient.spice.name
+                cell.weight = "\(ingredient.spice.weight)"
+                cell.amount = ingredient.amount
+                cell.metric = ingredient.metric
             } else {
                 cell.type = .unselected
             }
@@ -270,6 +307,31 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             navigationController?.pushViewController(destination, animated: true)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return mode == .view ? nil : indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let clearAction = UIContextualAction(style: .destructive, title: "Clear") { [weak self] (_, _, completion) in
+            self?.controller.removeIngredient(for: indexPath.row + 1)
+            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            
+            completion(false)
+        }
+        
+        clearAction.image = UIImage(named: "erase")
+        clearAction.backgroundColor = Colors.lightGrey.lighter()
+        
+        let config = UISwipeActionsConfiguration(actions: [clearAction])
+        
+        return config
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section > 1 && controller.recipeDetail.ingredients[indexPath.row + 1] != nil && mode != .view
     }
     
 }
@@ -294,16 +356,52 @@ extension RecipeDetailViewController: MediaPickerDelegate {
     func mediaPicker(_ mediaPicker: MediaPickerViewController, didFinishPicking media: UIImage?) {
         dismiss(animated: true, completion: nil)
         
+        imageChanged = true
         recipeImageView.image = media
     }
 }
 
 extension RecipeDetailViewController: SpiceSelectionDelegate {
     func didSelect(spice: Spice, for slot: Int) {
-        controller.addSpice(spice, for: slot)
+        controller.addIngredient(spice, for: slot)
         tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         
         navigationController?.popViewController(animated: true)
+    }
+    
+}
+
+extension RecipeDetailViewController: SpiceCellDelegate {
+    func spiceCellDidChangeMetric(cell: SpiceCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        if cell.metric == "tsp" {
+            cell.metric = "tbsp"
+        } else {
+            cell.metric = "tsp"
+        }
+        
+        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
+    }
+    
+    func spiceCellDidIncrement(cell: SpiceCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        cell.amount = Spice.nextAmount(after: cell.amount, increment: true)
+        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
+    }
+    
+    func spiceCellDidDecrement(cell: SpiceCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        cell.amount = Spice.nextAmount(after: cell.amount, increment: false)
+        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
     }
     
 }

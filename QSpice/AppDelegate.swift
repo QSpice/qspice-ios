@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  QSpice
-//
-//  Created by Anthony Fiorito on 2018-09-12.
-//  Copyright © 2018 Anthony Fiorito. All rights reserved.
-//
-
 import UIKit
 import CoreData
 
@@ -26,17 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = QSTabBarController()
         
         let rootViewController = ActiveSpicesViewController(controller: spiceController)
-        
         let recipesViewController = RecipesViewController(controller: recipeController)
+        let createOrderViewController = CreateOrderViewController()
 
         let tabBarItemInfo = [
             (name: "Spices", image: UIImage(named: "spice")),
-            (name: "Recipes", image: UIImage(named: "chef"))
+            (name: "Recipes", image: UIImage(named: "chef")),
+            (name: "Orders", image: UIImage(named: "order"))
         ]
         
         let viewControllers = [
             UINavigationController(rootViewController: rootViewController),
-            UINavigationController(rootViewController: recipesViewController)
+            UINavigationController(rootViewController: recipesViewController),
+            createOrderViewController
         ]
         
         for (i, viewController) in viewControllers.enumerated() {

@@ -1,12 +1,3 @@
-//
-//  Spice+CoreDataProperties.swift
-//  QSpice
-//
-//  Created by Anthony Fiorito on 2018-12-21.
-//  Copyright © 2018 Anthony Fiorito. All rights reserved.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -16,10 +7,28 @@ extension Spice {
         return NSFetchRequest<Spice>(entityName: "Spice")
     }
 
-    @NSManaged public var name: String
-    @NSManaged public var weight: Float
-    @NSManaged public var color: String
-    @NSManaged public var slot: Int
     @NSManaged public var active: Bool
+    @NSManaged public var color: String
+    @NSManaged public var name: String
+    @NSManaged public var slot: Int32
+    @NSManaged public var weight: Float
+    @NSManaged public var ingredients: NSSet?
+
+}
+
+// MARK: Generated accessors for ingredients
+extension Spice {
+
+    @objc(addIngredientsObject:)
+    @NSManaged public func addToIngredients(_ value: Ingredient)
+
+    @objc(removeIngredientsObject:)
+    @NSManaged public func removeFromIngredients(_ value: Ingredient)
+
+    @objc(addIngredients:)
+    @NSManaged public func addToIngredients(_ values: NSSet)
+
+    @objc(removeIngredients:)
+    @NSManaged public func removeFromIngredients(_ values: NSSet)
 
 }

@@ -51,7 +51,7 @@ class SpiceController {
             }
             
             spice.active = true
-            spice.slot = slot
+            spice.slot = Int32(slot)
             
             try spiceService.save()
             
@@ -67,7 +67,7 @@ class SpiceController {
             let spices = try spiceService.activeSpices()
 
             activeSpices = spices.reduce(into: [:]) { spices, spice in
-                spices[spice.slot] = spice
+                spices[Int(spice.slot)] = spice
             }
         } catch {
             print("Could not fetch active spices", error.localizedDescription)

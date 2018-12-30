@@ -48,8 +48,12 @@ class PhotoLibraryController: NSObject {
             completionHandler?(nil)
             return
         }
+        
+        let options = PHImageRequestOptions()
+        options.isNetworkAccessAllowed = true
+        options.deliveryMode = .highQualityFormat
 
-        PHImageManager.default().requestImage(for: assets[index], targetSize: size, contentMode: .aspectFill, options: nil, resultHandler: { (image, _) in
+        PHImageManager.default().requestImage(for: assets[index], targetSize: size, contentMode: .aspectFill, options: options, resultHandler: { (image, _) in
             DispatchQueue.main.async {
                 completionHandler?(image)
             }

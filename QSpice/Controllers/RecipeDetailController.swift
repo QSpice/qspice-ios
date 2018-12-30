@@ -1,11 +1,20 @@
 import Foundation
+import CoreData
 
 struct RecipeDetail {
-    var imagePath: String?
+    var image: Data?
     var name: String
-    var link: String
-    var content: String
-    var spices: [Int: Spice]
+    var link: String?
+    var content: String?
+    var ingredients: [Int: IngredientDetail]
+    var uuid: UUID?
+    var objectID: NSManagedObjectID?
+}
+
+struct IngredientDetail {
+    var spice: Spice
+    var amount: Float
+    var metric: String
 }
 
 class RecipeDetailController {
@@ -16,7 +25,7 @@ class RecipeDetailController {
     
     init(recipeService: RecipeService) {
         self.recipeService = recipeService
-        self.recipeDetail = RecipeDetail(imagePath: nil, name: "", link: "", content: "", spices: [:])
+        self.recipeDetail = RecipeDetail(image: nil, name: "", link: "", content: "", ingredients: [:], uuid: nil, objectID: nil)
     }
     
     init(recipeService: RecipeService, recipeDetail: RecipeDetail) {
@@ -24,27 +33,72 @@ class RecipeDetailController {
         self.recipeDetail = recipeDetail
     }
 
-    func addSpice(_ spice: Spice, for slot: Int) {
+    func addIngredient(_ spice: Spice, for slot: Int) {
         
-        for (key, value) in recipeDetail.spices where value.name == spice.name {
-            recipeDetail.spices.removeValue(forKey: key)
+        for (key, value) in recipeDetail.ingredients where value.spice.name == spice.name {
+            recipeDetail.ingredients.removeValue(forKey: key)
         }
         
-        recipeDetail.spices[slot] = spice
+        recipeDetail.ingredients[slot] = IngredientDetail(spice: spice, amount: 1, metric: "tsp")
         
+    }
+    
+    func removeIngredient(for slot: Int) {
+        recipeDetail.ingredients.removeValue(forKey: slot)
+    }
+    
+    func updateIngredient(amount: Float, metric: String, for slot: Int) {
+        recipeDetail.ingredients[slot]?.amount = amount
+        recipeDetail.ingredients[slot]?.metric = metric
     }
     
     func addRecipe(name: String, link: String, content: String, image: Data?) throws {
         recipeDetail.name = name
-        recipeDetail.link = link
-        recipeDetail.content = content
+        recipeDetail.link = link == "" ? nil : link
+        recipeDetail.content = content == "" ? nil : link
         
-        recipeService.addRecipe(recipeDetail: recipeDetail)
+        let recipe = recipeService.addRecipe(recipeDetail: recipeDetail)
+        
+        saveImageIfNeeded(name: recipe.uuid.uuidString, image: image)
         
         try recipeService.save()
+        
+        reorderIngredients()
     }
     
     func updateRecipe(name: String, link: String, content: String, image: Data?) throws {
+        recipeDetail.name = name
+        recipeDetail.link = link == "" ? nil : link
+        recipeDetail.content = content == "" ? nil : link
         
+        recipeService.updateRecipe(recipeDetail: recipeDetail)
+        
+        saveImageIfNeeded(name: recipeDetail.uuid!.uuidString, image: image)
+        
+        try recipeService.save()
+        
+        reorderIngredients()
+    }
+    
+    private func saveImageIfNeeded(name: String, image: Data?) {
+        if let image = image {
+            let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            
+            if let filePath = path?.appendingPathComponent("\(name).jpg") {
+                do {
+                    try image.write(to: filePath, options: .atomic)
+                } catch {
+                    print("Could not save file: ", error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    private func reorderIngredients() {
+        let ingredients = recipeDetail.ingredients.values.sorted(by: { $0.spice.name > $1.spice.name })
+        recipeDetail.ingredients.removeAll()
+        for (i, ingredient) in ingredients.enumerated() {
+            recipeDetail.ingredients[i + 1] = ingredient
+        }
     }
 }

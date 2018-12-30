@@ -4,7 +4,11 @@ class LinkCell: UITableViewCell {
 
     static let reuseId = "LinkCell"
     
-    var mode: RecipeDetailViewController.RecipeDetailMode = .edit
+    var mode: RecipeDetailViewController.RecipeDetailMode = .edit {
+        didSet {
+            setupStyling()
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,12 +66,6 @@ class LinkCell: UITableViewCell {
         case .view:
             linkTextField.isEnabled = false
         }
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
