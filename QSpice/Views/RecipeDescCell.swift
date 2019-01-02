@@ -5,7 +5,11 @@ class RecipeDescCell: UITableViewCell {
 
     static let reuseId = "RecipeDescCell"
     
-    var mode: RecipeDetailViewController.RecipeDetailMode = .edit
+    var mode: RecipeDetailViewController.RecipeDetailMode = .edit {
+        didSet {
+            setupStyling()
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

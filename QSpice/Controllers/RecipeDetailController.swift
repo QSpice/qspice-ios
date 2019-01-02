@@ -31,6 +31,8 @@ class RecipeDetailController {
     init(recipeService: RecipeService, recipeDetail: RecipeDetail) {
         self.recipeService = recipeService
         self.recipeDetail = recipeDetail
+        
+        reorderIngredients()
     }
 
     func addIngredient(_ spice: Spice, for slot: Int) {
@@ -55,7 +57,7 @@ class RecipeDetailController {
     func addRecipe(name: String, link: String, content: String, image: Data?) throws {
         recipeDetail.name = name
         recipeDetail.link = link == "" ? nil : link
-        recipeDetail.content = content == "" ? nil : link
+        recipeDetail.content = content == "" ? nil : content
         
         let recipe = recipeService.addRecipe(recipeDetail: recipeDetail)
         
@@ -69,7 +71,7 @@ class RecipeDetailController {
     func updateRecipe(name: String, link: String, content: String, image: Data?) throws {
         recipeDetail.name = name
         recipeDetail.link = link == "" ? nil : link
-        recipeDetail.content = content == "" ? nil : link
+        recipeDetail.content = content == "" ? nil : content
         
         recipeService.updateRecipe(recipeDetail: recipeDetail)
         
@@ -95,7 +97,7 @@ class RecipeDetailController {
     }
     
     private func reorderIngredients() {
-        let ingredients = recipeDetail.ingredients.values.sorted(by: { $0.spice.name > $1.spice.name })
+        let ingredients = recipeDetail.ingredients.values.sorted(by: { $0.spice.name < $1.spice.name })
         recipeDetail.ingredients.removeAll()
         for (i, ingredient) in ingredients.enumerated() {
             recipeDetail.ingredients[i + 1] = ingredient

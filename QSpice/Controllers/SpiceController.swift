@@ -6,6 +6,10 @@ class SpiceController {
     
     var activeSpices: [Int: Spice] = [:]
     
+    var weightBasis: String {
+        return UserDefaults.standard.string(forKey: "weight_basis") ?? "Teaspoon"
+    }
+    
     init(spiceService: SpiceService) {
         self.spiceService = spiceService
     }
@@ -42,16 +46,15 @@ class SpiceController {
             if slot == -1 {
                 spice.active = false
                 spice.slot = -1
-                return
             }
             
             if let currentActiveSpice = try spiceService.activeSpice(for: slot) {
                 currentActiveSpice.active = false
                 currentActiveSpice.slot = -1
+            } else {
+                spice.active = true
+                spice.slot = Int32(slot)
             }
-            
-            spice.active = true
-            spice.slot = Int32(slot)
             
             try spiceService.save()
             

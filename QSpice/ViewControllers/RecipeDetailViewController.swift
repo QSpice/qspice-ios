@@ -19,6 +19,9 @@ class RecipeDetailViewController: UIViewController {
     
     var doneButtonBottomConstraint: Constraint!
     
+    var linkText: String = ""
+    var contentText: String = ""
+    
     let tableView: UITableView = {
         let tableView = UITableView()
 
@@ -77,9 +80,6 @@ class RecipeDetailViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.tintColor = .white
         
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         gesture.cancelsTouchesInView = false
@@ -108,17 +108,23 @@ class RecipeDetailViewController: UIViewController {
         setupSubviews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
     @objc func completeRecipeTapped() {
         let name = recipeNameTextField.text ?? ""
-        let link = recipeLinkTextField?.text ?? ""
-        let content = recipeContentTextView?.text ?? ""
         
         do {
             if mode == .new {
-                try controller.addRecipe(name: name, link: link, content: content, image: imageChanged ? recipeImageView.image?.jpegData(compressionQuality: 0.75) : nil)
+                try controller.addRecipe(name: name, link: linkText, content: contentText, image: imageChanged ? recipeImageView.image?.jpegData(compressionQuality: 0.75) : nil)
                 
             } else {
-                try controller.updateRecipe(name: name, link: link, content: content, image: imageChanged ? recipeImageView.image?.jpegData(compressionQuality: 0.75) : nil)
+                try controller.updateRecipe(name: name, link: linkText, content: contentText, image: imageChanged ? recipeImageView.image?.jpegData(compressionQuality: 0.75) : nil)
             }
             
             imageChanged = false
@@ -259,7 +265,8 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.width * 2, bottom: 0.0, right: 0.0)
             cell.mode = mode
-            cell.linkTextField.text = mode == .edit ? controller.recipeDetail.link : controller.recipeDetail.link ?? "-"
+            cell.linkTextField.delegate = self
+            cell.linkTextField.text = mode == .edit || mode == .new ? linkText : controller.recipeDetail.link ?? "-"
             
             return cell
         case 1:
@@ -350,6 +357,10 @@ extension RecipeDetailViewController: UITextViewDelegate {
         }
         UIView.setAnimationsEnabled(true)
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        contentText = textView.text
+    }
 }
 
 extension RecipeDetailViewController: MediaPickerDelegate {
@@ -404,4 +415,10 @@ extension RecipeDetailViewController: SpiceCellDelegate {
         controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
     }
     
+}
+
+extension RecipeDetailViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        linkText = textField.text ?? ""
+    }
 }

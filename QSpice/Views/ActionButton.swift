@@ -8,6 +8,7 @@ class ActionButton: UIButton {
         setTitleColor(Colors.maroon, for: .normal)
         
         setTitleColor(Colors.maroon.lighter(), for: .highlighted)
+        setTitleColor(Colors.lightGrey, for: .disabled)
         
         titleLabel?.font = Fonts.cStdBook
         
@@ -23,6 +24,16 @@ class ActionButton: UIButton {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var isEnabled: Bool {
+        didSet {
+            if isEnabled {
+                layer.borderColor = Colors.maroon.cgColor
+            } else {
+                layer.borderColor = Colors.lightGrey.cgColor
+            }
+        }
     }
     
 }

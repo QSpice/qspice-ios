@@ -1,22 +1,21 @@
 import Foundation
 import CoreData
 
-extension Ingredient {
+extension Order {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Ingredient> {
-        return NSFetchRequest<Ingredient>(entityName: "Ingredient")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Order> {
+        return NSFetchRequest<Order>(entityName: "Order")
     }
 
-    @NSManaged public var amount: Float
-    @NSManaged public var metric: String
+    @NSManaged public var date: Date
+    @NSManaged public var quantity: Int32
     @NSManaged public var orderItems: NSSet?
     @NSManaged public var recipe: Recipe?
-    @NSManaged public var spice: Spice
 
 }
 
 // MARK: Generated accessors for orderItems
-extension Ingredient {
+extension Order {
 
     @objc(addOrderItemsObject:)
     @NSManaged public func addToOrderItems(_ value: OrderItem)

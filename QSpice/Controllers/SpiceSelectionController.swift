@@ -4,6 +4,10 @@ class SpiceSelectionController {
     
     var spiceService: SpiceService
     
+    var weightBasis: String {
+        return UserDefaults.standard.string(forKey: "weight_basis") ?? "Teaspoon"
+    }
+    
     init(spiceService: SpiceService) {
         self.spiceService = spiceService
     }

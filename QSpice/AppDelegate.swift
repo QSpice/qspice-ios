@@ -10,8 +10,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let spiceService = SpiceService(context: persistentContainer.viewContext)
         let recipeService = RecipeService(context: persistentContainer.viewContext)
+        
         let spiceController = SpiceController(spiceService: spiceService)
         let recipeController = RecipeController(recipeService: recipeService)
+        let orderController = OrderController(spiceService: spiceService)
+        let settingsController = SettingsController()
         
         spiceController.initializeSpicesIfNeeded()
         
@@ -19,18 +22,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let rootViewController = ActiveSpicesViewController(controller: spiceController)
         let recipesViewController = RecipesViewController(controller: recipeController)
-        let createOrderViewController = CreateOrderViewController()
+        let createOrderViewController = CreateOrderViewController(controller: orderController)
+        let orderHistoryViewController = OrderHistoryViewController(controller: orderController)
+        let settingsViewController = SettingsViewController(controller: settingsController)
 
         let tabBarItemInfo = [
             (name: "Spices", image: UIImage(named: "spice")),
             (name: "Recipes", image: UIImage(named: "chef")),
-            (name: "Orders", image: UIImage(named: "order"))
+            (name: "Orders", image: UIImage(named: "order")),
+            (name: "History", image: UIImage(named: "timeline")),
+            (name: "Settings", image: UIImage(named: "settings"))
         ]
         
         let viewControllers = [
             UINavigationController(rootViewController: rootViewController),
             UINavigationController(rootViewController: recipesViewController),
-            createOrderViewController
+            createOrderViewController,
+            UINavigationController(rootViewController: orderHistoryViewController),
+            UINavigationController(rootViewController: settingsViewController)
         ]
         
         for (i, viewController) in viewControllers.enumerated() {

@@ -3,8 +3,19 @@
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
         <attribute name="amount" attributeType="Float" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="metric" attributeType="String" defaultValueString="tsp" syncable="YES"/>
+        <relationship name="orderItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderItem" inverseName="ingredient" inverseEntity="OrderItem" syncable="YES"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="ingredients" inverseEntity="Recipe" syncable="YES"/>
         <relationship name="spice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Spice" inverseName="ingredients" inverseEntity="Spice" syncable="YES"/>
+    </entity>
+    <entity name="Order" representedClassName="Order" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="quantity" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="orderItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderItem" inverseName="order" inverseEntity="OrderItem" syncable="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="orders" inverseEntity="Recipe" syncable="YES"/>
+    </entity>
+    <entity name="OrderItem" representedClassName="OrderItem" syncable="YES">
+        <relationship name="ingredient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="orderItems" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Order" inverseName="orderItems" inverseEntity="Order" syncable="YES"/>
     </entity>
     <entity name="Recipe" representedClassName="Recipe" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,6 +23,7 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ingredient" inverseName="recipe" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="orders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Order" inverseName="recipe" inverseEntity="Order" syncable="YES"/>
     </entity>
     <entity name="Spice" representedClassName="Spice" syncable="YES">
         <attribute name="active" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -27,8 +39,10 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Ingredient" positionX="40.1875" positionY="315.2265625" width="128" height="103"/>
-        <element name="Recipe" positionX="306.73828125" positionY="285.0703125" width="128" height="120"/>
-        <element name="Spice" positionX="-61.3359375" positionY="22.3046875" width="128" height="133"/>
+        <element name="Ingredient" positionX="-52.41796875" positionY="300.30078125" width="128" height="118"/>
+        <element name="Order" positionX="134.69921875" positionY="495.40625" width="121.80859375" height="105"/>
+        <element name="OrderItem" positionX="-51.78515625" positionY="480.234375" width="128" height="75"/>
+        <element name="Recipe" positionX="306.73828125" positionY="285.0703125" width="128" height="135"/>
+        <element name="Spice" positionX="-266.82421875" positionY="284.81640625" width="128" height="133"/>
     </elements>
 </model>

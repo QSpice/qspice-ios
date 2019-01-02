@@ -101,7 +101,7 @@ extension PhotoPickerViewController: UICollectionViewDataSource {
 
         controller.photo(at: indexPath.item, size: cell.bounds.size, completionHandler: { image in
             cell.imageView.image = image
-        })
+        }, mode: .opportunistic)
 
         return cell
     }

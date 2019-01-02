@@ -5,6 +5,16 @@ class RecipeCell: UITableViewCell {
     
     static let reuseId = "RecipeCell"
     
+    var isChosen: Bool = false {
+        didSet {
+            if isChosen {
+                selectedImageView.isHidden = false
+            } else {
+                selectedImageView.isHidden = true
+            }
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -32,6 +42,13 @@ class RecipeCell: UITableViewCell {
         }
     }
     
+    let selectedImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "check")
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     private let recipeImageView: NoIntrinsicSizeImageView = {
         let view = NoIntrinsicSizeImageView()
         view.contentMode = .scaleAspectFill
@@ -51,6 +68,7 @@ class RecipeCell: UITableViewCell {
     private func setupSubviews() {
         contentView.addSubview(recipeImageView)
         contentView.addSubview(recipeNameLabel)
+        contentView.addSubview(selectedImageView)
         
         recipeImageView.snp.makeConstraints { (make) in
             make.leading.top.equalToSuperview()
@@ -62,6 +80,11 @@ class RecipeCell: UITableViewCell {
             make.top.equalToSuperview().offset(16)
             make.leading.equalTo(recipeImageView.snp.trailing).offset(16)
             make.bottom.equalToSuperview().offset(-16)
+        }
+        
+        selectedImageView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
         }
         
     }

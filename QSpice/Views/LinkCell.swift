@@ -53,6 +53,7 @@ class LinkCell: UITableViewCell {
         linkTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(2)
             make.leading.equalTo(titleLabel.snp.leading)
+            make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-16)
         }
         

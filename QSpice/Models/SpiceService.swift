@@ -32,7 +32,49 @@ class SpiceService {
         let request: NSFetchRequest<Spice> = Spice.fetchRequest()
         request.predicate = NSPredicate(format: "active == 1")
         
+        let sort = NSSortDescriptor(key: "slot", ascending: true)
+        request.sortDescriptors = [sort]
+        
         return try context.fetch(request)
+    }
+    
+    func createListOrder(orderDetail: OrderDetail) {
+        let order = Order(context: context)
+        
+        order.date = Date()
+        order.quantity = Int32(orderDetail.quantity)
+        
+        for item in orderDetail.orderItems where item.ingredient.amount > 0.0 {
+            let orderItem = OrderItem(context: context)
+            
+            let ingredient = Ingredient(context: context)
+            ingredient.amount = item.ingredient.amount
+            ingredient.metric = item.ingredient.metric
+            ingredient.spice = item.ingredient.spice
+            
+            orderItem.ingredient = ingredient
+            order.addToOrderItems(orderItem)
+        }
+        
+    }
+    
+    func createRecipeOrder(orderDetail: OrderDetail) {
+        guard let recipe = orderDetail.recipe else {
+            return
+        }
+        
+        let order = Order(context: context)
+        
+        order.date = Date()
+        order.quantity = Int32(orderDetail.quantity)
+        order.recipe = recipe
+        
+        for ingredient in recipe.ingredients?.allObjects as? [Ingredient] ?? [] {
+            let orderItem = OrderItem(context: context)
+            
+            orderItem.ingredient = ingredient
+            order.addToOrderItems(orderItem)
+        }
     }
     
     func save() throws {

@@ -12,6 +12,7 @@ extension Recipe {
     @NSManaged public var name: String
     @NSManaged public var uuid: UUID
     @NSManaged public var ingredients: NSSet?
+    @NSManaged public var orders: NSSet?
 
 }
 
@@ -29,5 +30,22 @@ extension Recipe {
 
     @objc(removeIngredients:)
     @NSManaged public func removeFromIngredients(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for orders
+extension Recipe {
+
+    @objc(addOrdersObject:)
+    @NSManaged public func addToOrders(_ value: Order)
+
+    @objc(removeOrdersObject:)
+    @NSManaged public func removeFromOrders(_ value: Order)
+
+    @objc(addOrders:)
+    @NSManaged public func addToOrders(_ values: NSSet)
+
+    @objc(removeOrders:)
+    @NSManaged public func removeFromOrders(_ values: NSSet)
 
 }

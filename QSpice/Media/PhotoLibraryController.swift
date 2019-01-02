@@ -40,10 +40,10 @@ class PhotoLibraryController: NSObject {
     }
 
     func photoWithMaximumQuality(at index: Int, completionHandler: ((UIImage?) -> Void)?) {
-        photo(at: index, size: PHImageManagerMaximumSize, completionHandler: completionHandler)
+        photo(at: index, size: PHImageManagerMaximumSize, completionHandler: completionHandler, mode: .highQualityFormat)
     }
 
-    func photo(at index: Int, size: CGSize, completionHandler: ((UIImage?) -> Void)?) {
+    func photo(at index: Int, size: CGSize, completionHandler: ((UIImage?) -> Void)?, mode: PHImageRequestOptionsDeliveryMode) {
         guard let assets = assets else {
             completionHandler?(nil)
             return
@@ -51,7 +51,7 @@ class PhotoLibraryController: NSObject {
         
         let options = PHImageRequestOptions()
         options.isNetworkAccessAllowed = true
-        options.deliveryMode = .highQualityFormat
+        options.deliveryMode = mode
 
         PHImageManager.default().requestImage(for: assets[index], targetSize: size, contentMode: .aspectFill, options: options, resultHandler: { (image, _) in
             DispatchQueue.main.async {

@@ -57,7 +57,7 @@ class ActiveSpicesViewController: UITableViewController {
             cell.type = .display
             cell.color = UIColor(hexString: activeSpice.color)
             cell.spiceNameLabel.text = activeSpice.name
-            cell.weight = "\(activeSpice.weight)"
+            cell.weight = String(format: "%.1f", Spice.mapSpiceWeight(value: activeSpice.weight, metric: controller.weightBasis))
         } else {
             cell.type = .unselected
         }
