@@ -16,11 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let orderController = OrderController(spiceService: spiceService)
         let settingsController = SettingsController()
         
-        spiceController.initializeSpicesIfNeeded()
-        
         let tabBarController = QSTabBarController()
         
-        let rootViewController = ActiveSpicesViewController(controller: spiceController)
+        let activeSpicesViewController = ActiveSpicesViewController(controller: spiceController)
         let recipesViewController = RecipesViewController(controller: recipeController)
         let createOrderViewController = CreateOrderViewController(controller: orderController)
         let orderHistoryViewController = OrderHistoryViewController(controller: orderController)
@@ -35,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         let viewControllers = [
-            UINavigationController(rootViewController: rootViewController),
+            QSNavigationController(rootViewController: activeSpicesViewController),
             UINavigationController(rootViewController: recipesViewController),
             createOrderViewController,
             UINavigationController(rootViewController: orderHistoryViewController),
@@ -52,6 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = tabBarController
 
         window.makeKeyAndVisible()
+        
+        do {
+            try spiceController.initializeSpicesIfNeeded()
+        } catch {
+            activeSpicesViewController.showAlert(title: AlertMessages.initSpices.title, subtitle: AlertMessages.initSpices.subtitle)
+        }
 
         return true
     }
@@ -83,27 +87,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
         let container = NSPersistentContainer(name: "QSpice")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+        container.loadPersistentStores(completionHandler: { [weak self] (_, error) in
+            if let error = error {
+                self?.window.rootViewController?.showAlert(title: "Data Not Loaded", subtitle: error.localizedDescription)
             }
         })
         return container
@@ -117,10 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                window.rootViewController?.showAlert(title: "Data Not Saved", subtitle: error.localizedDescription)
             }
         }
     }

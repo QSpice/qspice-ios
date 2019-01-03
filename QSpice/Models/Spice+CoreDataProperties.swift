@@ -1,15 +1,5 @@
-//
-//  Spice+CoreDataProperties.swift
-//  QSpice
-//
-//  Created by Anthony Fiorito on 2019-01-02.
-//  Copyright © 2019 Anthony Fiorito. All rights reserved.
-//
-//
-
 import Foundation
 import CoreData
-
 
 extension Spice {
 

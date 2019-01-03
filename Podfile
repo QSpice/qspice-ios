@@ -7,4 +7,5 @@ target 'QSpice' do
   pod 'SnapKit', '~> 4.2.0'
   pod 'DynamicColor', '~> 4.0.3'
   pod 'UITextView+Placeholder'
+  pod 'SCLAlertView'
 end

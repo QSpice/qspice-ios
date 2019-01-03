@@ -16,32 +16,19 @@ class ActiveSpicesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = navigationController?.tabBarItem.title
-        
-        controller.fetchActiveSpices()
-        
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: Colors.darkGrey]
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = titleAttributes
-        
-        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
-        tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
-        
+
+        prepareView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        controller.fetchActiveSpices()
-        tableView.reloadData()
+        do {
+            try controller.fetchActiveSpices()
+            tableView.reloadData()
+        } catch {
+            showAlert(title: AlertMessages.loadActiveSpices.title, subtitle: AlertMessages.loadActiveSpices.subtitle)
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,7 +44,8 @@ class ActiveSpicesViewController: UITableViewController {
             cell.type = .display
             cell.color = UIColor(hexString: activeSpice.color)
             cell.spiceNameLabel.text = activeSpice.name
-            cell.weight = String(format: "%.1f", Spice.mapSpiceWeight(value: activeSpice.weight, metric: controller.weightBasis))
+            let mappedWeight = Spice.mapSpiceWeight(value: activeSpice.weight, metric: controller.weightBasis)
+            cell.weight = String(format: "%.1f", mappedWeight)
         } else {
             cell.type = .unselected
         }
@@ -80,14 +68,18 @@ class ActiveSpicesViewController: UITableViewController {
             return nil
         }
         
-        let clearAction = UIContextualAction(style: .destructive, title: "Clear") { [weak self] (_, _, completion) in
+        let clearAction = UIContextualAction(style: .normal, title: "Clear") { [weak self] (_, _, completion) in
             if let self = self {
-                self.controller.updateActive(spice: activeSpice, slot: -1)
-                self.controller.fetchActiveSpices()
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                do {
+                    try self.controller.updateActive(spice: activeSpice, slot: -1)
+                    try self.controller.fetchActiveSpices()
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                } catch {
+                    self.showAlert(title: AlertMessages.eraseActiveSpice.title, subtitle: AlertMessages.eraseActiveSpice.subtitle)
+                }
             }
             
-            completion(false)
+            completion(true)
         }
         
         clearAction.image = UIImage(named: "erase")
@@ -101,14 +93,28 @@ class ActiveSpicesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return controller.activeSpices[indexPath.row + 1] != nil
     }
+    
+    private func prepareView() {
+        title = navigationController?.tabBarItem.title
+        
+        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
+        tableView.tableFooterView = UIView()
+        tableView.separatorInset = UIEdgeInsets.zero
+        tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
+    
+    }
 
 }
 
 extension ActiveSpicesViewController: SpiceSelectionDelegate {
     func didSelect(spice: Spice, for slot: Int) {
-        print(spice.name)
-        
-        controller.updateActive(spice: spice, slot: slot)
+        do {
+            try controller.updateActive(spice: spice, slot: slot)
+        } catch {
+            self.showAlert(title: AlertMessages.selectActiveSpice.title, subtitle: AlertMessages.selectActiveSpice.subtitle)
+        }
         
         navigationController?.popViewController(animated: true)
     }
