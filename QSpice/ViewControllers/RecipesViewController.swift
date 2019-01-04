@@ -2,7 +2,7 @@ import UIKit
 
 class RecipesViewController: UITableViewController {
 
-    var controller: RecipeController
+    private(set) var controller: RecipeController
     
     init(controller: RecipeController) {
         self.controller = controller
@@ -17,23 +17,7 @@ class RecipesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = navigationController?.tabBarItem.title
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: Colors.darkGrey]
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = titleAttributes
-
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRecipeTapped))
-        
-        tableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.reuseId)
-        tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
-        tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
-        
+        prepareView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +25,7 @@ class RecipesViewController: UITableViewController {
         
         loadRecipes()
         tableView.reloadData()
+        updateView()
         
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
@@ -51,42 +36,17 @@ class RecipesViewController: UITableViewController {
         do {
             try controller.recipesFetchedResults.performFetch()
         } catch {
-            print("Could not load spices: ", error.localizedDescription)
+            showAlert(title: AlertMessages.loadRecipes.title, subtitle: AlertMessages.loadRecipes.subtitle)
         }
-    }
-    
-    private func updateView() {
-        let rowCount = controller.recipesFetchedResults.sections?.first?.numberOfObjects ?? 0
-        
-        if rowCount > 0 {
-            tableView.backgroundView = nil
-        } else {
-            tableView.backgroundView = {
-                let label = UILabel(frame: view.frame)
-                label.textAlignment = .center
-                label.text = "No Recipes."
-                
-                return label
-            }()
-            
-        }
-    }
-    
-    @objc func addRecipeTapped() {
-        let recipeDetailViewController = RecipeDetailViewController(controller: RecipeDetailController(recipeService: controller.recipeService))
-        recipeDetailViewController.mode = .new
-        
-        navigationController?.pushViewController(recipeDetailViewController, animated: true)
     }
 
-    // MARK: - Table view data source
+    // MARK: - UITableView Delegate & Data Source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return controller.recipesFetchedResults.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        updateView()
         return controller.recipesFetchedResults.sections?[section].numberOfObjects ?? 0
     }
     
@@ -130,20 +90,64 @@ class RecipesViewController: UITableViewController {
         
         let recipe = controller.recipesFetchedResults.object(at: indexPath)
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completion) in
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] (_, _, completion) in
             do {
                 try self?.controller.deleteRecipe(recipe: recipe)
                 completion(true)
                 self?.loadRecipes()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
                 self?.updateView()
             } catch {
                 completion(false)
             }
         }
         
+        deleteAction.backgroundColor = UIColor.red
+        
         let config = UISwipeActionsConfiguration(actions: [deleteAction])
         
         return config
+    }
+    
+    // MARK: Gesture Recognizers
+    
+    @objc func addRecipeTapped() {
+        let recipeDetailViewController = RecipeDetailViewController(controller: RecipeDetailController(recipeService: controller.recipeService))
+        recipeDetailViewController.mode = .new
+        
+        navigationController?.pushViewController(recipeDetailViewController, animated: true)
+    }
+    
+    // MARK: View Management
+    
+    private func updateView() {
+        let rowCount = controller.recipesFetchedResults.sections?.first?.numberOfObjects ?? 0
+        
+        if rowCount > 0 {
+            tableView.backgroundView = nil
+        } else {
+            tableView.backgroundView = {
+                let label = UILabel(frame: view.frame)
+                label.textAlignment = .center
+                label.text = "No Recipes."
+                
+                return label
+            }()
+            
+        }
+    }
+    
+    private func prepareView() {
+        title = navigationController?.tabBarItem.title
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addRecipeTapped))
+        
+        tableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.reuseId)
+        tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
+        tableView.tableFooterView = UIView()
+        tableView.separatorInset = UIEdgeInsets.zero
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
     }
 
 }

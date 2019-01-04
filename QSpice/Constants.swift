@@ -23,4 +23,7 @@ struct AlertMessages {
     static let eraseActiveSpice = (title: "Spice Not Erased", subtitle: "The active spice could not be erased. Try again.")
     static let selectActiveSpice = (title: "Spice Not Selected", subtitle: "The active spice could not be selected. Try again.")
     static let loadActiveSpices = (title: "Active Spices Not Loaded", subtitle: "The active spices could not be loaded.")
+    static let filterSpices = (title: "Spices Not Filtered", subtitle: "The spices could not be filtered.")
+    static let loadSpices = (title: "Spices not Loaded", subtitle: "The spices could not be loaded.")
+    static let loadRecipes = (title: "Recipes not Loaded", subtitle: "The recipes could not be loaded.")
 }

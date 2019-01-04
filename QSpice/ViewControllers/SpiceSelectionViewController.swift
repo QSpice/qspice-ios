@@ -9,49 +9,42 @@ class SpiceSelectionViewController: UITableViewController {
 
     var spiceNumber: Int = 0
     
-    var controller: SpiceSelectionController
-    
+    private(set) var controller: SpiceSelectionController
     weak var delegate: SpiceSelectionDelegate?
-    
-    let searchController = UISearchController(searchResultsController: nil)
     
     init(controller: SpiceSelectionController) {
         self.controller = controller
-        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private let searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.dimsBackgroundDuringPresentation = false
+        controller.hidesNavigationBarDuringPresentation = false
+        
+        return controller
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadSpices()
-
-        title = "Spice Slot \(spiceNumber)"
-
-        navigationController?.navigationBar.tintColor = UIColor(r: 77.0, g: 77.0, b: 77.0, a: 1.0)
-        
-        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
-        tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsets.zero
-        
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
+        prepareView()
     }
     
     private func loadSpices() {
         do {
             try controller.spicesFetchedResults.performFetch()
         } catch {
-            print("Could not load spices: ", error.localizedDescription)
+            showAlert(title: AlertMessages.loadSpices.title, subtitle: AlertMessages.loadSpices.subtitle)
         }
     }
+    
+    // MARK: UITableView Delegate and Data Source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return controller.spicesFetchedResults.sections?.count ?? 0
@@ -88,12 +81,35 @@ class SpiceSelectionViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }
+    
+    // MARK: View Management
 
+    private func prepareView() {
+        title = "Spice Slot \(spiceNumber)"
+        
+        // setup search controller
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        navigationController?.navigationBar.tintColor = UIColor(r: 77.0, g: 77.0, b: 77.0, a: 1.0)
+        
+        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
+        tableView.tableFooterView = UIView()
+        tableView.separatorInset = UIEdgeInsets.zero
+    }
+    
 }
+
+// MARK: UISearchResults Updating
 
 extension SpiceSelectionViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        controller.updateSpiceResults(query: searchController.searchBar.text ?? "")
+        do {
+            try controller.updateSpiceResults(query: searchController.searchBar.text ?? "")
+        } catch {
+            showAlert(title: AlertMessages.filterSpices.title, subtitle: AlertMessages.filterSpices.subtitle)
+        }
         tableView.reloadData()
     }
 }

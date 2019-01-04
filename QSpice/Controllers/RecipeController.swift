@@ -22,21 +22,17 @@ class RecipeController {
     func deleteRecipe(recipe: Recipe) throws {
         recipeService.deleteRecipe(recipe)
         
-        deleteImageIfNeeded(name: recipe.uuid.uuidString)
+        try deleteImageIfNeeded(name: recipe.uuid.uuidString)
         
         try recipeService.save()
     }
     
-    private func deleteImageIfNeeded(name: String) {
+    private func deleteImageIfNeeded(name: String) throws {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         
         if let fileUrl = path?.appendingPathComponent("\(name).jpg") {
             if FileManager.default.fileExists(atPath: fileUrl.path) {
-                do {
-                    try FileManager.default.removeItem(at: fileUrl)
-                } catch {
-                    print("Could not delete file: ", error.localizedDescription)
-                }
+                try FileManager.default.removeItem(at: fileUrl)
             }
         }
     }

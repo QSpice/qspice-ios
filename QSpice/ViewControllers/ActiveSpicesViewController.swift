@@ -2,11 +2,10 @@ import UIKit
 
 class ActiveSpicesViewController: UITableViewController {
 
-    var controller: SpiceController
+    private(set) var controller: SpiceController
     
     init(controller: SpiceController) {
         self.controller = controller
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,6 +30,8 @@ class ActiveSpicesViewController: UITableViewController {
         }
     }
 
+    // MARK: UITableView Delegate and Data Source
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return AppConfig.maxNumberOfActiveSpices
     }
@@ -68,18 +69,24 @@ class ActiveSpicesViewController: UITableViewController {
             return nil
         }
         
+        // Remove an active spice
         let clearAction = UIContextualAction(style: .normal, title: "Clear") { [weak self] (_, _, completion) in
             if let self = self {
                 do {
                     try self.controller.updateActive(spice: activeSpice, slot: -1)
                     try self.controller.fetchActiveSpices()
                     self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    
+                    completion(true)
+                    return
+
                 } catch {
                     self.showAlert(title: AlertMessages.eraseActiveSpice.title, subtitle: AlertMessages.eraseActiveSpice.subtitle)
                 }
             }
             
-            completion(true)
+            completion(false)
+            
         }
         
         clearAction.image = UIImage(named: "erase")
@@ -94,6 +101,8 @@ class ActiveSpicesViewController: UITableViewController {
         return controller.activeSpices[indexPath.row + 1] != nil
     }
     
+    // MARK: View Management
+    
     private func prepareView() {
         title = navigationController?.tabBarItem.title
         
@@ -107,6 +116,8 @@ class ActiveSpicesViewController: UITableViewController {
     }
 
 }
+
+// MARK: Spice Selection Delegate
 
 extension ActiveSpicesViewController: SpiceSelectionDelegate {
     func didSelect(spice: Spice, for slot: Int) {

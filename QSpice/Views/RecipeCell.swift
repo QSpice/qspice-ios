@@ -29,6 +29,10 @@ class RecipeCell: UITableViewCell {
         setupSubviews()
     }
     
+    override func prepareForReuse() {
+        recipeImage = nil
+    }
+    
     var recipeImage: UIImage? {
         didSet {
             if recipeImage != nil {
@@ -37,8 +41,15 @@ class RecipeCell: UITableViewCell {
                     make.height.equalTo(recipeImageView.snp.width)
                     make.width.equalTo(contentView.snp.height)
                 }
-                recipeImageView.image = recipeImage
+            } else {
+                recipeImageView.snp.remakeConstraints { make in
+                    make.leading.top.equalToSuperview()
+                    make.height.equalTo(recipeImageView.snp.width)
+                    make.width.equalTo(0.0)
+                }
             }
+            
+            recipeImageView.image = recipeImage
         }
     }
     

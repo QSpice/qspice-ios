@@ -2,8 +2,6 @@ import UIKit
 import SnapKit
 
 class RecipeDetailViewController: UIViewController {
-
-    let sectionTitles = ["Link", "Recipe", "Spices"]
     
     enum RecipeDetailMode {
         case view
@@ -11,60 +9,13 @@ class RecipeDetailViewController: UIViewController {
         case new
     }
     
-    var imageChanged = false
+    private(set) var controller: RecipeDetailController
+    
+    private var linkText: String = ""
+    private var contentText: String = ""
+    private var imageChanged = false
     
     var mode: RecipeDetailMode = .edit
-    
-    var controller: RecipeDetailController
-    
-    var doneButtonBottomConstraint: Constraint!
-    
-    var linkText: String = ""
-    var contentText: String = ""
-    
-    let tableView: UITableView = {
-        let tableView = UITableView()
-
-        return tableView
-    }()
-    
-    let recipeImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-
-        return imageView
-    }()
-    
-    let dimView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Colors.darkGrey.withAlphaComponent(0.6)
-        
-        return view
-    }()
-    
-    let doneButton: ActionButton = {
-        let button = ActionButton()
-        button.setTitle("Done", for: .normal)
-        
-        return button
-    }()
-    
-    let recipeNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "Recipe name...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.darkened()])
-        textField.tintColor = Colors.darkGrey
-        textField.font = Fonts.cStdBold?.withSize(24.0)
-        textField.textColor = .white
-        return textField
-    }()
-    
-    var recipeContentTextView: UITextView? {
-        return (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? RecipeDescCell)?.descriptionTextView
-    }
-    
-    var recipeLinkTextField: UITextField? {
-        return (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LinkCell)?.linkTextField
-    }
     
     init(controller: RecipeDetailController) {
         self.controller = controller
@@ -76,24 +27,15 @@ class RecipeDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: View Controller Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        
-        let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        gesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(gesture)
-        
-        doneButton.addTarget(self, action: #selector(completeRecipeTapped), for: .touchUpInside)
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.register(LinkCell.self, forCellReuseIdentifier: LinkCell.reuseId)
-        tableView.register(RecipeDescCell.self, forCellReuseIdentifier: RecipeDescCell.reuseId)
-        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
-        tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -101,11 +43,13 @@ class RecipeDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         recipeNameTextField.text = controller.recipeDetail.name
+        linkText = controller.recipeDetail.link ?? ""
+        contentText = controller.recipeDetail.content ?? ""
         if let imageData = controller.recipeDetail.image {
             recipeImageView.image = UIImage(data: imageData, scale: UIScreen.main.scale)
         }
         
-        setupSubviews()
+        prepareView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,7 +59,9 @@ class RecipeDetailViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = .white
     }
-    
+
+    // MARK: Gesture Recognizers
+
     @objc func completeRecipeTapped() {
         let name = recipeNameTextField.text ?? ""
         
@@ -152,11 +98,62 @@ class RecipeDetailViewController: UIViewController {
         tableView.reloadData()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    // MARK: View Management
+    
+    var doneButtonBottomConstraint: Constraint!
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(LinkCell.self, forCellReuseIdentifier: LinkCell.reuseId)
+        tableView.register(RecipeDescCell.self, forCellReuseIdentifier: RecipeDescCell.reuseId)
+        tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
+        tableView.separatorInset = UIEdgeInsets.zero
+        tableView.tableFooterView = UIView()
+        
+        return tableView
+    }()
+    
+    private let recipeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        
+        return imageView
+    }()
+    
+    private let dimView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Colors.darkGrey.withAlphaComponent(0.6)
+        
+        return view
+    }()
+    
+    private let doneButton: ActionButton = {
+        let button = ActionButton()
+        button.setTitle("Done", for: .normal)
+        
+        return button
+    }()
+    
+    private let recipeNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.attributedPlaceholder = NSAttributedString(string: "Recipe name...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.darkened()])
+        textField.tintColor = Colors.darkGrey
+        textField.font = Fonts.cStdBold?.withSize(24.0)
+        textField.textColor = .white
+        return textField
+    }()
 
-    private func setupSubviews() {
+    private func prepareView() {
+        view.backgroundColor = .white
+        
+        let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        gesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(gesture)
+        
+        doneButton.addTarget(self, action: #selector(completeRecipeTapped), for: .touchUpInside)
+        
         view.addSubview(recipeImageView)
         view.addSubview(dimView)
         view.addSubview(recipeNameTextField)
@@ -222,7 +219,7 @@ class RecipeDetailViewController: UIViewController {
     }
     
     @objc func keyboardChangedFrame(notification: Notification) {
-        guard let textView = recipeContentTextView else {
+        guard let textView = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? RecipeDescCell)?.descriptionTextView else {
             return
         }
         
@@ -240,6 +237,8 @@ class RecipeDetailViewController: UIViewController {
     }
     
 }
+
+// MARK: UITableView Delegate & Data Source
 
 extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -266,7 +265,7 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.width * 2, bottom: 0.0, right: 0.0)
             cell.mode = mode
             cell.linkTextField.delegate = self
-            cell.linkTextField.text = mode == .edit || mode == .new ? linkText : controller.recipeDetail.link ?? "-"
+            cell.linkTextField.text = mode == .edit ? linkText : controller.recipeDetail.link ?? "-"
             
             return cell
         case 1:
@@ -275,7 +274,7 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.width * 2, bottom: 0.0, right: 0.0)
             cell.mode = mode
             cell.descriptionTextView.delegate = self
-            cell.descriptionTextView.text = mode == .edit ? controller.recipeDetail.content : controller.recipeDetail.content ?? "-"
+            cell.descriptionTextView.text = mode == .edit ? contentText : controller.recipeDetail.content ?? "-"
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: SpiceCell.reuseId, for: indexPath) as! SpiceCell
@@ -343,25 +342,7 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension RecipeDetailViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        let prevHeight = textView.frame.height
-        UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
-        
-        if prevHeight != textView.frame.height {
-        
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
-            tableView.contentOffset.y += textView.frame.height - prevHeight
-        }
-        UIView.setAnimationsEnabled(true)
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        contentText = textView.text
-    }
-}
+// MARK: Media Picker Delegate
 
 extension RecipeDetailViewController: MediaPickerDelegate {
     func mediaPicker(_ mediaPicker: MediaPickerViewController, didFinishPicking media: UIImage?) {
@@ -372,6 +353,8 @@ extension RecipeDetailViewController: MediaPickerDelegate {
     }
 }
 
+// MARK: Spice Selection Delegate
+
 extension RecipeDetailViewController: SpiceSelectionDelegate {
     func didSelect(spice: Spice, for slot: Int) {
         controller.addIngredient(spice, for: slot)
@@ -381,6 +364,8 @@ extension RecipeDetailViewController: SpiceSelectionDelegate {
     }
     
 }
+
+// MARK: Spice Cell Delegate
 
 extension RecipeDetailViewController: SpiceCellDelegate {
     func spiceCellDidChangeMetric(cell: SpiceCell) {
@@ -416,6 +401,30 @@ extension RecipeDetailViewController: SpiceCellDelegate {
     }
     
 }
+
+// MARK: UITextView Delegate
+
+extension RecipeDetailViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let prevHeight = textView.frame.height
+        UIView.setAnimationsEnabled(false)
+        textView.sizeToFit()
+        
+        if prevHeight != textView.frame.height {
+            
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            tableView.contentOffset.y += textView.frame.height - prevHeight
+        }
+        UIView.setAnimationsEnabled(true)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        contentText = textView.text
+    }
+}
+
+// MARK: UITextFieldDelegate
 
 extension RecipeDetailViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -12,7 +12,7 @@ class SpiceSelectionController {
         self.spiceService = spiceService
     }
     
-    func updateSpiceResults(query: String) {
+    func updateSpiceResults(query: String) throws {
         var predicate: NSPredicate?
         
         if query.count > 0 {
@@ -23,11 +23,7 @@ class SpiceSelectionController {
         
         spicesFetchedResults.fetchRequest.predicate = predicate
         
-        do {
-            try spicesFetchedResults.performFetch()
-        } catch {
-            print("Could not filter search results: ", error.localizedDescription)
-        }
+        try spicesFetchedResults.performFetch()
         
     }
     

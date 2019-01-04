@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let viewControllers = [
             QSNavigationController(rootViewController: activeSpicesViewController),
-            UINavigationController(rootViewController: recipesViewController),
+            QSNavigationController(rootViewController: recipesViewController),
             createOrderViewController,
             UINavigationController(rootViewController: orderHistoryViewController),
             UINavigationController(rootViewController: settingsViewController)
