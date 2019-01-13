@@ -1,4 +1,5 @@
 import UIKit
+import CoreBluetooth
 
 class SettingsViewController: UITableViewController {
     var controller: SettingsController
@@ -17,16 +18,22 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
 
         title = navigationController?.tabBarItem.title
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.barTintColor = .white
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: Colors.darkGrey]
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = titleAttributes
+        navigationController?.navigationBar.tintColor = Colors.darkGrey
         
         tableView.register(SettingCell.self, forCellReuseIdentifier: SettingCell.reuseId)
         tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
         tableView.tableFooterView = UIView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        BLEManager.shared.delegate = self
+        tableView.reloadData()
+    }
+    
+    @objc private func disconnectDevice() {
+        BLEManager.shared.disconnect()
     }
 
     // MARK: - Table view data source
@@ -46,10 +53,17 @@ class SettingsViewController: UITableViewController {
             cell.textLabel?.text = "Weight Basis"
             cell.detailTextLabel?.text = controller.weightBasis
         } else if indexPath.section == 1 {
-            cell.textLabel?.text = "Connect"
+            let peripheral = BLEManager.shared.peripheral
+            cell.textLabel?.text =  peripheral?.name ?? "Connect"
+            cell.accessoryView = BLEManager.shared.peripheral == nil ? nil : {
+                let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: cell.frame.height))
+                button.setTitle("Disconnect", for: .normal)
+                button.setTitleColor(Colors.maroon, for: .normal)
+                button.addTarget(self, action: #selector(disconnectDevice), for: .touchUpInside)
+                
+                return button
+            }()
         }
-        
-        // Configure the cell...
 
         return cell
     }
@@ -59,10 +73,22 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == 0 && BLEManager.shared.peripheral == nil {
             controller.toggleWeightBasis()
             tableView.reloadRows(at: [indexPath], with: .automatic)
+        } else if indexPath.section == 1 {
+            navigationController?.pushViewController(BLEScanViewController(), animated: true)
         }
     }
 
+}
+
+extension SettingsViewController: BLEManagerDelegate {
+    func managerDidUpdateState(_ manager: BLEManager) {
+        tableView.reloadData()
+    }
+    
+    func manager(_ manager: BLEManager, didDisconnect peripheral: CBPeripheral) {
+        tableView.reloadData()
+    }
 }

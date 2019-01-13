@@ -4,6 +4,8 @@ class ActiveSpicesViewController: UITableViewController {
 
     private(set) var controller: SpiceController
     
+    var spiceLevels = [Int]()
+    
     init(controller: SpiceController) {
         self.controller = controller
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +23,9 @@ class ActiveSpicesViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        BLEManager.shared.delegate = self
+        BLEManager.shared.write(message: "POLL")
         
         do {
             try controller.fetchActiveSpices()
@@ -42,11 +47,16 @@ class ActiveSpicesViewController: UITableViewController {
         cell.numberLabel.text = "\(indexPath.row + 1)"
         
         if let activeSpice = controller.activeSpices[indexPath.row + 1] {
-            cell.type = .display
+            cell.type = .level
             cell.color = UIColor(hexString: activeSpice.color)
             cell.spiceNameLabel.text = activeSpice.name
             let mappedWeight = Spice.mapSpiceWeight(value: activeSpice.weight, metric: controller.weightBasis)
             cell.weight = String(format: "%.1f", mappedWeight)
+            
+            if let percentLabel = cell.actionView as? UILabel, indexPath.row < spiceLevels.count {
+                percentLabel.text = "\(spiceLevels[indexPath.row])%"
+            }
+            
         } else {
             cell.type = .unselected
         }
@@ -112,7 +122,6 @@ class ActiveSpicesViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
-    
     }
 
 }
@@ -130,4 +139,13 @@ extension ActiveSpicesViewController: SpiceSelectionDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension ActiveSpicesViewController: BLEManagerDelegate {
+    func manager(_ manager: BLEManager, didReceive message: String, error: Error?) {
+        if message.contains("OK") {
+            spiceLevels = Helpers.parseLevels(string: message)
+            tableView.reloadData()
+        }
+    }
 }

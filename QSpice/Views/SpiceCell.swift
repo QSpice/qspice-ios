@@ -33,6 +33,7 @@ class SpiceCell: UITableViewCell {
         case unselected
         case display
         case displayActive
+        case level
         case ingredientEditable
         case ingredient
     }
@@ -145,6 +146,24 @@ class SpiceCell: UITableViewCell {
                 multiplier = 1.8
                 contentView.addSubview(actionView!)
             }
+            
+        case .level:
+            spiceNameLabel.textColor = Colors.darkGrey
+            spiceWeightLabel.textColor = Colors.lightGrey
+            numberLabel.textColor = UIColor.white
+            
+            actionView = {
+                let label = UILabel()
+                label.text = ""
+                label.textColor = Colors.lightGrey
+                label.font = Fonts.cStdBook?.withSize(14.0)
+                
+                return label
+            }()
+            
+            multiplier = 1.8
+            contentView.addSubview(actionView!)
+            
         case .ingredient, .ingredientEditable:
             spiceNameLabel.textColor = Colors.darkGrey
             spiceWeightLabel.textColor = Colors.lightGrey

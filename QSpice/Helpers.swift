@@ -8,4 +8,10 @@ struct Helpers {
 
         return try String(contentsOfFile: filepath)
     }
+    
+    static func parseLevels(string: String) -> [Int] {
+        let components = string.split(separator: " ")
+        
+        return components[1].split(separator: ",").map { Int($0) ?? 0 }
+    }
 }

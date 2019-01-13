@@ -66,7 +66,7 @@ class SpiceSelectionViewController: UITableViewController {
         }
         
         cell.spiceNameLabel.text = spice.name
-        cell.weight = String(format: "%.2f", Spice.mapSpiceWeight(value: spice.weight, metric: controller.weightBasis))
+        cell.weight = String(format: "%.1f", Spice.mapSpiceWeight(value: spice.weight, metric: controller.weightBasis))
         cell.color = UIColor(hexString: spice.color)
         
         return cell

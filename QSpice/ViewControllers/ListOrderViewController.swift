@@ -1,70 +1,21 @@
 import UIKit
 
-class ListOrderViewController: UIViewController {
-
-    var controller: OrderController
-    
-    init(controller: OrderController) {
-        self.controller = controller
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        
-        return tableView
-    }()
-    
-    let placeOrderButton: ActionButton = {
-        let button = ActionButton()
-        button.setTitle("Place Order", for: .normal)
-        return button
-    }()
-    
-    let quantityView = QuantityView()
+class ListOrderViewController: OrderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "List Order"
         
-        view.backgroundColor = .white
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: Colors.darkGrey]
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = titleAttributes
-        navigationController?.navigationBar.tintColor = Colors.lightGrey
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "cross"), style: .plain, target: self, action: #selector(cancelOrder))
-        
-        placeOrderButton.addTarget(self, action: #selector(placeOrderTapped), for: .touchUpInside)
-        
         tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
-        tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
         tableView.delegate = self
         tableView.dataSource = self
-        
-        quantityView.amountView.incrementButton.addTarget(self, action: #selector(incrementQuantity), for: .touchUpInside)
-        quantityView.amountView.decrementButton.addTarget(self, action: #selector(decrementQuantity), for: .touchUpInside)
         
         setupSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        controller.clearOrder()
         
         if controller.activeSpices.count < 1 {
             placeOrderButton.isEnabled = false
@@ -81,16 +32,19 @@ class ListOrderViewController: UIViewController {
         updateView()
     }
     
-    @objc func placeOrderTapped() {
+    override func placeOrder(spiceLevels: [Int]) {
         do {
-            try controller.createListOrder()
+            try controller.createListOrder(spiceLevels: spiceLevels)
+            dismiss(animated: true)
+        } catch OrderError.notConnected {
+            isCreatingOrder = false
+            showAlert(title: AlertMessages.noOrderBleConnect.title, subtitle: AlertMessages.noOrderBleConnect.subtitle)
+        } catch OrderError.lowLevel(let levels) {
+            isCreatingOrder = false
+            let action = AlertAction(title: "Continue", action: continueOrder, color: Colors.maroon)
+            showAlert(title: AlertMessages.spiceLevels.title, subtitle: "\(AlertMessages.spiceLevels.subtitle) \(levels)", actions: [action], closeTitle: "Cancel")
         } catch {
-            print("Could not create list order: ", error.localizedDescription)
         }
-    }
-    
-    @objc func cancelOrder() {
-        dismiss(animated: true)
     }
     
     private func setupSubviews() {
@@ -117,20 +71,12 @@ class ListOrderViewController: UIViewController {
         }
     }
     
-    private func updateView() {
+    override func updateView() {
         if controller.isValidListOrder() {
             placeOrderButton.isEnabled = true
         } else {
             placeOrderButton.isEnabled = false
         }
-    }
-    
-    @objc func incrementQuantity() {
-        quantityView.amountView.amount = controller.updateOrder(quantity: 1)
-    }
-    
-    @objc func decrementQuantity() {
-        quantityView.amountView.amount = controller.updateOrder(quantity: -1)
     }
 
 }

@@ -15,7 +15,10 @@
 		921769C021DA7EFF00BF231C /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921769BF21DA7EFF00BF231C /* OrderController.swift */; };
 		921769C421DA8D7900BF231C /* QuantityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921769C321DA8D7900BF231C /* QuantityView.swift */; };
 		921769C621DAB6EA00BF231C /* RecipeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921769C521DAB6EA00BF231C /* RecipeOrderViewController.swift */; };
+		9232157421EAC798002C68BD /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232157321EAC798002C68BD /* OrderViewController.swift */; };
 		9238E95221CEBEBB00136BAB /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238E95121CEBEBB00136BAB /* RecipesViewController.swift */; };
+		9256179521E4F4520081BFB4 /* BLEScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179421E4F4520081BFB4 /* BLEScanViewController.swift */; };
+		9256179721E4F9140081BFB4 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179621E4F9140081BFB4 /* BLEManager.swift */; };
 		9270D76821D681A5004AE374 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D76721D681A5004AE374 /* RecipeCell.swift */; };
 		9270D76A21D6C217004AE374 /* AdjustableAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D76921D6C217004AE374 /* AdjustableAmountView.swift */; };
 		9270D77921D6FAA4004AE374 /* Recipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */; };
@@ -94,7 +97,10 @@
 		921769BF21DA7EFF00BF231C /* OrderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderController.swift; sourceTree = "<group>"; };
 		921769C321DA8D7900BF231C /* QuantityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityView.swift; sourceTree = "<group>"; };
 		921769C521DAB6EA00BF231C /* RecipeOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeOrderViewController.swift; sourceTree = "<group>"; };
+		9232157321EAC798002C68BD /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		9238E95121CEBEBB00136BAB /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
+		9256179421E4F4520081BFB4 /* BLEScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEScanViewController.swift; sourceTree = "<group>"; };
+		9256179621E4F9140081BFB4 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		9270D76721D681A5004AE374 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		9270D76921D6C217004AE374 /* AdjustableAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustableAmountView.swift; sourceTree = "<group>"; };
 		9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -198,6 +204,7 @@
 		9238E95321CEC46D00136BAB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9256179621E4F9140081BFB4 /* BLEManager.swift */,
 				9291F95B21CD85EB00A15F15 /* SpiceController.swift */,
 				9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */,
 				92ABEBBF21D597B300ADA054 /* RecipeDetailController.swift */,
@@ -240,6 +247,8 @@
 				921769C521DAB6EA00BF231C /* RecipeOrderViewController.swift */,
 				9291F95921CD78D200A15F15 /* QSTabBarController.swift */,
 				92A3986121DD9B1C00F28D7A /* QSNavigationController.swift */,
+				9256179421E4F4520081BFB4 /* BLEScanViewController.swift */,
+				9232157321EAC798002C68BD /* OrderViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -566,6 +575,7 @@
 				92ABEBA621D56E8600ADA054 /* MediaPickerViewController.swift in Sources */,
 				92ABEBA721D56E8600ADA054 /* PHPhotoCollectionViewCell.swift in Sources */,
 				9291F96921CDB0A100A15F15 /* SpiceSelectionController.swift in Sources */,
+				9256179721E4F9140081BFB4 /* BLEManager.swift in Sources */,
 				92ABEBAA21D56E8600ADA054 /* CameraCaptureController.swift in Sources */,
 				92916A5221CEED68004349C2 /* RecipeDescCell.swift in Sources */,
 				92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */,
@@ -598,6 +608,8 @@
 				92A3985821DD254900F28D7A /* OrderItem+CoreDataProperties.swift in Sources */,
 				9291F95A21CD78D200A15F15 /* QSTabBarController.swift in Sources */,
 				921769B621D9667D00BF231C /* OrderSelectionView.swift in Sources */,
+				9256179521E4F4520081BFB4 /* BLEScanViewController.swift in Sources */,
+				9232157421EAC798002C68BD /* OrderViewController.swift in Sources */,
 				92ABEBA221D56E8600ADA054 /* MediaPickerTransitionContext.swift in Sources */,
 				92ABEBC421D59B1600ADA054 /* RecipeController.swift in Sources */,
 				9270D77A21D6FAA4004AE374 /* Spice+CoreDataProperties.swift in Sources */,

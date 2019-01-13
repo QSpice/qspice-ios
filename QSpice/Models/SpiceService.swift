@@ -38,7 +38,7 @@ class SpiceService {
         return try context.fetch(request)
     }
     
-    func createListOrder(orderDetail: OrderDetail) {
+    func createListOrder(orderDetail: OrderDetail) -> Order {
         let order = Order(context: context)
         
         order.date = Date()
@@ -56,11 +56,13 @@ class SpiceService {
             order.addToOrderItems(orderItem)
         }
         
+        return order
+        
     }
     
-    func createRecipeOrder(orderDetail: OrderDetail) {
+    func createRecipeOrder(orderDetail: OrderDetail) -> Order? {
         guard let recipe = orderDetail.recipe else {
-            return
+            return nil
         }
         
         let order = Order(context: context)
@@ -75,6 +77,8 @@ class SpiceService {
             orderItem.ingredient = ingredient
             order.addToOrderItems(orderItem)
         }
+        
+        return order
     }
     
     func save() throws {

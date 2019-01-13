@@ -7,6 +7,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let window: UIWindow = UIWindow(frame: UIScreen.main.bounds)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        if UserDefaults.standard.string(forKey: "ble_identifier") != nil {
+            BLEManager.shared.powerUp()
+        }
 
         let spiceService = SpiceService(context: persistentContainer.viewContext)
         let recipeService = RecipeService(context: persistentContainer.viewContext)
@@ -37,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             QSNavigationController(rootViewController: recipesViewController),
             createOrderViewController,
             UINavigationController(rootViewController: orderHistoryViewController),
-            UINavigationController(rootViewController: settingsViewController)
+            QSNavigationController(rootViewController: settingsViewController)
         ]
         
         for (i, viewController) in viewControllers.enumerated() {

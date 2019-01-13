@@ -58,13 +58,13 @@ class CreateOrderViewController: UIViewController {
     }
     
     @objc func orderFromListTapped() {
-        let destination = UINavigationController(rootViewController: ListOrderViewController(controller: controller))
+        let destination = QSNavigationController(rootViewController: ListOrderViewController(controller: controller))
         
         present(destination, animated: true)
     }
     
     @objc func orderFromRecipeTapped() {
-        let destination = UINavigationController(rootViewController: RecipeOrderViewController(controller: controller))
+        let destination = QSNavigationController(rootViewController: RecipeOrderViewController(controller: controller))
         
         present(destination, animated: true)
     }

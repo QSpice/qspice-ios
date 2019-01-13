@@ -1,34 +1,7 @@
 import UIKit
 
-class RecipeOrderViewController: UIViewController {
+class RecipeOrderViewController: OrderViewController {
 
-    var controller: OrderController
-    
-    init(controller: OrderController) {
-        self.controller = controller
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        
-        return tableView
-    }()
-    
-    let placeOrderButton: ActionButton = {
-        let button = ActionButton()
-        button.setTitle("Place Order", for: .normal)
-        button.isEnabled = false
-        return button
-    }()
-    
-    let quantityView = QuantityView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,38 +9,15 @@ class RecipeOrderViewController: UIViewController {
         
         title = "Recipe Order"
         
-        view.backgroundColor = .white
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: Colors.darkGrey]
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = titleAttributes
-        navigationController?.navigationBar.tintColor = Colors.lightGrey
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "cross"), style: .plain, target: self, action: #selector(cancelOrder))
-        
-        placeOrderButton.addTarget(self, action: #selector(placeOrderTapped), for: .touchUpInside)
-        
         tableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.reuseId)
-        tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.contentInset = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
         tableView.delegate = self
         tableView.dataSource = self
-        
-        quantityView.amountView.incrementButton.addTarget(self, action: #selector(incrementQuantity), for: .touchUpInside)
-        quantityView.amountView.decrementButton.addTarget(self, action: #selector(decrementQuantity), for: .touchUpInside)
         
         setupSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        controller.clearOrder()
         
         if controller.recipesFetchedResults.fetchedObjects?.count ?? 0 < 1 {
             placeOrderButton.isEnabled = false
@@ -92,16 +42,25 @@ class RecipeOrderViewController: UIViewController {
         }
     }
     
-    @objc func placeOrderTapped() {
+    override func placeOrder(spiceLevels: [Int]) {
         do {
             try controller.createRecipeOrder()
+            dismiss(animated: true)
+        } catch OrderError.notConnected {
+            isCreatingOrder = false
+            showAlert(title: AlertMessages.noOrderBleConnect.title, subtitle: AlertMessages.noOrderBleConnect.subtitle)
+        } catch OrderError.lowLevel(let levels) {
+            isCreatingOrder = false
+            let action = AlertAction(title: "Continue", action: continueOrder, color: Colors.maroon)
+            showAlert(title: AlertMessages.spiceLevels.title, subtitle: "\(AlertMessages.spiceLevels.subtitle) \(levels)", actions: [action], closeTitle: "Cancel")
+        } catch OrderError.noSpices {
+            isCreatingOrder = false
+            showAlert(title: AlertMessages.noOrderNoSpices.title, subtitle: AlertMessages.noOrderNoSpices.subtitle)
+        } catch OrderError.missingSpices {
+            isCreatingOrder = false
+            showAlert(title: AlertMessages.noOrderMissingSpices.title, subtitle: AlertMessages.noOrderMissingSpices.subtitle)
         } catch {
-            print("Could not create order: ", error.localizedDescription)
         }
-    }
-    
-    @objc func cancelOrder() {
-        dismiss(animated: true)
     }
 
     private func setupSubviews() {
@@ -128,7 +87,7 @@ class RecipeOrderViewController: UIViewController {
         }
     }
     
-    private func updateView() {
+    override func updateView() {
         if controller.order.recipe != nil {
             placeOrderButton.isEnabled = true
         } else {
@@ -136,13 +95,6 @@ class RecipeOrderViewController: UIViewController {
         }
     }
     
-    @objc func incrementQuantity() {
-        quantityView.amountView.amount = controller.updateOrder(quantity: 1)
-    }
-    
-    @objc func decrementQuantity() {
-        quantityView.amountView.amount = controller.updateOrder(quantity: -1)
-    }
 }
 
 extension RecipeOrderViewController: UITableViewDataSource, UITableViewDelegate {
