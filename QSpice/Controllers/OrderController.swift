@@ -156,9 +156,13 @@ class OrderController {
     }
     
     private func verify(levels: [Int]) throws {
+        if levels.isEmpty {
+            return
+        }
+        
         var lowLevels = [String]()
         
-        for i in 0..<levels.count where levels[i] <= 15 && order.orderItems[i].ingredient.amount > 0 {
+        for i in 0..<order.orderItems.count where levels[i] <= 15 && order.orderItems[i].ingredient.amount > 0 {
             lowLevels.append("\(i+1) (\(order.orderItems[i].ingredient.spice.name))")
         }
         

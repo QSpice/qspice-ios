@@ -12,6 +12,10 @@ struct Helpers {
     static func parseLevels(string: String) -> [Int] {
         let components = string.split(separator: " ")
         
+        guard components.count > 1 else {
+            return []
+        }
+        
         return components[1].split(separator: ",").map { Int($0) ?? 0 }
     }
 }

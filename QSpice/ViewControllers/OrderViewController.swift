@@ -74,7 +74,7 @@ class OrderViewController: UIViewController {
         if BLEManager.shared.isReady {
             isCreatingOrder = true
             BLEManager.shared.write(message: "POLL")
-            messageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(messageTimeout), userInfo: nil, repeats: false)
+            messageTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(messageTimeout), userInfo: nil, repeats: false)
         } else {
             showAlert(title: AlertMessages.noOrderBleConnect.title, subtitle: AlertMessages.noOrderBleConnect.subtitle)
         }

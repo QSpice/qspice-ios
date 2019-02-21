@@ -4,6 +4,8 @@ class ActiveSpicesViewController: UITableViewController {
 
     private(set) var controller: SpiceController
     
+    var messageBuffer: String = ""
+    
     var spiceLevels = [Int]()
     
     init(controller: SpiceController) {
@@ -143,9 +145,14 @@ extension ActiveSpicesViewController: SpiceSelectionDelegate {
 
 extension ActiveSpicesViewController: BLEManagerDelegate {
     func manager(_ manager: BLEManager, didReceive message: String, error: Error?) {
-        if message.contains("OK") {
-            spiceLevels = Helpers.parseLevels(string: message)
-            tableView.reloadData()
+        messageBuffer += message
+        if message.last == "\n" {
+            messageBuffer.removeLast()
+            if messageBuffer.contains("OK") {
+                spiceLevels = Helpers.parseLevels(string: messageBuffer)
+                tableView.reloadData()
+            }
+            messageBuffer = ""
         }
     }
 }
