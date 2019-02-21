@@ -1,10 +1,10 @@
 import UIKit
+import Instructions
 
 class ActiveSpicesViewController: UITableViewController {
 
     private(set) var controller: SpiceController
-    
-    var messageBuffer: String = ""
+    let coachController = CoachMarksController()
     
     var spiceLevels = [Int]()
     
@@ -20,6 +20,9 @@ class ActiveSpicesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        coachController.dataSource = self
+        coachController.delegate = self
+        
         prepareView()
     }
     
@@ -34,6 +37,20 @@ class ActiveSpicesViewController: UITableViewController {
             tableView.reloadData()
         } catch {
             showAlert(title: AlertMessages.loadActiveSpices.title, subtitle: AlertMessages.loadActiveSpices.subtitle)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        coachController.stop(immediately: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if UserDefaults.standard.string(forKey: HintMessages.keys["ActiveSpices"]!) == nil {
+            coachController.start(in: .window(over: self))
         }
     }
 
@@ -145,14 +162,65 @@ extension ActiveSpicesViewController: SpiceSelectionDelegate {
 
 extension ActiveSpicesViewController: BLEManagerDelegate {
     func manager(_ manager: BLEManager, didReceive message: String, error: Error?) {
-        messageBuffer += message
-        if message.last == "\n" {
-            messageBuffer.removeLast()
-            if messageBuffer.contains("OK") {
-                spiceLevels = Helpers.parseLevels(string: messageBuffer)
-                tableView.reloadData()
-            }
-            messageBuffer = ""
+        if message.contains("OK") {
+            spiceLevels = Helpers.parseLevels(string: message)
+            tableView.reloadData()
         }
+    }
+}
+
+extension ActiveSpicesViewController: CoachMarksControllerDataSource {
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        let coachBodyView = QSCoachMarkBodyView()
+        coachBodyView.hintLabel.text = HintMessages.activeSpicesPage[index]
+        
+        coachBodyView.nextButton.setTitle("OK", for: .normal)
+        
+        return (bodyView: coachBodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 5
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        
+        var coachMark: CoachMark = coachMarksController.helper.makeCoachMark()
+        
+        switch index {
+            case 0:
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) else {
+                    return coachMark
+                }
+            
+                coachMark = coachMarksController.helper.makeCoachMark(for: cell, pointOfInterest: CGPoint(x: cell.frame.maxX - 40, y: cell.frame.maxY))
+            
+                coachMark.gapBetweenCoachMarkAndCutoutPath = 0.0
+                coachMark.horizontalMargin = 16.0
+            case 1, 2, 3, 4:
+                guard let tabFrame = (self.tabBarController?.tabBar.items?[index].value(forKey: "view") as? UIView)?.frame else {
+                    return coachMark
+                }
+                
+                let viewOfInterest = self.tabBarController?.tabBar
+                let pointOfInterest = CGPoint(x: tabFrame.midX, y: tabFrame.midY)
+                
+                return coachMarksController.helper.makeCoachMark(for: viewOfInterest, pointOfInterest: pointOfInterest) { (frame: CGRect) -> UIBezierPath in
+                    return UIBezierPath(rect: CGRect(x: tabFrame.minX, y: frame.minY, width: tabFrame.width, height: tabFrame.height))
+                }
+            
+            default:
+                break
+        }
+        
+        return coachMark
+    }
+}
+
+extension ActiveSpicesViewController: CoachMarksControllerDelegate {
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        UserDefaults.standard.set(true, forKey: HintMessages.keys["ActiveSpices"]!)
     }
 }

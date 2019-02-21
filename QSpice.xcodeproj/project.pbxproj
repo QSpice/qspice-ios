@@ -25,6 +25,7 @@
 		9270D77A21D6FAA4004AE374 /* Spice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77621D6FAA4004AE374 /* Spice+CoreDataProperties.swift */; };
 		9270D77B21D6FAA4004AE374 /* Ingredient+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77721D6FAA4004AE374 /* Ingredient+CoreDataClass.swift */; };
 		9270D77C21D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */; };
+		928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */; };
 		92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */; };
 		92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */; };
 		92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4F21CEE3BA004349C2 /* LinkCell.swift */; };
@@ -107,6 +108,7 @@
 		9270D77621D6FAA4004AE374 /* Spice+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spice+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9270D77721D6FAA4004AE374 /* Ingredient+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSCoachMarkBodyView.swift; sourceTree = "<group>"; };
 		92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		92916A4F21CEE3BA004349C2 /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				92E2295921D83315003C7A5E /* NoIntrinsicSizeImageView.swift */,
 				921769B521D9667D00BF231C /* OrderSelectionView.swift */,
 				921769C321DA8D7900BF231C /* QuantityView.swift */,
+				928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-QSpice/Pods-QSpice-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
+				"${BUILT_PRODUCTS_DIR}/Instructions/Instructions.framework",
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
@@ -518,6 +522,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instructions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
@@ -561,6 +566,7 @@
 				921769C621DAB6EA00BF231C /* RecipeOrderViewController.swift in Sources */,
 				92A3985721DD254900F28D7A /* OrderItem+CoreDataClass.swift in Sources */,
 				92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */,
+				928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */,
 				9270D76A21D6C217004AE374 /* AdjustableAmountView.swift in Sources */,
 				92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */,
 				92ABEB9F21D56E8600ADA054 /* CameraButton.swift in Sources */,

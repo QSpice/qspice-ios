@@ -39,18 +39,18 @@ class SettingsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return [1, 1][section]
+        return [1, 1, 1][section]
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingCell.reuseId, for: indexPath)
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = "Weight Basis"
+            cell.textLabel?.text = "Weight basis"
             cell.detailTextLabel?.text = controller.weightBasis
         } else if indexPath.section == 1 {
             let peripheral = BLEManager.shared.peripheral
@@ -63,13 +63,29 @@ class SettingsViewController: UITableViewController {
                 
                 return button
             }()
+        } else if indexPath.section == 2 {
+            cell.textLabel?.text = "Reset all hints"
         }
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ["MEASUREMENTS", "CONNECT A DEVICE"][section]
+        return ["MEASUREMENTS", "CONNECT A DEVICE", "RESTORE SETTINGS"][section]
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Changing the weight basis changes the displayed weight of spices to the selected metric. Eg. 1 tsp of salt is 1.0g which would equate to 3.0g of salt in tablespoons."
+        case 1:
+            return "Scan and connect to a QSpice automatic spice dispenser."
+            
+        case 2:
+            return "Resetting to default settings is an irreversible action."
+        default:
+            return nil
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -78,6 +94,13 @@ class SettingsViewController: UITableViewController {
             tableView.reloadRows(at: [indexPath], with: .automatic)
         } else if indexPath.section == 1 {
             navigationController?.pushViewController(BLEScanViewController(), animated: true)
+        } else if indexPath.section == 2 {
+            let action = AlertAction(title: "Yes I'm sure", action: {
+                for value in HintMessages.keys.values {
+                    UserDefaults.standard.set(nil, forKey: value)
+                }
+            }, color: Colors.maroon)
+            showAlert(title: AlertMessages.resetHints.title, subtitle: AlertMessages.resetHints.subtitle, actions: [action], closeTitle: "No, cancel")
         }
     }
 

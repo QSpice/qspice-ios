@@ -1,8 +1,10 @@
 import UIKit
+import Instructions
 
 class CreateOrderViewController: UIViewController {
 
     var controller: OrderController
+    let coachController = CoachMarksController()
     
     init(controller: OrderController) {
         self.controller = controller
@@ -53,8 +55,24 @@ class CreateOrderViewController: UIViewController {
         
         listOrderView.addTarget(target: self, action: #selector(orderFromListTapped), for: .touchUpInside)
         recipeOrderView.addTarget(target: self, action: #selector(orderFromRecipeTapped), for: .touchUpInside)
+        coachController.dataSource = self
+        coachController.delegate = self
         
         setupSubviews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        coachController.stop(immediately: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if UserDefaults.standard.string(forKey: HintMessages.keys["CreateOrder"]!) == nil {
+            coachController.start(in: .window(over: self))
+        }
     }
     
     @objc func orderFromListTapped() {
@@ -84,16 +102,56 @@ class CreateOrderViewController: UIViewController {
         stackView.addArrangedSubview(recipeOrderView)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(64.0)
+            make.bottom.equalTo(stackView.snp.top).offset(-64)
             make.centerX.equalToSuperview()
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(48.0)
+            make.centerY.equalToSuperview()
             make.leading.greaterThanOrEqualToSuperview().offset(32.0)
             make.trailing.greaterThanOrEqualToSuperview().offset(-32.0)
             make.centerX.equalToSuperview()
         }
     }
 
+}
+
+extension CreateOrderViewController: CoachMarksControllerDataSource {
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        let coachBodyView = QSCoachMarkBodyView()
+        coachBodyView.hintLabel.text = HintMessages.createOrderPage[index]
+        
+        coachBodyView.nextButton.setTitle("OK", for: .normal)
+        
+        return (bodyView: coachBodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 2
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        
+        var coachMark: CoachMark = coachMarksController.helper.makeCoachMark()
+        
+        switch index {
+        case 0:
+            coachMark = coachMarksController.helper.makeCoachMark(for: listOrderView)
+
+        case 1:
+            coachMark = coachMarksController.helper.makeCoachMark(for: recipeOrderView)
+        default:
+            break
+        }
+        
+        return coachMark
+    }
+}
+
+extension CreateOrderViewController: CoachMarksControllerDelegate {
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        UserDefaults.standard.set(true, forKey: HintMessages.keys["CreateOrder"]!)
+    }
 }

@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settingsViewController = SettingsViewController(controller: settingsController)
 
         let tabBarItemInfo = [
-            (name: "Spices", image: UIImage(named: "spice")),
+            (name: "Stored Spices", image: UIImage(named: "spice")),
             (name: "Recipes", image: UIImage(named: "chef")),
-            (name: "Orders", image: UIImage(named: "order")),
+            (name: "Order", image: UIImage(named: "order")),
             (name: "History", image: UIImage(named: "timeline")),
             (name: "Settings", image: UIImage(named: "settings"))
         ]

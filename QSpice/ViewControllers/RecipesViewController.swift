@@ -1,8 +1,10 @@
 import UIKit
+import Instructions
 
 class RecipesViewController: UITableViewController {
 
     private(set) var controller: RecipeController
+    let coachController = CoachMarksController()
     
     init(controller: RecipeController) {
         self.controller = controller
@@ -17,6 +19,9 @@ class RecipesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        coachController.dataSource = self
+        coachController.delegate = self
+        
         prepareView()
     }
     
@@ -30,6 +35,20 @@ class RecipesViewController: UITableViewController {
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController?.navigationBar.tintColor = UIColor(r: 77.0, g: 77.0, b: 77.0, a: 1.0)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if UserDefaults.standard.string(forKey: HintMessages.keys["Recipes"]!) == nil {
+            coachController.start(in: .window(over: self))
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        coachController.stop(immediately: true)
     }
     
     private func loadRecipes() {
@@ -150,4 +169,46 @@ class RecipesViewController: UITableViewController {
         tableView.estimatedRowHeight = 60
     }
 
+}
+
+extension RecipesViewController: CoachMarksControllerDataSource {
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        let coachBodyView = QSCoachMarkBodyView()
+        coachBodyView.hintLabel.text = HintMessages.recipesPage[index]
+        
+        coachBodyView.nextButton.setTitle("OK", for: .normal)
+        
+        return (bodyView: coachBodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 1
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        
+        guard let buttonView = (self.navigationItem.rightBarButtonItem?.value(forKey: "view") as? UIView) else {
+            return coachMarksController.helper.makeCoachMark()
+        }
+        
+        let viewOfInterest = self.navigationController?.navigationBar
+        let buttonFrame = buttonView.convert(buttonView.bounds, to: nil)
+        let pointOfInterest = CGPoint(x: buttonFrame.midX, y: buttonFrame.midY)
+        
+        var coachMark = coachMarksController.helper.makeCoachMark(for: viewOfInterest, pointOfInterest: pointOfInterest) { _ in
+            return UIBezierPath(rect: CGRect(x: buttonFrame.minX, y: buttonFrame.minY, width: buttonFrame.width, height: buttonFrame.height))
+        }
+        
+        coachMark.maxWidth = view.frame.width * 0.65
+        
+        return coachMark
+    }
+}
+
+extension RecipesViewController: CoachMarksControllerDelegate {
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        UserDefaults.standard.set(true, forKey: HintMessages.keys["Recipes"]!)
+    }
 }

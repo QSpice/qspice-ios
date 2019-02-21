@@ -37,4 +37,30 @@ struct AlertMessages {
     static let noOrderNoSpices = (title: "Order Not Created", subtitle: "The recipe contains no spices.")
     static let noOrderMissingSpices = (title: "Order Not Created", subtitle: "The recipe contains spices that are not labelled as active.")
     static let spiceLevels = (title: "Spice Levels Low", subtitle: "The spice levels are low for spices in container(s):")
+    static let resetHints = (title: "Reset All Hints", subtitle: "Resetting all hints is irreversible, are you sure you want to proceed?")
+}
+
+struct HintMessages {
+    static let keys = [
+        "ActiveSpices": "ActiveSpicesViewControllerCoach",
+        "Recipes": "RecipesViewControllerCoach",
+        "CreateOrder": "CreateOrderViewControllerCoach"
+    ]
+    
+    static let activeSpicesPage = [
+        "Welcome to QSpice! Start by labelling the spices you placed inside the QSpice automatic spice dispenser.",
+        "You will find all your delicious saved recipes in this tab!",
+        "Once you've labelled spices or created a recipe, you'll be able to create you first order here.",
+        "Visit this tab after you've dispensed an order to see a detail history of all your orders.",
+        "Connect to your new QSpice automatic spice dispenser in this tab."
+    ]
+    
+    static let recipesPage = [
+        "Tap here to add a new recipe, so you can dispense a combination of spices more easily in the future."
+    ]
+    
+    static let createOrderPage = [
+        "Use this button to start creating an order for an ad-hoc list of spices.",
+        "Use this button to start creating an order from one of your custom recipes."
+    ]
 }

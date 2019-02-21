@@ -8,4 +8,5 @@ target 'QSpice' do
   pod 'DynamicColor', '~> 4.0.3'
   pod 'UITextView+Placeholder'
   pod 'SCLAlertView'
+  pod 'Instructions'
 end

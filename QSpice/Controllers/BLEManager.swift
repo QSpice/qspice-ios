@@ -20,6 +20,8 @@ class BLEManager: NSObject {
     
     var peripheral: CBPeripheral?
     
+    var messageBuffer: String = ""
+    
     private var writeType: CBCharacteristicWriteType = .withoutResponse
     private weak var writeCharacteristic: CBCharacteristic?
     
@@ -156,8 +158,13 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         if let message = String(data: data, encoding: String.Encoding.utf8) {
-            print(message)
-            delegate?.manager?(self, didReceive: message, error: error)
+            messageBuffer += message
+            
+            if message.last == "\n" {
+                messageBuffer.removeLast()
+                delegate?.manager?(self, didReceive: messageBuffer, error: error)
+                messageBuffer = ""
+            }
         }
         
     }
