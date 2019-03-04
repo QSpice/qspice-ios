@@ -19,6 +19,7 @@
 		9238E95221CEBEBB00136BAB /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238E95121CEBEBB00136BAB /* RecipesViewController.swift */; };
 		9256179521E4F4520081BFB4 /* BLEScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179421E4F4520081BFB4 /* BLEScanViewController.swift */; };
 		9256179721E4F9140081BFB4 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179621E4F9140081BFB4 /* BLEManager.swift */; };
+		9267F192221F47DB00E47913 /* NoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267F191221F47DB00E47913 /* NoContentView.swift */; };
 		9270D76821D681A5004AE374 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D76721D681A5004AE374 /* RecipeCell.swift */; };
 		9270D76A21D6C217004AE374 /* AdjustableAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D76921D6C217004AE374 /* AdjustableAmountView.swift */; };
 		9270D77921D6FAA4004AE374 /* Recipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */; };
@@ -102,6 +103,7 @@
 		9238E95121CEBEBB00136BAB /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
 		9256179421E4F4520081BFB4 /* BLEScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEScanViewController.swift; sourceTree = "<group>"; };
 		9256179621E4F9140081BFB4 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
+		9267F191221F47DB00E47913 /* NoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentView.swift; sourceTree = "<group>"; };
 		9270D76721D681A5004AE374 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		9270D76921D6C217004AE374 /* AdjustableAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustableAmountView.swift; sourceTree = "<group>"; };
 		9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				921769B521D9667D00BF231C /* OrderSelectionView.swift */,
 				921769C321DA8D7900BF231C /* QuantityView.swift */,
 				928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */,
+				9267F191221F47DB00E47913 /* NoContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				921769BC21D981A800BF231C /* SettingsViewController.swift in Sources */,
 				92E2295A21D83315003C7A5E /* NoIntrinsicSizeImageView.swift in Sources */,
 				92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */,
+				9267F192221F47DB00E47913 /* NoContentView.swift in Sources */,
 				921769BE21D997D800BF231C /* ListOrderViewController.swift in Sources */,
 				92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */,
 				9270D76821D681A5004AE374 /* RecipeCell.swift in Sources */,

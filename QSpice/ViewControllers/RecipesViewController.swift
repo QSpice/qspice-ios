@@ -146,11 +146,12 @@ class RecipesViewController: UITableViewController {
             tableView.backgroundView = nil
         } else {
             tableView.backgroundView = {
-                let label = UILabel(frame: view.frame)
-                label.textAlignment = .center
-                label.text = "No Recipes."
+                let backgroundView = NoContentView()
+                backgroundView.messageLabel.text = "No Recipes."
+                backgroundView.imageView.image = UIImage(named: "no-recipes")
+                backgroundView.imageView.alpha = 0.65
                 
-                return label
+                return backgroundView
             }()
             
         }
