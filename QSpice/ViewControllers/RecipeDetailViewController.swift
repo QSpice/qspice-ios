@@ -79,6 +79,8 @@ class RecipeDetailViewController: UIViewController {
             tableView.setContentOffset(.zero, animated: true)
             tableView.reloadData()
             
+        } catch RecipeError.invalidName {
+            showAlert(title: AlertMessages.invalidName.title, subtitle: AlertMessages.invalidName.subtitle)
         } catch {
             print("Error: ", error.localizedDescription)
         }

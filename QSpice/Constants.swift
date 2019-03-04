@@ -38,6 +38,7 @@ struct AlertMessages {
     static let noOrderMissingSpices = (title: "Order Not Created", subtitle: "The recipe contains spices that are not labelled as active.")
     static let spiceLevels = (title: "Spice Levels Low", subtitle: "The spice levels are low for spices in container(s):")
     static let resetHints = (title: "Reset All Hints", subtitle: "Resetting all hints is irreversible, are you sure you want to proceed?")
+    static let invalidName = (title: "Recipe Name Invalid", subtitle: "The recipe name should not be left empty.")
 }
 
 struct HintMessages {

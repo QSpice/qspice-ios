@@ -17,6 +17,10 @@ struct IngredientDetail {
     var metric: String
 }
 
+enum RecipeError: Error {
+    case invalidName
+}
+
 class RecipeDetailController {
     
     var recipeService: RecipeService
@@ -55,6 +59,10 @@ class RecipeDetailController {
     }
     
     func addRecipe(name: String, link: String, content: String, image: Data?) throws {
+        guard !name.isEmpty else {
+            throw RecipeError.invalidName
+        }
+        
         recipeDetail.name = name
         recipeDetail.link = link == "" ? nil : link
         recipeDetail.content = content == "" ? nil : content
