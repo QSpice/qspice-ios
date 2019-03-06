@@ -21,6 +21,18 @@ struct Colors {
     static let neutral = UIColor(r: 63, g: 68, b: 140, a: 1.0)
 }
 
+enum Metric: Int, CaseIterable {
+    case teaspoon = 0
+    case tablespoon = 1
+    
+    var name: String {
+        switch self {
+        case .teaspoon: return "tsp"
+        case .tablespoon: return "tbsp"
+        }
+    }
+}
+
 struct AlertMessages {
     static let initSpices = (title: "Spices Not Loaded", subtitle: "There was an issue loading spices into the application")
     static let eraseActiveSpice = (title: "Spice Not Erased", subtitle: "The active spice could not be erased. Try again.")

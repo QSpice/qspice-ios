@@ -2,9 +2,8 @@ import UIKit
 import SnapKit
 
 protocol SpiceCellDelegate: class {
-    func spiceCellDidIncrement(cell: SpiceCell)
-    func spiceCellDidDecrement(cell: SpiceCell)
-    func spiceCellDidChangeMetric(cell: SpiceCell)
+    func spiceCell(cell: SpiceCell, didChange quantity: Int)
+    func spiceCell(cell: SpiceCell, didChange metric: Metric)
 }
 
 class SpiceCell: UITableViewCell {
@@ -13,18 +12,34 @@ class SpiceCell: UITableViewCell {
     
     weak var delegate: SpiceCellDelegate?
     
-    var amount: Float = 1.0 {
+    var minimumQuantity: Int = 0 {
         didSet {
-            if let actionView = actionView as? AdjustableAmountView {
-                actionView.amountLabel.text = Spice.mapSpiceAmount(value: amount)
+            if let actionView = actionView as? QuantityPicker {
+                actionView.min = minimumQuantity
             }
         }
     }
     
-    var metric: String = "tsp" {
+    var quantity: Int = 0 {
         didSet {
-            if let actionView = actionView as? AdjustableAmountView {
-                actionView.metricButton.setTitle(metric, for: .normal)
+            if let actionView = actionView as? QuantityPicker {
+                actionView.selectRow(quantity, inComponent: 0, animated: false)
+            } else if let actionView = actionView as? UILabel {
+                let q = Spice.spiceQuantity(from: quantity).string
+                let m = (Metric(rawValue: metric) ?? .teaspoon).name
+                actionView.text = "\(q)  \(m)"
+            }
+        }
+    }
+    
+    var metric: Int = 0 {
+        didSet {
+            if let actionView = actionView as? QuantityPicker {
+                actionView.selectRow(metric, inComponent: 1, animated: false)
+            } else if let actionView = actionView as? UILabel {
+                let q = Spice.spiceQuantity(from: quantity).string
+                let m = (Metric(rawValue: metric) ?? .teaspoon).name
+                actionView.text = "\(q)  \(m)"
             }
         }
     }
@@ -77,7 +92,7 @@ class SpiceCell: UITableViewCell {
 
     let spiceNameLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.cStdMedium
+        label.font = Fonts.cStdMedium?.withSize(18.0)
         label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
 
         return label
@@ -85,8 +100,9 @@ class SpiceCell: UITableViewCell {
 
     private let spiceWeightLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.cStdBook?.withSize(12.0)
+        label.font = Fonts.cStdBook?.withSize(14.0)
         label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
+        label.text = "Weight: N/A"
 
         return label
     }()
@@ -168,40 +184,41 @@ class SpiceCell: UITableViewCell {
             spiceNameLabel.textColor = Colors.darkGrey
             spiceWeightLabel.textColor = Colors.lightGrey
             
-            actionView = {
-                let view = AdjustableAmountView()
-                if type == .ingredientEditable {
-                    view.isCaretHidden = false
-                    view.incrementButton.addTarget(self, action: #selector(incrementTapped), for: .touchUpInside)
-                    view.decrementButton.addTarget(self, action: #selector(decrementTapped), for: .touchUpInside)
-                } else {
-                    view.isCaretHidden = true
+            if type == .ingredientEditable {
+            
+                actionView = {
+                    let view = QuantityPicker(min: 0, max: 10)
+                    view.selectRow(0, inComponent: 0, animated: true)
+                    view.quantityDelegate = self
+                    view.min = minimumQuantity
+                    return view
+                }()
+                
+                contentView.addSubview(actionView!)
+                actionView?.snp.makeConstraints { (make) in
+                    make.height.equalTo(58)
+                    make.width.equalTo(58)
                 }
-                view.metricButton.addTarget(self, action: #selector(metricTapped), for: .touchUpInside)
-                return view
-            }()
+                
+            } else {
+                actionView = {
+                    let view = UILabel()
+                    view.font = Fonts.cStdBook?.withSize(18.0)
+                    view.textColor = Colors.lightGrey
+                    
+                    return view
+                }()
+                contentView.addSubview(actionView!)
+            }
             
             multiplier = 1.8
-            contentView.addSubview(actionView!)
             
         }
 
         actionView?.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview().multipliedBy(multiplier)
             make.centerY.equalToSuperview()
-            make.top.greaterThanOrEqualTo(8)
         }
-    }
-    
-    @objc func incrementTapped() {
-        delegate?.spiceCellDidIncrement(cell: self)
-    }
-    
-    @objc func decrementTapped() {
-        delegate?.spiceCellDidDecrement(cell: self)
-    }
-    @objc func metricTapped() {
-        delegate?.spiceCellDidChangeMetric(cell: self)
     }
 
     private func setupSubviews() {
@@ -221,7 +238,7 @@ class SpiceCell: UITableViewCell {
             make.top.equalToSuperview().offset(8)
             make.leading.equalTo(colorView.snp.trailing).offset(16)
         }
-
+        
         spiceWeightLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(spiceNameLabel.snp.leading)
             make.top.equalTo(spiceNameLabel.snp.bottom)
@@ -236,4 +253,15 @@ class SpiceCell: UITableViewCell {
         setupStyling()
 
     }
+}
+
+extension SpiceCell: QuantityPickerDelegate {
+    func quantityPicker(_ quantityPicker: QuantityPicker, didChange quantity: Int) {
+        delegate?.spiceCell(cell: self, didChange: quantity)
+    }
+    
+    func quantityPicker(_ quantityPicker: QuantityPicker, didChange metric: Metric) {
+        delegate?.spiceCell(cell: self, didChange: metric)
+    }
+    
 }

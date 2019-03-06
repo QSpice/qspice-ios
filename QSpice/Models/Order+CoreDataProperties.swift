@@ -8,7 +8,7 @@ extension Order {
     }
 
     @NSManaged public var date: Date
-    @NSManaged public var quantity: Int32
+    @NSManaged public var quantity: Int
     @NSManaged public var orderItems: NSSet?
     @NSManaged public var recipe: Recipe?
 

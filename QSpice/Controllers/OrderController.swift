@@ -31,9 +31,12 @@ class OrderController {
         clearOrder()
     }
     
-    func updateIngredient(amount: Float, metric: String, for slot: Int) {
-        order.orderItems[slot].ingredient.amount = amount
-        order.orderItems[slot].ingredient.metric = metric
+    func updateIngredient(quantity: Int, for slot: Int) {
+        order.orderItems[slot].ingredient.quantity = quantity
+    }
+    
+    func updateIngredient(metric: Metric, for slot: Int) {
+        order.orderItems[slot].ingredient.metric = metric.rawValue
     }
     
     func fetchActiveSpices() {
@@ -83,7 +86,7 @@ class OrderController {
     }
     
     func isValidListOrder() -> Bool {
-        for item in order.orderItems where item.ingredient.amount > 0 {
+        for item in order.orderItems where item.ingredient.quantity > 0 {
             return true
         }
         
@@ -133,10 +136,12 @@ class OrderController {
         var data = [String]()
         
         for item in orderItems.sorted(by: { $0.ingredient.spice.slot < $1.ingredient.spice.slot }) {
-            let weight = item.ingredient.spice.weight * (item.ingredient.metric == "tbsp" ? 3 : 1)
-            let amount = item.ingredient.amount
+            let multiplier = Helpers.metricTeaspoonMultiplier(from: Metric(rawValue: item.ingredient.metric) ?? .teaspoon)
             
-            let total =  String(format: "%.1f", weight * amount * Float(order.quantity))
+            let weight = item.ingredient.spice.weight * multiplier
+            let quantity = Spice.spiceQuantity(from: item.ingredient.quantity).float
+            
+            let total =  String(format: "%.1f", weight * quantity * Float(order.quantity))
             
             data.append("\(item.ingredient.spice.slot)|\(total)")
         }
@@ -151,7 +156,7 @@ class OrderController {
         order.quantity = 1
         
         for activeSpice in activeSpices {
-            order.orderItems.append(OrderItemDetail(ingredient: IngredientDetail(spice: activeSpice, amount: 0.0, metric: "tsp")))
+            order.orderItems.append(OrderItemDetail(ingredient: IngredientDetail(spice: activeSpice, quantity: 0, metric: 0)))
         }
     }
     
@@ -162,7 +167,7 @@ class OrderController {
         
         var lowLevels = [String]()
         
-        for i in 0..<order.orderItems.count where levels[i] <= 15 && order.orderItems[i].ingredient.amount > 0 {
+        for i in 0..<order.orderItems.count where levels[i] <= 15 && order.orderItems[i].ingredient.quantity > 0 {
             lowLevels.append("\(i+1) (\(order.orderItems[i].ingredient.spice.name))")
         }
         

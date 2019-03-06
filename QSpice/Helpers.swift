@@ -18,4 +18,17 @@ struct Helpers {
         
         return components[1].split(separator: ",").map { Int($0) ?? 0 }
     }
+    
+    static func metricTeaspoonMultiplier(from metric: Metric) -> Float {
+        let multiplier: Float
+        
+        switch metric {
+        case .tablespoon:
+            multiplier = 3
+        default:
+            multiplier = 1
+        }
+        
+        return multiplier
+    }
 }

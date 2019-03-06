@@ -13,8 +13,8 @@ struct RecipeDetail {
 
 struct IngredientDetail {
     var spice: Spice
-    var amount: Float
-    var metric: String
+    var quantity: Int
+    var metric: Int
 }
 
 enum RecipeError: Error {
@@ -45,7 +45,7 @@ class RecipeDetailController {
             recipeDetail.ingredients.removeValue(forKey: key)
         }
         
-        recipeDetail.ingredients[slot] = IngredientDetail(spice: spice, amount: 1, metric: "tsp")
+        recipeDetail.ingredients[slot] = IngredientDetail(spice: spice, quantity: 1, metric: 0)
         
     }
     
@@ -53,9 +53,12 @@ class RecipeDetailController {
         recipeDetail.ingredients.removeValue(forKey: slot)
     }
     
-    func updateIngredient(amount: Float, metric: String, for slot: Int) {
-        recipeDetail.ingredients[slot]?.amount = amount
-        recipeDetail.ingredients[slot]?.metric = metric
+    func updateIngredient(quantity: Int, for slot: Int) {
+        recipeDetail.ingredients[slot]?.quantity = quantity
+    }
+    
+    func updateIngredient(metric: Metric, for slot: Int) {
+        recipeDetail.ingredients[slot]?.metric = metric.rawValue
     }
     
     func addRecipe(name: String, link: String, content: String, image: Data?) throws {

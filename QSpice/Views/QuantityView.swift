@@ -17,12 +17,7 @@ class QuantityView: UIView {
         return label
     }()
     
-    let amountView: AdjustableAmountView = {
-        let view = AdjustableAmountView()
-        view.caretTint = Colors.darkGrey
-        view.metricButton.setTitle("", for: .normal)
-        return view
-    }()
+    let quantityPicker = IntegerPicker(min: 1, max: 100)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,7 +36,7 @@ class QuantityView: UIView {
     private func setupSubviews() {
         addSubview(titleLabel)
         addSubview(subTitleLabel)
-        addSubview(amountView)
+        addSubview(quantityPicker)
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
@@ -54,8 +49,11 @@ class QuantityView: UIView {
             make.leading.equalTo(titleLabel.snp.leading)
         }
         
-        amountView.snp.makeConstraints { make in
-            make.centerY.trailing.equalToSuperview()
+        quantityPicker.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-32)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(40)
+            make.top.bottom.equalToSuperview()
             
         }
         

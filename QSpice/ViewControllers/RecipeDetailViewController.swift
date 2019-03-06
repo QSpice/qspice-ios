@@ -288,11 +288,12 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
                     cell.type = .ingredient
                 }
                 
+                cell.minimumQuantity = 1
                 cell.delegate = self
                 cell.color = UIColor(hexString: ingredient.spice.color)
                 cell.spiceNameLabel.text = ingredient.spice.name
                 cell.weight = "\(ingredient.spice.weight)"
-                cell.amount = ingredient.amount
+                cell.quantity = ingredient.quantity
                 cell.metric = ingredient.metric
             } else {
                 cell.type = .unselected
@@ -370,36 +371,20 @@ extension RecipeDetailViewController: SpiceSelectionDelegate {
 // MARK: Spice Cell Delegate
 
 extension RecipeDetailViewController: SpiceCellDelegate {
-    func spiceCellDidChangeMetric(cell: SpiceCell) {
+    func spiceCell(cell: SpiceCell, didChange quantity: Int) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
         
-        if cell.metric == "tsp" {
-            cell.metric = "tbsp"
-        } else {
-            cell.metric = "tsp"
-        }
-        
-        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
+        controller.updateIngredient(quantity: quantity, for: indexPath.row + 1)
     }
     
-    func spiceCellDidIncrement(cell: SpiceCell) {
+    func spiceCell(cell: SpiceCell, didChange metric: Metric) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
         
-        cell.amount = Spice.nextAmount(after: cell.amount, increment: true)
-        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
-    }
-    
-    func spiceCellDidDecrement(cell: SpiceCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else {
-            return
-        }
-        
-        cell.amount = Spice.nextAmount(after: cell.amount, increment: false)
-        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row + 1)
+        controller.updateIngredient(metric: metric, for: indexPath.row + 1)
     }
     
 }

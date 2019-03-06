@@ -96,7 +96,7 @@ extension ListOrderViewController: UITableViewDataSource, UITableViewDelegate {
         cell.spiceNameLabel.text = ingredient.spice.name
         cell.color = UIColor(hexString: ingredient.spice.color)
         cell.weight = "\(ingredient.spice.weight)"
-        cell.amount = ingredient.amount
+        cell.quantity = ingredient.quantity
         cell.metric = ingredient.metric
         
         return cell
@@ -105,37 +105,20 @@ extension ListOrderViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ListOrderViewController: SpiceCellDelegate {
-    func spiceCellDidChangeMetric(cell: SpiceCell) {
+    func spiceCell(cell: SpiceCell, didChange quantity: Int) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
         
-        if cell.metric == "tsp" {
-            cell.metric = "tbsp"
-        } else {
-            cell.metric = "tsp"
-        }
-        
-        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row)
-    }
-    
-    func spiceCellDidIncrement(cell: SpiceCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else {
-            return
-        }
-        
-        cell.amount = Spice.nextAmount(after: cell.amount, increment: true, allowZero: true)
-        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row)
+        controller.updateIngredient(quantity: quantity, for: indexPath.row)
         updateView()
     }
     
-    func spiceCellDidDecrement(cell: SpiceCell) {
+    func spiceCell(cell: SpiceCell, didChange metric: Metric) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
         
-        cell.amount = Spice.nextAmount(after: cell.amount, increment: false, allowZero: true)
-        controller.updateIngredient(amount: cell.amount, metric: cell.metric, for: indexPath.row)
-        updateView()
+        controller.updateIngredient(metric: metric, for: indexPath.row)
     }
 }

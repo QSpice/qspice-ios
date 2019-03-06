@@ -7,8 +7,8 @@ extension Ingredient {
         return NSFetchRequest<Ingredient>(entityName: "Ingredient")
     }
 
-    @NSManaged public var amount: Float
-    @NSManaged public var metric: String
+    @NSManaged public var quantity: Int
+    @NSManaged public var metric: Int
     @NSManaged public var orderItems: NSSet?
     @NSManaged public var recipe: Recipe?
     @NSManaged public var spice: Spice

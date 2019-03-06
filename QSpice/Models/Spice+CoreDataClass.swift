@@ -12,32 +12,20 @@ public class Spice: NSManagedObject {
             return "\(Int(value))"
         }
     }
-    static func nextAmount(after current: Float, increment: Bool, allowZero: Bool = false) -> Float {
-        var numeric: Float = 0.0
-
-        if increment {
-            if current == 0.0 {
-                numeric = 0.25
-            } else if current == 0.25 {
-                numeric = 0.5
-            } else if current == 0.5 {
-                numeric = 1.0
-            } else {
-                numeric = current + 1.0
-            }
-        } else {
-            if current == 0.25 && allowZero {
-                numeric = 0.0
-            } else if current == 0.5 {
-                numeric = 0.25
-            } else if current == 1.0 {
-                numeric = 0.5
-            } else {
-                numeric = max(allowZero ? 0.0 : 0.25, current - 1.0)
-            }
+    
+    static func spiceQuantity(from index: Int) -> (string: String, float: Float) {
+        switch index {
+        case 0:
+            return ("0", 0)
+        case 1:
+            return ("¼", 0.25)
+        case 2:
+            return ("½", 0.5)
+        default:
+            let value = index - 2
+            return ("\(value)", Float(value))
         }
         
-        return numeric
     }
     
     static func mapSpiceWeight(value: Float, metric: String) -> Float {

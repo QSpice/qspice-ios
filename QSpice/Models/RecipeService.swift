@@ -17,7 +17,7 @@ class RecipeService {
         
         for ingredientDetail in recipeDetail.ingredients.values {
             let ingredient = Ingredient(context: context)
-            ingredient.amount = ingredientDetail.amount
+            ingredient.quantity = ingredientDetail.quantity
             ingredient.metric = ingredientDetail.metric
             ingredient.spice = ingredientDetail.spice
             recipe.addToIngredients(ingredient)
@@ -42,7 +42,7 @@ class RecipeService {
         
         for ingredientDetail in recipeDetail.ingredients.values {
             let ingredient = Ingredient(context: context)
-            ingredient.amount = ingredientDetail.amount
+            ingredient.quantity = ingredientDetail.quantity
             ingredient.metric = ingredientDetail.metric
             ingredient.spice = ingredientDetail.spice
             recipe.addToIngredients(ingredient)

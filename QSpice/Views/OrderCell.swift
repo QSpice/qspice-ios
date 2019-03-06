@@ -55,7 +55,7 @@ class OrderCell: UITableViewCell {
         var text: String = ""
         
         for (i, item) in orderItems.enumerated() {
-            text += "- \(Spice.mapSpiceAmount(value: item.ingredient.amount)) \(item.ingredient.metric) \(item.ingredient.spice.name)"
+            text += "- \(Spice.spiceQuantity(from: item.ingredient.quantity)) \(item.ingredient.metric) \(item.ingredient.spice.name)"
             
             if i < orderItems.count - 1 {
                 text += "\n"
@@ -80,7 +80,8 @@ class OrderCell: UITableViewCell {
         let orderItems = order.orderItems?.allObjects as? [OrderItem] ?? []
         
         for (i, item) in orderItems.enumerated() {
-            text += "- \(Spice.mapSpiceAmount(value: item.ingredient.amount)) \(item.ingredient.metric) \(item.ingredient.spice.name)"
+            let metric = (Metric(rawValue: item.ingredient.metric) ?? .teaspoon).name
+            text += "- \(Spice.spiceQuantity(from: item.ingredient.quantity).string) \(metric) \(item.ingredient.spice.name)"
             
             if i < orderItems.count - 1 {
                 text += "\n"

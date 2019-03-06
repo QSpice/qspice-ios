@@ -92,7 +92,7 @@ class RecipesViewController: UITableViewController {
         let ingredients: [Int: IngredientDetail]? = recipe.ingredients?.reduce(into: [:]) { ingredients, ingredient in
             i += 1
             if let ingredient = ingredient as? Ingredient {
-                ingredients?[i] = IngredientDetail(spice: ingredient.spice, amount: ingredient.amount, metric: ingredient.metric)
+                ingredients?[i] = IngredientDetail(spice: ingredient.spice, quantity: ingredient.quantity, metric: ingredient.metric)
             }
         }
         

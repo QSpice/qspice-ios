@@ -78,10 +78,6 @@ class SpiceSelectionViewController: UITableViewController {
         delegate?.didSelect(spice: spice, for: spiceNumber)
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
-    }
-    
     // MARK: View Management
 
     private func prepareView() {
@@ -97,6 +93,8 @@ class SpiceSelectionViewController: UITableViewController {
         tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsets.zero
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
     }
     
 }

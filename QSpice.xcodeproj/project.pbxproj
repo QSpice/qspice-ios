@@ -21,11 +21,12 @@
 		9256179721E4F9140081BFB4 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179621E4F9140081BFB4 /* BLEManager.swift */; };
 		9267F192221F47DB00E47913 /* NoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267F191221F47DB00E47913 /* NoContentView.swift */; };
 		9270D76821D681A5004AE374 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D76721D681A5004AE374 /* RecipeCell.swift */; };
-		9270D76A21D6C217004AE374 /* AdjustableAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D76921D6C217004AE374 /* AdjustableAmountView.swift */; };
 		9270D77921D6FAA4004AE374 /* Recipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */; };
 		9270D77A21D6FAA4004AE374 /* Spice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77621D6FAA4004AE374 /* Spice+CoreDataProperties.swift */; };
 		9270D77B21D6FAA4004AE374 /* Ingredient+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77721D6FAA4004AE374 /* Ingredient+CoreDataClass.swift */; };
 		9270D77C21D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */; };
+		92755676222F16F5001C44D6 /* IntegerPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92755675222F16F5001C44D6 /* IntegerPicker.swift */; };
+		92755678222F268C001C44D6 /* QuantityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92755677222F268C001C44D6 /* QuantityPicker.swift */; };
 		928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */; };
 		92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */; };
 		92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */; };
@@ -105,11 +106,12 @@
 		9256179621E4F9140081BFB4 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		9267F191221F47DB00E47913 /* NoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentView.swift; sourceTree = "<group>"; };
 		9270D76721D681A5004AE374 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
-		9270D76921D6C217004AE374 /* AdjustableAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustableAmountView.swift; sourceTree = "<group>"; };
 		9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9270D77621D6FAA4004AE374 /* Spice+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spice+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9270D77721D6FAA4004AE374 /* Ingredient+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		92755675222F16F5001C44D6 /* IntegerPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerPicker.swift; sourceTree = "<group>"; };
+		92755677222F268C001C44D6 /* QuantityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPicker.swift; sourceTree = "<group>"; };
 		928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSCoachMarkBodyView.swift; sourceTree = "<group>"; };
 		92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
@@ -229,12 +231,13 @@
 				92A3985B21DD4F9000F28D7A /* SettingCell.swift */,
 				92ABEBBD21D586CF00ADA054 /* ActionButton.swift */,
 				9270D76721D681A5004AE374 /* RecipeCell.swift */,
-				9270D76921D6C217004AE374 /* AdjustableAmountView.swift */,
 				92E2295921D83315003C7A5E /* NoIntrinsicSizeImageView.swift */,
 				921769B521D9667D00BF231C /* OrderSelectionView.swift */,
 				921769C321DA8D7900BF231C /* QuantityView.swift */,
 				928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */,
 				9267F191221F47DB00E47913 /* NoContentView.swift */,
+				92755675222F16F5001C44D6 /* IntegerPicker.swift */,
+				92755677222F268C001C44D6 /* QuantityPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -570,7 +573,6 @@
 				92A3985721DD254900F28D7A /* OrderItem+CoreDataClass.swift in Sources */,
 				92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */,
 				928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */,
-				9270D76A21D6C217004AE374 /* AdjustableAmountView.swift in Sources */,
 				92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */,
 				92ABEB9F21D56E8600ADA054 /* CameraButton.swift in Sources */,
 				92ABEBAD21D56EC300ADA054 /* UIImage+Extension.swift in Sources */,
@@ -603,12 +605,14 @@
 				92ABEBA021D56E8600ADA054 /* FlashButton.swift in Sources */,
 				92A3985A21DD3B3D00F28D7A /* OrderCell.swift in Sources */,
 				92ABEBA321D56E8600ADA054 /* PhotoEditingViewController.swift in Sources */,
+				92755676222F16F5001C44D6 /* IntegerPicker.swift in Sources */,
 				92ABEBB421D56F7900ADA054 /* ModalCardTransition.swift in Sources */,
 				92ABEBBE21D586CF00ADA054 /* ActionButton.swift in Sources */,
 				92A3986221DD9B1C00F28D7A /* QSNavigationController.swift in Sources */,
 				92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */,
 				921769BC21D981A800BF231C /* SettingsViewController.swift in Sources */,
 				92E2295A21D83315003C7A5E /* NoIntrinsicSizeImageView.swift in Sources */,
+				92755678222F268C001C44D6 /* QuantityPicker.swift in Sources */,
 				92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */,
 				9267F192221F47DB00E47913 /* NoContentView.swift in Sources */,
 				921769BE21D997D800BF231C /* ListOrderViewController.swift in Sources */,

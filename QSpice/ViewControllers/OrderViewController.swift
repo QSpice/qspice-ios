@@ -54,8 +54,6 @@ class OrderViewController: UIViewController {
         tableView.estimatedRowHeight = 60
         
         placeOrderButton.addTarget(self, action: #selector(checkDeviceStatus), for: .touchUpInside)
-        quantityView.amountView.incrementButton.addTarget(self, action: #selector(incrementQuantity), for: .touchUpInside)
-        quantityView.amountView.decrementButton.addTarget(self, action: #selector(decrementQuantity), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,14 +94,6 @@ class OrderViewController: UIViewController {
     }
     
     internal func updateView() {
-    }
-    
-    @objc func incrementQuantity() {
-        quantityView.amountView.amount = controller.updateOrder(quantity: 1)
-    }
-    
-    @objc func decrementQuantity() {
-        quantityView.amountView.amount = controller.updateOrder(quantity: -1)
     }
     
     func placeOrder(spiceLevels: [Int]) {

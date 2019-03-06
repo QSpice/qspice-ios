@@ -42,13 +42,13 @@ class SpiceService {
         let order = Order(context: context)
         
         order.date = Date()
-        order.quantity = Int32(orderDetail.quantity)
+        order.quantity = orderDetail.quantity
         
-        for item in orderDetail.orderItems where item.ingredient.amount > 0.0 {
+        for item in orderDetail.orderItems where item.ingredient.quantity > 0 {
             let orderItem = OrderItem(context: context)
             
             let ingredient = Ingredient(context: context)
-            ingredient.amount = item.ingredient.amount
+            ingredient.quantity = item.ingredient.quantity
             ingredient.metric = item.ingredient.metric
             ingredient.spice = item.ingredient.spice
             
@@ -68,7 +68,7 @@ class SpiceService {
         let order = Order(context: context)
         
         order.date = Date()
-        order.quantity = Int32(orderDetail.quantity)
+        order.quantity = orderDetail.quantity
         order.recipe = recipe
         
         for ingredient in recipe.ingredients?.allObjects as? [Ingredient] ?? [] {
