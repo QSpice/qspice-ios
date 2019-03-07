@@ -1,5 +1,6 @@
 import UIKit
 import CoreData
+import Intents
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -60,8 +61,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             activeSpicesViewController.showAlert(title: AlertMessages.initSpices.title, subtitle: AlertMessages.initSpices.subtitle)
         }
+        
+        createIntent()
 
         return true
+    }
+    
+    func createIntent() {
+        let intent = DispenseRecipeIntent()
+        intent.name = "Pasta"
+        
+        let interaction = INInteraction(intent: intent, response: nil)
+        
+        interaction.donate(completion: nil)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

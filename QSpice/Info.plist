@@ -20,12 +20,22 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>To add photos to your recipes</string>
 	<key>NSCameraUsageDescription</key>
 	<string>To capture your photos of your recipes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To add photos to your recipes</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>DispenseRecipeIntent</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>CircularStd-Book.otf</string>
+		<string>CircularStd-Medium.otf</string>
+		<string>CircularStd-Bold.otf</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -42,12 +52,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>CircularStd-Book.otf</string>
-		<string>CircularStd-Medium.otf</string>
-		<string>CircularStd-Bold.otf</string>
 	</array>
 </dict>
 </plist>

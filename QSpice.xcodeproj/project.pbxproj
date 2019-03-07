@@ -27,6 +27,13 @@
 		9270D77C21D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */; };
 		92755676222F16F5001C44D6 /* IntegerPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92755675222F16F5001C44D6 /* IntegerPicker.swift */; };
 		92755678222F268C001C44D6 /* QuantityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92755677222F268C001C44D6 /* QuantityPicker.swift */; };
+		927D0F492231682600F9487B /* QSpiceKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 927D0F472231682600F9487B /* QSpiceKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		927D0F4C2231682600F9487B /* QSpiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927D0F452231682600F9487B /* QSpiceKit.framework */; };
+		927D0F4D2231682600F9487B /* QSpiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 927D0F452231682600F9487B /* QSpiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		927D0F53223168D000F9487B /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F52223168D000F9487B /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
+		927D0F5B22316CC400F9487B /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F5A22316CC400F9487B /* IntentHandler.swift */; };
+		927D0F5F22316CC400F9487B /* RecipeIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 927D0F5822316CC400F9487B /* RecipeIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		927D0F6422316F5E00F9487B /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F52223168D000F9487B /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */; };
 		92916A4921CECAEC004349C2 /* Recipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */; };
 		92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */; };
@@ -90,6 +97,48 @@
 		F0736DB90FAC5CEED2E36D97 /* Pods_QSpice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A371AF273A1B7CD72C8582 /* Pods_QSpice.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		927D0F4A2231682600F9487B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92EFAB4A2149625400F25837 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 927D0F442231682600F9487B;
+			remoteInfo = QSpiceKit;
+		};
+		927D0F5D22316CC400F9487B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92EFAB4A2149625400F25837 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 927D0F5722316CC400F9487B;
+			remoteInfo = RecipeIntents;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		927D0F512231682600F9487B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				927D0F4D2231682600F9487B /* QSpiceKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		927D0F6322316CC400F9487B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				927D0F5F22316CC400F9487B /* RecipeIntents.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		86B00A485558FFFE02A67051 /* Pods-QSpice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QSpice.release.xcconfig"; path = "Pods/Target Support Files/Pods-QSpice/Pods-QSpice.release.xcconfig"; sourceTree = "<group>"; };
 		921769B321D960F700BF231C /* CreateOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +161,13 @@
 		9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		92755675222F16F5001C44D6 /* IntegerPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerPicker.swift; sourceTree = "<group>"; };
 		92755677222F268C001C44D6 /* QuantityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPicker.swift; sourceTree = "<group>"; };
+		927D0F452231682600F9487B /* QSpiceKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QSpiceKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		927D0F472231682600F9487B /* QSpiceKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSpiceKit.h; sourceTree = "<group>"; };
+		927D0F482231682600F9487B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		927D0F52223168D000F9487B /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		927D0F5822316CC400F9487B /* RecipeIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RecipeIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		927D0F5A22316CC400F9487B /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		927D0F5C22316CC400F9487B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSCoachMarkBodyView.swift; sourceTree = "<group>"; };
 		92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
@@ -179,10 +235,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		927D0F422231682600F9487B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		927D0F5522316CC400F9487B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92EFAB4F2149625400F25837 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				927D0F4C2231682600F9487B /* QSpiceKit.framework in Frameworks */,
 				F0736DB90FAC5CEED2E36D97 /* Pods_QSpice.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +346,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		927D0F462231682600F9487B /* QSpiceKit */ = {
+			isa = PBXGroup;
+			children = (
+				927D0F472231682600F9487B /* QSpiceKit.h */,
+				927D0F482231682600F9487B /* Info.plist */,
+			);
+			path = QSpiceKit;
+			sourceTree = "<group>";
+		};
+		927D0F5922316CC400F9487B /* RecipeIntents */ = {
+			isa = PBXGroup;
+			children = (
+				927D0F5A22316CC400F9487B /* IntentHandler.swift */,
+				927D0F5C22316CC400F9487B /* Info.plist */,
+			);
+			path = RecipeIntents;
+			sourceTree = "<group>";
+		};
 		9291F96121CD89F700A15F15 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +450,8 @@
 			isa = PBXGroup;
 			children = (
 				92EFAB542149625400F25837 /* QSpice */,
+				927D0F462231682600F9487B /* QSpiceKit */,
+				927D0F5922316CC400F9487B /* RecipeIntents */,
 				92EFAB532149625400F25837 /* Products */,
 				5A1091E592FCCD88695A8943 /* Pods */,
 				0623819920B6E6602D8CAA3B /* Frameworks */,
@@ -371,6 +462,8 @@
 			isa = PBXGroup;
 			children = (
 				92EFAB522149625400F25837 /* QSpice.app */,
+				927D0F452231682600F9487B /* QSpiceKit.framework */,
+				927D0F5822316CC400F9487B /* RecipeIntents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -389,13 +482,60 @@
 				9291F96121CD89F700A15F15 /* Models */,
 				92DF193721CB1C7A0028BE0F /* Extensions */,
 				9238E95621CEC4B800136BAB /* Supporting Files */,
+				927D0F52223168D000F9487B /* Intents.intentdefinition */,
 			);
 			path = QSpice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		927D0F402231682600F9487B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				927D0F492231682600F9487B /* QSpiceKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		927D0F442231682600F9487B /* QSpiceKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 927D0F502231682600F9487B /* Build configuration list for PBXNativeTarget "QSpiceKit" */;
+			buildPhases = (
+				927D0F402231682600F9487B /* Headers */,
+				927D0F412231682600F9487B /* Sources */,
+				927D0F422231682600F9487B /* Frameworks */,
+				927D0F432231682600F9487B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QSpiceKit;
+			productName = QSpiceKit;
+			productReference = 927D0F452231682600F9487B /* QSpiceKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		927D0F5722316CC400F9487B /* RecipeIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 927D0F6022316CC400F9487B /* Build configuration list for PBXNativeTarget "RecipeIntents" */;
+			buildPhases = (
+				927D0F5422316CC400F9487B /* Sources */,
+				927D0F5522316CC400F9487B /* Frameworks */,
+				927D0F5622316CC400F9487B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RecipeIntents;
+			productName = RecipeIntents;
+			productReference = 927D0F5822316CC400F9487B /* RecipeIntents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		92EFAB512149625400F25837 /* QSpice */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92EFAB672149625600F25837 /* Build configuration list for PBXNativeTarget "QSpice" */;
@@ -407,10 +547,14 @@
 				5986E018C16DC8D846785961 /* [CP] Embed Pods Frameworks */,
 				1EEF89B6502B852402405949 /* [CP] Copy Pods Resources */,
 				92EFAB6A21498B0C00F25837 /* ShellScript */,
+				927D0F512231682600F9487B /* Embed Frameworks */,
+				927D0F6322316CC400F9487B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				927D0F4B2231682600F9487B /* PBXTargetDependency */,
+				927D0F5E22316CC400F9487B /* PBXTargetDependency */,
 			);
 			name = QSpice;
 			productName = QSpice;
@@ -423,10 +567,16 @@
 		92EFAB4A2149625400F25837 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Anthony Fiorito";
 				TargetAttributes = {
+					927D0F442231682600F9487B = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					927D0F5722316CC400F9487B = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					92EFAB512149625400F25837 = {
 						CreatedOnToolsVersion = 10.0;
 					};
@@ -446,11 +596,27 @@
 			projectRoot = "";
 			targets = (
 				92EFAB512149625400F25837 /* QSpice */,
+				927D0F442231682600F9487B /* QSpiceKit */,
+				927D0F5722316CC400F9487B /* RecipeIntents */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		927D0F432231682600F9487B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		927D0F5622316CC400F9487B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92EFAB502149625400F25837 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -558,6 +724,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		927D0F412231682600F9487B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		927D0F5422316CC400F9487B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				927D0F6422316F5E00F9487B /* Intents.intentdefinition in Sources */,
+				927D0F5B22316CC400F9487B /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92EFAB4E2149625400F25837 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -625,6 +807,7 @@
 				9256179521E4F4520081BFB4 /* BLEScanViewController.swift in Sources */,
 				9232157421EAC798002C68BD /* OrderViewController.swift in Sources */,
 				92ABEBA221D56E8600ADA054 /* MediaPickerTransitionContext.swift in Sources */,
+				927D0F53223168D000F9487B /* Intents.intentdefinition in Sources */,
 				92ABEBC421D59B1600ADA054 /* RecipeController.swift in Sources */,
 				9270D77A21D6FAA4004AE374 /* Spice+CoreDataProperties.swift in Sources */,
 				92ABEBC021D597B300ADA054 /* RecipeDetailController.swift in Sources */,
@@ -641,6 +824,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		927D0F4B2231682600F9487B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 927D0F442231682600F9487B /* QSpiceKit */;
+			targetProxy = 927D0F4A2231682600F9487B /* PBXContainerItemProxy */;
+		};
+		927D0F5E22316CC400F9487B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 927D0F5722316CC400F9487B /* RecipeIntents */;
+			targetProxy = 927D0F5D22316CC400F9487B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		92EFAB612149625500F25837 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -653,6 +849,106 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		927D0F4E2231682600F9487B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = QXLVEU7SE4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = QSpiceKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.electriapp.QSpiceKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		927D0F4F2231682600F9487B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = QXLVEU7SE4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = QSpiceKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.electriapp.QSpiceKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		927D0F6122316CC400F9487B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QXLVEU7SE4;
+				INFOPLIST_FILE = RecipeIntents/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.electriapp.QSpice.RecipeIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		927D0F6222316CC400F9487B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QXLVEU7SE4;
+				INFOPLIST_FILE = RecipeIntents/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.electriapp.QSpice.RecipeIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		92EFAB652149625600F25837 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -773,11 +1069,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E225C9CB22274FE455F09393 /* Pods-QSpice.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QXLVEU7SE4;
 				INFOPLIST_FILE = QSpice/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -793,11 +1090,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86B00A485558FFFE02A67051 /* Pods-QSpice.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QXLVEU7SE4;
 				INFOPLIST_FILE = QSpice/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -812,6 +1110,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		927D0F502231682600F9487B /* Build configuration list for PBXNativeTarget "QSpiceKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				927D0F4E2231682600F9487B /* Debug */,
+				927D0F4F2231682600F9487B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		927D0F6022316CC400F9487B /* Build configuration list for PBXNativeTarget "RecipeIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				927D0F6122316CC400F9487B /* Debug */,
+				927D0F6222316CC400F9487B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		92EFAB4D2149625400F25837 /* Build configuration list for PBXProject "QSpice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
