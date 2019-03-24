@@ -162,6 +162,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
             
             if message.last == "\n" {
                 messageBuffer.removeLast()
+                print(messageBuffer)
                 delegate?.manager?(self, didReceive: messageBuffer, error: error)
                 messageBuffer = ""
             }
