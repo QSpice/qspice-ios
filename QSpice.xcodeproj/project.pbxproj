@@ -29,6 +29,7 @@
 		927D0F5B22316CC400F9487B /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F5A22316CC400F9487B /* IntentHandler.swift */; };
 		927D0F5F22316CC400F9487B /* RecipeIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 927D0F5822316CC400F9487B /* RecipeIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		927D0F6422316F5E00F9487B /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F52223168D000F9487B /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
+		9280917922481A0000A9A506 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179621E4F9140081BFB4 /* BLEManager.swift */; };
 		928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */; };
 		92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */; };
 		92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4F21CEE3BA004349C2 /* LinkCell.swift */; };
@@ -40,7 +41,6 @@
 		92A3985C21DD4F9000F28D7A /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3985B21DD4F9000F28D7A /* SettingCell.swift */; };
 		92A3985E21DD519200F28D7A /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3985D21DD519200F28D7A /* SettingsController.swift */; };
 		92A3986221DD9B1C00F28D7A /* QSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3986121DD9B1C00F28D7A /* QSNavigationController.swift */; };
-		92A3986421DDA92700F28D7A /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3986321DDA92700F28D7A /* UIViewController+Extension.swift */; };
 		92ABEB9D21D56E8600ADA054 /* CroppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB8D21D56E8600ADA054 /* CroppingView.swift */; };
 		92ABEB9E21D56E8600ADA054 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB8E21D56E8600ADA054 /* PreviewView.swift */; };
 		92ABEB9F21D56E8600ADA054 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9021D56E8600ADA054 /* CameraButton.swift */; };
@@ -56,31 +56,35 @@
 		92ABEBA921D56E8600ADA054 /* MediaPickerTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9A21D56E8600ADA054 /* MediaPickerTransitionDriver.swift */; };
 		92ABEBAA21D56E8600ADA054 /* CameraCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9B21D56E8600ADA054 /* CameraCaptureController.swift */; };
 		92ABEBAB21D56E8600ADA054 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEB9C21D56E8600ADA054 /* GridView.swift */; };
-		92ABEBAD21D56EC300ADA054 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBAC21D56EC300ADA054 /* UIImage+Extension.swift */; };
-		92ABEBAF21D56F4A00ADA054 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBAE21D56F4A00ADA054 /* Math.swift */; };
 		92ABEBB421D56F7900ADA054 /* ModalCardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB121D56F7900ADA054 /* ModalCardTransition.swift */; };
 		92ABEBB521D56F7900ADA054 /* ModalCardTransitionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB221D56F7900ADA054 /* ModalCardTransitionContext.swift */; };
 		92ABEBB621D56F7900ADA054 /* ModalCardTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB321D56F7900ADA054 /* ModalCardTransitionDriver.swift */; };
 		92ABEBB821D56F9900ADA054 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB721D56F9900ADA054 /* CancelButton.swift */; };
-		92ABEBBA21D570F000ADA054 /* AVFoundation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB921D570EF00ADA054 /* AVFoundation+Extension.swift */; };
 		92ABEBBE21D586CF00ADA054 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBBD21D586CF00ADA054 /* ActionButton.swift */; };
 		92ABEBC021D597B300ADA054 /* RecipeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBBF21D597B300ADA054 /* RecipeDetailController.swift */; };
-		92ABEBC421D59B1600ADA054 /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBC321D59B1600ADA054 /* RecipeController.swift */; };
 		92AD28D222452D5F00E9F6A8 /* spices.csv in Resources */ = {isa = PBXBuildFile; fileRef = 92AD28D122452D5E00E9F6A8 /* spices.csv */; };
 		92DD30182247E678006770C8 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179621E4F9140081BFB4 /* BLEManager.swift */; };
+		92DD301F2247F6BD006770C8 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD301E2247F6BD006770C8 /* CoreDataManager.swift */; };
+		92DD30202247FACB006770C8 /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBC321D59B1600ADA054 /* RecipeController.swift */; };
+		92DD30212248007C006770C8 /* QSpice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */; };
+		92DD302322480149006770C8 /* SharedPersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD302222480149006770C8 /* SharedPersistentContainer.swift */; };
+		92DD30282248051D006770C8 /* QSpice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */; };
+		92DD3029224809D3006770C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB6D2149CD4E00F25837 /* Constants.swift */; };
+		92DD302A22480C76006770C8 /* AVFoundation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBB921D570EF00ADA054 /* AVFoundation+Extension.swift */; };
+		92DD302B22480C7A006770C8 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBAE21D56F4A00ADA054 /* Math.swift */; };
+		92DD302C22480C7D006770C8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF193821CB1C9E0028BE0F /* UIColor+Extension.swift */; };
+		92DD302D22480C80006770C8 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABEBAC21D56EC300ADA054 /* UIImage+Extension.swift */; };
+		92DD303022480CCC006770C8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3986321DDA92700F28D7A /* UIViewController+Extension.swift */; };
 		92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF192E21CAD18B0028BE0F /* SpiceCell.swift */; };
 		92DF193421CB1AE80028BE0F /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */; };
 		92DF193521CB1AE80028BE0F /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */; };
 		92DF193621CB1AE80028BE0F /* CircularStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92DF193321CB1AE80028BE0F /* CircularStd-Medium.otf */; };
-		92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF193821CB1C9E0028BE0F /* UIColor+Extension.swift */; };
 		92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF193A21CC845F0028BE0F /* SpiceSelectionViewController.swift */; };
 		92E2295A21D83315003C7A5E /* NoIntrinsicSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2295921D83315003C7A5E /* NoIntrinsicSizeImageView.swift */; };
 		92EFAB562149625400F25837 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB552149625400F25837 /* AppDelegate.swift */; };
 		92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB572149625400F25837 /* ActiveSpicesViewController.swift */; };
-		92EFAB5E2149625400F25837 /* QSpice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */; };
 		92EFAB602149625500F25837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EFAB5F2149625500F25837 /* Assets.xcassets */; };
 		92EFAB632149625500F25837 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EFAB612149625500F25837 /* LaunchScreen.storyboard */; };
-		92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAB6D2149CD4E00F25837 /* Constants.swift */; };
 		92F99D472247E1B700D6E76C /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921769BF21DA7EFF00BF231C /* OrderController.swift */; };
 		92F99D482247E1E200D6E76C /* SpiceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F96621CD8C7700A15F15 /* SpiceService.swift */; };
 		92F99D492247E1F800D6E76C /* Recipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */; };
@@ -218,6 +222,10 @@
 		92ABEBC121D599AB00ADA054 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
 		92ABEBC321D59B1600ADA054 /* RecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeController.swift; sourceTree = "<group>"; };
 		92AD28D122452D5E00E9F6A8 /* spices.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spices.csv; sourceTree = "<group>"; };
+		92DD301C2247F493006770C8 /* QSpice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QSpice.entitlements; sourceTree = "<group>"; };
+		92DD301D2247F4C8006770C8 /* RecipeIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeIntents.entitlements; sourceTree = "<group>"; };
+		92DD301E2247F6BD006770C8 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		92DD302222480149006770C8 /* SharedPersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedPersistentContainer.swift; sourceTree = "<group>"; };
 		92DF192E21CAD18B0028BE0F /* SpiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceCell.swift; sourceTree = "<group>"; };
 		92DF193121CB1AE80028BE0F /* CircularStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.otf"; sourceTree = "<group>"; };
 		92DF193221CB1AE80028BE0F /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
@@ -292,7 +300,6 @@
 				9291F95B21CD85EB00A15F15 /* SpiceController.swift */,
 				9291F96821CDB0A100A15F15 /* SpiceSelectionController.swift */,
 				92ABEBBF21D597B300ADA054 /* RecipeDetailController.swift */,
-				92ABEBC321D59B1600ADA054 /* RecipeController.swift */,
 				92A3985D21DD519200F28D7A /* SettingsController.swift */,
 			);
 			path = Controllers;
@@ -344,7 +351,6 @@
 			children = (
 				92AD28D122452D5E00E9F6A8 /* spices.csv */,
 				92EFAB5F2149625500F25837 /* Assets.xcassets */,
-				92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */,
 				92EFAB612149625500F25837 /* LaunchScreen.storyboard */,
 				92EFAB642149625600F25837 /* Info.plist */,
 				92DF193021CB1AE80028BE0F /* fonts */,
@@ -355,22 +361,14 @@
 		927D0F462231682600F9487B /* QSpiceKit */ = {
 			isa = PBXGroup;
 			children = (
-				9256179621E4F9140081BFB4 /* BLEManager.swift */,
+				92DD301B2247F327006770C8 /* Controllers */,
+				92DD301A2247F318006770C8 /* Services */,
+				92DD30192247F2CF006770C8 /* Models */,
+				92DF193721CB1C7A0028BE0F /* Extensions */,
+				92EFAB6D2149CD4E00F25837 /* Constants.swift */,
 				9291F95521CD6EEC00A15F15 /* Helpers.swift */,
-				9270D77621D6FAA4004AE374 /* Spice+CoreDataProperties.swift */,
-				9291F96221CD8A0C00A15F15 /* Spice+CoreDataClass.swift */,
-				92A3985321DD254900F28D7A /* OrderItem+CoreDataClass.swift */,
-				92A3985421DD254900F28D7A /* OrderItem+CoreDataProperties.swift */,
-				92A3985221DD254900F28D7A /* Order+CoreDataProperties.swift */,
-				92A3985121DD254900F28D7A /* Order+CoreDataClass.swift */,
-				92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */,
-				9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */,
-				9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */,
-				9270D77721D6FAA4004AE374 /* Ingredient+CoreDataClass.swift */,
-				92ABEBC121D599AB00ADA054 /* RecipeService.swift */,
-				9291F96621CD8C7700A15F15 /* SpiceService.swift */,
-				921769BF21DA7EFF00BF231C /* OrderController.swift */,
 				927D0F472231682600F9487B /* QSpiceKit.h */,
+				92EFAB5C2149625400F25837 /* QSpice.xcdatamodeld */,
 				927D0F482231682600F9487B /* Info.plist */,
 			);
 			path = QSpiceKit;
@@ -379,17 +377,11 @@
 		927D0F5922316CC400F9487B /* RecipeIntents */ = {
 			isa = PBXGroup;
 			children = (
+				92DD301D2247F4C8006770C8 /* RecipeIntents.entitlements */,
 				927D0F5A22316CC400F9487B /* IntentHandler.swift */,
 				927D0F5C22316CC400F9487B /* Info.plist */,
 			);
 			path = RecipeIntents;
-			sourceTree = "<group>";
-		};
-		9291F96121CD89F700A15F15 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		92ABEB8C21D56E8600ADA054 /* Media */ = {
@@ -433,6 +425,52 @@
 			path = ModalCardTransition;
 			sourceTree = "<group>";
 		};
+		92DD30192247F2CF006770C8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9270D77721D6FAA4004AE374 /* Ingredient+CoreDataClass.swift */,
+				9270D77821D6FAA4004AE374 /* Ingredient+CoreDataProperties.swift */,
+				92A3985121DD254900F28D7A /* Order+CoreDataClass.swift */,
+				92A3985221DD254900F28D7A /* Order+CoreDataProperties.swift */,
+				92A3985321DD254900F28D7A /* OrderItem+CoreDataClass.swift */,
+				92A3985421DD254900F28D7A /* OrderItem+CoreDataProperties.swift */,
+				92916A4721CECAEC004349C2 /* Recipe+CoreDataClass.swift */,
+				9270D77521D6FAA4004AE374 /* Recipe+CoreDataProperties.swift */,
+				9291F96221CD8A0C00A15F15 /* Spice+CoreDataClass.swift */,
+				9270D77621D6FAA4004AE374 /* Spice+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92DD301A2247F318006770C8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				92ABEBC121D599AB00ADA054 /* RecipeService.swift */,
+				9291F96621CD8C7700A15F15 /* SpiceService.swift */,
+				92DD302222480149006770C8 /* SharedPersistentContainer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		92DD301B2247F327006770C8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9256179621E4F9140081BFB4 /* BLEManager.swift */,
+				92DD301E2247F6BD006770C8 /* CoreDataManager.swift */,
+				921769BF21DA7EFF00BF231C /* OrderController.swift */,
+				92ABEBC321D59B1600ADA054 /* RecipeController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92DD302F22480CB8006770C8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				92A3986321DDA92700F28D7A /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		92DF193021CB1AE80028BE0F /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,7 +488,6 @@
 				92ABEBAE21D56F4A00ADA054 /* Math.swift */,
 				92DF193821CB1C9E0028BE0F /* UIColor+Extension.swift */,
 				92ABEBAC21D56EC300ADA054 /* UIImage+Extension.swift */,
-				92A3986321DDA92700F28D7A /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -480,15 +517,14 @@
 		92EFAB542149625400F25837 /* QSpice */ = {
 			isa = PBXGroup;
 			children = (
+				92DD301C2247F493006770C8 /* QSpice.entitlements */,
 				92EFAB552149625400F25837 /* AppDelegate.swift */,
-				92EFAB6D2149CD4E00F25837 /* Constants.swift */,
 				9238E95521CEC49800136BAB /* ViewControllers */,
 				92ABEBB021D56F7900ADA054 /* ModalCardTransition */,
 				92ABEB8C21D56E8600ADA054 /* Media */,
 				9238E95321CEC46D00136BAB /* Controllers */,
 				9238E95421CEC48700136BAB /* Views */,
-				9291F96121CD89F700A15F15 /* Models */,
-				92DF193721CB1C7A0028BE0F /* Extensions */,
+				92DD302F22480CB8006770C8 /* Extensions */,
 				9238E95621CEC4B800136BAB /* Supporting Files */,
 				927D0F52223168D000F9487B /* Intents.intentdefinition */,
 			);
@@ -586,9 +622,19 @@
 					};
 					927D0F5722316CC400F9487B = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					92EFAB512149625400F25837 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -780,19 +826,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				92F99D522247E28900D6E76C /* Spice+CoreDataClass.swift in Sources */,
+				92DD302A22480C76006770C8 /* AVFoundation+Extension.swift in Sources */,
 				92F99D4E2247E27800D6E76C /* Order+CoreDataProperties.swift in Sources */,
+				92DD302D22480C80006770C8 /* UIImage+Extension.swift in Sources */,
 				92F99D4C2247E24D00D6E76C /* Ingredient+CoreDataProperties.swift in Sources */,
 				92F99D4D2247E26900D6E76C /* Helpers.swift in Sources */,
+				92DD30202247FACB006770C8 /* RecipeController.swift in Sources */,
+				92DD302322480149006770C8 /* SharedPersistentContainer.swift in Sources */,
 				92F99D502247E28100D6E76C /* OrderItem+CoreDataProperties.swift in Sources */,
 				92F99D492247E1F800D6E76C /* Recipe+CoreDataProperties.swift in Sources */,
 				92F99D4A2247E1FA00D6E76C /* Recipe+CoreDataClass.swift in Sources */,
 				92DD30182247E678006770C8 /* BLEManager.swift in Sources */,
 				92F99D482247E1E200D6E76C /* SpiceService.swift in Sources */,
 				92F99D512247E28400D6E76C /* OrderItem+CoreDataClass.swift in Sources */,
+				92DD302B22480C7A006770C8 /* Math.swift in Sources */,
 				92F99D542247E29100D6E76C /* RecipeService.swift in Sources */,
+				92DD30212248007C006770C8 /* QSpice.xcdatamodeld in Sources */,
 				92F99D4B2247E24A00D6E76C /* Ingredient+CoreDataClass.swift in Sources */,
+				92DD302C22480C7D006770C8 /* UIColor+Extension.swift in Sources */,
+				92DD3029224809D3006770C8 /* Constants.swift in Sources */,
 				92F99D4F2247E27C00D6E76C /* Order+CoreDataClass.swift in Sources */,
 				92F99D532247E28C00D6E76C /* Spice+CoreDataProperties.swift in Sources */,
+				92DD301F2247F6BD006770C8 /* CoreDataManager.swift in Sources */,
 				92F99D472247E1B700D6E76C /* OrderController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -801,6 +856,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DD30282248051D006770C8 /* QSpice.xcdatamodeld in Sources */,
 				927D0F6422316F5E00F9487B /* Intents.intentdefinition in Sources */,
 				927D0F5B22316CC400F9487B /* IntentHandler.swift in Sources */,
 			);
@@ -813,13 +869,9 @@
 				92ABEBB621D56F7900ADA054 /* ModalCardTransitionDriver.swift in Sources */,
 				921769B421D960F700BF231C /* CreateOrderViewController.swift in Sources */,
 				921769C421DA8D7900BF231C /* QuantityView.swift in Sources */,
-				92A3986421DDA92700F28D7A /* UIViewController+Extension.swift in Sources */,
-				92ABEBBA21D570F000ADA054 /* AVFoundation+Extension.swift in Sources */,
 				921769C621DAB6EA00BF231C /* RecipeOrderViewController.swift in Sources */,
-				92EFAB6E2149CD4E00F25837 /* Constants.swift in Sources */,
 				928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */,
 				92ABEB9F21D56E8600ADA054 /* CameraButton.swift in Sources */,
-				92ABEBAD21D56EC300ADA054 /* UIImage+Extension.swift in Sources */,
 				92ABEBAB21D56E8600ADA054 /* GridView.swift in Sources */,
 				92DF192F21CAD18B0028BE0F /* SpiceCell.swift in Sources */,
 				92ABEBA421D56E8600ADA054 /* PhotoCaptureProcessor.swift in Sources */,
@@ -835,9 +887,7 @@
 				92ABEBB521D56F7900ADA054 /* ModalCardTransitionContext.swift in Sources */,
 				92ABEBA521D56E8600ADA054 /* PhotoLibraryController.swift in Sources */,
 				92ABEBA121D56E8600ADA054 /* PhotoPickerViewController.swift in Sources */,
-				92EFAB5E2149625400F25837 /* QSpice.xcdatamodeld in Sources */,
 				92A3985C21DD4F9000F28D7A /* SettingCell.swift in Sources */,
-				92ABEBAF21D56F4A00ADA054 /* Math.swift in Sources */,
 				921769BA21D97FAC00BF231C /* OrderHistoryViewController.swift in Sources */,
 				92ABEBA021D56E8600ADA054 /* FlashButton.swift in Sources */,
 				92A3985A21DD3B3D00F28D7A /* OrderCell.swift in Sources */,
@@ -850,7 +900,6 @@
 				921769BC21D981A800BF231C /* SettingsViewController.swift in Sources */,
 				92E2295A21D83315003C7A5E /* NoIntrinsicSizeImageView.swift in Sources */,
 				92755678222F268C001C44D6 /* QuantityPicker.swift in Sources */,
-				92DF193921CB1C9E0028BE0F /* UIColor+Extension.swift in Sources */,
 				9267F192221F47DB00E47913 /* NoContentView.swift in Sources */,
 				921769BE21D997D800BF231C /* ListOrderViewController.swift in Sources */,
 				92EFAB582149625400F25837 /* ActiveSpicesViewController.swift in Sources */,
@@ -860,13 +909,14 @@
 				921769B621D9667D00BF231C /* OrderSelectionView.swift in Sources */,
 				9256179521E4F4520081BFB4 /* BLEScanViewController.swift in Sources */,
 				9232157421EAC798002C68BD /* OrderViewController.swift in Sources */,
+				9280917922481A0000A9A506 /* BLEManager.swift in Sources */,
 				92ABEBA221D56E8600ADA054 /* MediaPickerTransitionContext.swift in Sources */,
 				927D0F53223168D000F9487B /* Intents.intentdefinition in Sources */,
-				92ABEBC421D59B1600ADA054 /* RecipeController.swift in Sources */,
 				92ABEBC021D597B300ADA054 /* RecipeDetailController.swift in Sources */,
 				92DF193B21CC845F0028BE0F /* SpiceSelectionViewController.swift in Sources */,
 				92A3985E21DD519200F28D7A /* SettingsController.swift in Sources */,
 				92ABEB9D21D56E8600ADA054 /* CroppingView.swift in Sources */,
+				92DD303022480CCC006770C8 /* UIViewController+Extension.swift in Sources */,
 				9238E95221CEBEBB00136BAB /* RecipesViewController.swift in Sources */,
 				92EFAB562149625400F25837 /* AppDelegate.swift in Sources */,
 				92ABEBA821D56E8600ADA054 /* MediaPickerTransition.swift in Sources */,
@@ -964,6 +1014,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_ENTITLEMENTS = RecipeIntents/RecipeIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QXLVEU7SE4;
 				INFOPLIST_FILE = RecipeIntents/Info.plist;
@@ -985,6 +1036,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_ENTITLEMENTS = RecipeIntents/RecipeIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QXLVEU7SE4;
 				INFOPLIST_FILE = RecipeIntents/Info.plist;
@@ -1124,6 +1176,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = QSpice/QSpice.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QXLVEU7SE4;
@@ -1147,6 +1200,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = QSpice/QSpice.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QXLVEU7SE4;

@@ -1,6 +1,6 @@
-import UIKit.UIColor
+import UIKit
 
-extension UIColor {
+public extension UIColor {
     func asImage(size: CGSize) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: size)
         
@@ -12,7 +12,7 @@ extension UIColor {
         return img
     }
     
-    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+    public convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
         self.init(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
     }
 }

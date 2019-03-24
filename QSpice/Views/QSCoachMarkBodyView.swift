@@ -1,5 +1,6 @@
 import UIKit
 import Instructions
+import QSpiceKit
 
 class QSCoachMarkBodyView: UIView, CoachMarkBodyView {
     var nextControl: UIControl? {

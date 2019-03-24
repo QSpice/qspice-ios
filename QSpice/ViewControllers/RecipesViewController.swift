@@ -35,7 +35,7 @@ class RecipesViewController: UITableViewController {
         
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.tintColor = UIColor(r: 77.0, g: 77.0, b: 77.0, a: 1.0)
+        navigationController?.navigationBar.tintColor = UIColor(red: 77.0 / 255.0, green: 77.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
     }
     
     override func viewDidAppear(_ animated: Bool) {

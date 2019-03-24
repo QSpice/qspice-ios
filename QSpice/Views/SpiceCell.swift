@@ -94,7 +94,7 @@ class SpiceCell: UITableViewCell {
     let spiceNameLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.cStdMedium?.withSize(18.0)
-        label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
+        label.textColor = UIColor(red: 153.0 / 255.0, green: 153.0 / 255.0, blue: 153.0 / 255.0, alpha: 1.0)
 
         return label
     }()
@@ -102,7 +102,7 @@ class SpiceCell: UITableViewCell {
     private let spiceWeightLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.cStdBook?.withSize(14.0)
-        label.textColor = UIColor(r: 153.0, g: 153.0, b: 153.0, a: 1.0)
+        label.textColor = UIColor(red: 153.0 / 255.0, green: 153.0 / 255.0, blue: 153.0 / 255.0, alpha: 1.0)
         label.text = "Weight: N/A"
 
         return label
@@ -127,7 +127,7 @@ class SpiceCell: UITableViewCell {
 
         switch type {
         case .unselected:
-            colorView.backgroundColor = UIColor(r: 238.0, g: 238.0, b: 238.0, a: 1.0)
+            colorView.backgroundColor = UIColor(red: 238.0 / 255.0, green: 238.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
             spiceNameLabel.textColor = Colors.lightGrey
             spiceWeightLabel.textColor = Colors.lightGrey
             numberLabel.textColor = Colors.lightGrey

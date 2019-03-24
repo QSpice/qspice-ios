@@ -1,4 +1,5 @@
 import UIKit
+import QSpiceKit
 
 class LinkCell: UITableViewCell {
 

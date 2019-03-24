@@ -1,5 +1,6 @@
 import UIKit
 import AVFoundation
+import QSpiceKit
 
 @objc protocol MediaPickerDelegate {
     @objc optional func mediaPicker(_ mediaPicker: MediaPickerViewController, didFinishPicking media: UIImage?)

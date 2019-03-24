@@ -13,8 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             BLEManager.shared.powerUp()
         }
 
-        let spiceService = SpiceService(context: persistentContainer.viewContext)
-        let recipeService = RecipeService(context: persistentContainer.viewContext)
+        let spiceService = SpiceService(context: CoreDataManager.shared.context)
+        let recipeService = RecipeService(context: CoreDataManager.shared.context)
         
         let spiceController = SpiceController(spiceService: spiceService)
         let recipeController = RecipeController(recipeService: recipeService)
@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        CoreDataManager.shared.saveContext()
     }
 
     // MARK: - Core Data stack

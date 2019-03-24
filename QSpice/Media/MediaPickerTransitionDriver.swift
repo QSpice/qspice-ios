@@ -1,4 +1,5 @@
 import UIKit
+import QSpiceKit
 
 /// Drives the media picker transition using property animators
 class MediaPickerTransitionDriver {
@@ -134,7 +135,7 @@ class MediaPickerTransitionDriver {
         }
 
         let range: CGFloat = 45.0
-        let clippedVelocity = clip(-range, range, gestureVelocity.y)
+        let clippedVelocity = QSpiceKit.clip(-range, range, gestureVelocity.y)
 
         return CGVector(dx: 0.0, dy: (clippedVelocity / dy))
     }

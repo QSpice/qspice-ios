@@ -173,7 +173,7 @@ public class OrderController {
         }
     }
     
-    private func verifyRecipe(levels: [Int]) throws {
+    public func verifyRecipe(levels: [Int]) throws {
         if levels.isEmpty {
             return
         }

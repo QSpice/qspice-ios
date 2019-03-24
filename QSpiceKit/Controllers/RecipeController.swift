@@ -1,16 +1,15 @@
 import Foundation
 import CoreData
 import Intents
-import QSpiceKit
 
-class RecipeController {
-    var recipeService: RecipeService
+public class RecipeController {
+    public var recipeService: RecipeService
     
-    init(recipeService: RecipeService) {
+    public init(recipeService: RecipeService) {
         self.recipeService = recipeService
     }
     
-    lazy var recipesFetchedResults: NSFetchedResultsController<Recipe> = {
+    public lazy var recipesFetchedResults: NSFetchedResultsController<Recipe> = {
         let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
@@ -21,7 +20,7 @@ class RecipeController {
         return fetchedResults
     }()
     
-    func deleteRecipe(recipe: Recipe) throws {
+    public func deleteRecipe(recipe: Recipe) throws {
         recipeService.deleteRecipe(recipe)
         
         try deleteImageIfNeeded(name: recipe.uuid.uuidString)
@@ -31,7 +30,7 @@ class RecipeController {
         INInteraction.delete(with: recipe.name)
     }
     
-    func findRecipe(named name: String) -> Recipe? {
+    public func findRecipe(named name: String) -> Recipe? {
         do {
             return try recipeService.findRecipe(named: name)
         } catch {

@@ -1,5 +1,6 @@
 import UIKit
 import UITextView_Placeholder
+import QSpiceKit
 
 class RecipeDescCell: UITableViewCell {
 

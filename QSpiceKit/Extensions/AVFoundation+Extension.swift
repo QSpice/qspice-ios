@@ -1,8 +1,8 @@
 import UIKit
 import AVFoundation
 
-extension AVCaptureVideoOrientation {
-    init?(deviceOrientation: UIDeviceOrientation) {
+public extension AVCaptureVideoOrientation {
+    public init?(deviceOrientation: UIDeviceOrientation) {
         switch deviceOrientation {
             case .portrait: self = .portrait
             case .portraitUpsideDown: self = .portraitUpsideDown
@@ -12,7 +12,7 @@ extension AVCaptureVideoOrientation {
         }
     }
 
-    init?(interfaceOrientation: UIInterfaceOrientation) {
+    public init?(interfaceOrientation: UIInterfaceOrientation) {
         switch interfaceOrientation {
             case .portrait: self = .portrait
             case .portraitUpsideDown: self = .portraitUpsideDown
@@ -23,8 +23,8 @@ extension AVCaptureVideoOrientation {
     }
 }
 
-extension AVCaptureDevice.DiscoverySession {
-    var uniqueDevicePositionsCount: Int {
+public extension AVCaptureDevice.DiscoverySession {
+    public var uniqueDevicePositionsCount: Int {
         var uniqueDevicePositions: [AVCaptureDevice.Position] = []
 
         for device in devices {

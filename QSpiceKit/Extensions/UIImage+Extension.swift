@@ -1,7 +1,7 @@
 import UIKit
 
-extension UIImage {
-    func crop(rect: CGRect) -> UIImage? {
+public extension UIImage {
+    public func crop(rect: CGRect) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(rect.size, false, scale)
         
         let context = UIGraphicsGetCurrentContext()
@@ -16,7 +16,7 @@ extension UIImage {
         return cropped
     }
     
-    static func load(image imageName: String) -> UIImage? {
+    public static func load(image imageName: String) -> UIImage? {
         // declare image location
         guard let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
             return nil

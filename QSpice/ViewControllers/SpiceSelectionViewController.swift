@@ -89,7 +89,7 @@ class SpiceSelectionViewController: UITableViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        navigationController?.navigationBar.tintColor = UIColor(r: 77.0, g: 77.0, b: 77.0, a: 1.0)
+        navigationController?.navigationBar.tintColor = UIColor(red: 77.0 / 255.0, green: 77.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
         
         tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
         tableView.tableFooterView = UIView()
