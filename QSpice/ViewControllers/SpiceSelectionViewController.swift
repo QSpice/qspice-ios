@@ -1,5 +1,6 @@
 import UIKit
 import DynamicColor
+import QSpiceKit
 
 protocol SpiceSelectionDelegate: class {
     func didSelect(spice: Spice, for slot: Int)

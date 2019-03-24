@@ -1,21 +1,7 @@
 import Foundation
 import CoreData
-
-struct RecipeDetail {
-    var image: Data?
-    var name: String
-    var link: String?
-    var content: String?
-    var ingredients: [Int: IngredientDetail]
-    var uuid: UUID?
-    var objectID: NSManagedObjectID?
-}
-
-struct IngredientDetail {
-    var spice: Spice
-    var quantity: Int
-    var metric: Int
-}
+import Intents
+import QSpiceKit
 
 enum RecipeError: Error {
     case invalidName
@@ -75,6 +61,13 @@ class RecipeDetailController {
         saveImageIfNeeded(name: recipe.uuid.uuidString, image: image)
         
         try recipeService.save()
+        
+        let intent = DispenseRecipeIntent()
+        intent.name = recipeDetail.name
+        
+        let interaction = INInteraction(intent: intent, response: nil)
+        interaction.identifier = recipeDetail.name
+        interaction.donate(completion: nil)
         
         reorderIngredients()
     }

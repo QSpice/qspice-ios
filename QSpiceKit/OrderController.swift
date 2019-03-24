@@ -1,17 +1,7 @@
 import Foundation
 import CoreData
 
-struct OrderItemDetail {
-    var ingredient: IngredientDetail
-}
-
-struct OrderDetail {
-    var recipe: Recipe?
-    var orderItems: [OrderItemDetail]
-    var quantity: Int
-}
-
-enum OrderError: Error {
+public enum OrderError: Error {
     case notConnected
     case lowLevel(String)
     case missingSpices
@@ -19,28 +9,28 @@ enum OrderError: Error {
     case exceededAmount
 }
 
-class OrderController {
+public class OrderController {
     var spiceService: SpiceService
     
-    var activeSpices: [Spice] = []
+    public var activeSpices: [Spice] = []
     
-    var order = OrderDetail(recipe: nil, orderItems: [], quantity: 1)
+    public var order = OrderDetail(recipe: nil, orderItems: [], quantity: 1)
     
-    init(spiceService: SpiceService) {
+    public init(spiceService: SpiceService) {
         self.spiceService = spiceService
         
         clearOrder()
     }
     
-    func updateIngredient(quantity: Int, for slot: Int) {
+    public func updateIngredient(quantity: Int, for slot: Int) {
         order.orderItems[slot].ingredient.quantity = quantity
     }
     
-    func updateIngredient(metric: Metric, for slot: Int) {
+    public func updateIngredient(metric: Metric, for slot: Int) {
         order.orderItems[slot].ingredient.metric = metric.rawValue
     }
     
-    func fetchActiveSpices() {
+    public func fetchActiveSpices() {
         do {
             let spices = try spiceService.activeSpices()
             
@@ -50,7 +40,7 @@ class OrderController {
         }
     }
     
-    func selectRecipe(_ recipe: Recipe) {
+    public func selectRecipe(_ recipe: Recipe) {
         if recipe.uuid == order.recipe?.uuid {
             order.recipe = nil
         } else {
@@ -58,7 +48,7 @@ class OrderController {
         }
     }
     
-    lazy var recipesFetchedResults: NSFetchedResultsController<Recipe> = {
+    public lazy var recipesFetchedResults: NSFetchedResultsController<Recipe> = {
         let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
@@ -69,7 +59,7 @@ class OrderController {
         return fetchedResults
     }()
     
-    lazy var ordersFetchedResults: NSFetchedResultsController<Order> = {
+    public lazy var ordersFetchedResults: NSFetchedResultsController<Order> = {
         let fetchRequest: NSFetchRequest<Order> = Order.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
@@ -80,13 +70,13 @@ class OrderController {
         return fetchedResults
     }()
     
-    func updateOrder(quantity: Int) -> Int {
+    public func updateOrder(quantity: Int) -> Int {
         order.quantity = max(order.quantity + quantity, 1)
         
         return order.quantity
     }
     
-    func isValidListOrder() -> Bool {
+    public func isValidListOrder() -> Bool {
         for item in order.orderItems where item.ingredient.quantity > 0 {
             return true
         }
@@ -94,7 +84,7 @@ class OrderController {
         return false
     }
     
-    func createListOrder(spiceLevels: [Int]) throws {
+    public func createListOrder(spiceLevels: [Int]) throws {
         guard BLEManager.shared.isReady else {
             throw OrderError.notConnected
         }
@@ -110,7 +100,7 @@ class OrderController {
         }
     }
     
-    func createRecipeOrder(spiceLevels: [Int]) throws {
+    public func createRecipeOrder(spiceLevels: [Int]) throws {
         guard BLEManager.shared.isReady else {
             throw OrderError.notConnected
         }
@@ -156,7 +146,7 @@ class OrderController {
         return "DATA ".appending(data.joined(separator: ","))
     }
     
-    func clearOrder() {
+    public func clearOrder() {
         fetchActiveSpices()
         order.orderItems.removeAll()
         order.recipe = nil

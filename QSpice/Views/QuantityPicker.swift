@@ -1,4 +1,5 @@
 import UIKit
+import QSpiceKit
 
 protocol QuantityPickerDelegate: class {
     func quantityPicker(_ quantityPicker: QuantityPicker, didChange quantity: Int)

@@ -1,5 +1,6 @@
 import UIKit
 import CoreBluetooth
+import QSpiceKit
 
 class SettingsViewController: UITableViewController {
     var controller: SettingsController

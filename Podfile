@@ -10,3 +10,7 @@ target 'QSpice' do
   pod 'SCLAlertView'
   pod 'Instructions'
 end
+
+target 'QSpiceKit' do
+  pod 'SwiftLint'
+end

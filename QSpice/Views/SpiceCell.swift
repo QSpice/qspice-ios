@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import QSpiceKit
 
 protocol SpiceCellDelegate: class {
     func spiceCell(cell: SpiceCell, didChange quantity: Int)

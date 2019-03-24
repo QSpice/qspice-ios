@@ -3,7 +3,7 @@ import CoreData
 
 @objc(Spice)
 public class Spice: NSManagedObject {
-    static func spiceQuantity(from index: Int) -> (string: String, float: Float) {
+    public static func spiceQuantity(from index: Int) -> (string: String, float: Float) {
         let wholeNumber = index / 4
         let fractionalPart = index % 4
         
@@ -27,7 +27,7 @@ public class Spice: NSManagedObject {
         
     }
     
-    static func mapSpiceWeight(value: Float, metric: String) -> Float {
+    public static func mapSpiceWeight(value: Float, metric: String) -> Float {
         if metric == "Tablespoon" {
             return value * 3
         } else {

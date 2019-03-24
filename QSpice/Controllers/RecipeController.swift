@@ -1,5 +1,7 @@
 import Foundation
 import CoreData
+import Intents
+import QSpiceKit
 
 class RecipeController {
     var recipeService: RecipeService
@@ -25,6 +27,16 @@ class RecipeController {
         try deleteImageIfNeeded(name: recipe.uuid.uuidString)
         
         try recipeService.save()
+        
+        INInteraction.delete(with: recipe.name)
+    }
+    
+    func findRecipe(named name: String) -> Recipe? {
+        do {
+            return try recipeService.findRecipe(named: name)
+        } catch {
+            return nil
+        }
     }
     
     private func deleteImageIfNeeded(name: String) throws {

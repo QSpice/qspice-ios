@@ -1,7 +1,7 @@
 import Foundation
 import CoreBluetooth
 
-@objc protocol BLEManagerDelegate: class {
+@objc public protocol BLEManagerDelegate: class {
     @objc optional func managerDidUpdateState(_ manager: BLEManager)
     @objc optional func manager(_ manager: BLEManager, didDiscover peripheral: CBPeripheral)
     @objc optional func manager(_ manager: BLEManager, didConnect peripheral: CBPeripheral)
@@ -10,17 +10,17 @@ import CoreBluetooth
     @objc optional func manager(_ manager: BLEManager, didReceive message: String, error: Error?)
 }
 
-class BLEManager: NSObject {
+public class BLEManager: NSObject {
     
-    static let shared = BLEManager()
+    public static let shared = BLEManager()
     
     private var centralManager: CBCentralManager!
     
-    weak var delegate: BLEManagerDelegate?
+    public weak var delegate: BLEManagerDelegate?
     
-    var peripheral: CBPeripheral?
+    public var peripheral: CBPeripheral?
     
-    var messageBuffer: String = ""
+    private var messageBuffer: String = ""
     
     private var writeType: CBCharacteristicWriteType = .withoutResponse
     private weak var writeCharacteristic: CBCharacteristic?
@@ -30,18 +30,18 @@ class BLEManager: NSObject {
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
-    let serviceUUID = CBUUID(string: "FFE0")
-    let characteristicUUID = CBUUID(string: "FFE1")
+    private let serviceUUID = CBUUID(string: "FFE0")
+    private let characteristicUUID = CBUUID(string: "FFE1")
     
-    var isPoweredOn: Bool {
+    public var isPoweredOn: Bool {
         return centralManager.state == .poweredOn
     }
     
-    var isReady: Bool {
+    public var isReady: Bool {
         return isPoweredOn && peripheral != nil && writeCharacteristic != nil
     }
     
-    func write(message: String) {
+    public func write(message: String) {
         guard isReady else { return }
         
         if let data = message.appending("\n").data(using: String.Encoding.utf8) {
@@ -49,36 +49,36 @@ class BLEManager: NSObject {
         }
     }
     
-    func scan() {
+    public func scan() {
         guard centralManager.state == .poweredOn else { return }
         
         centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
     }
     
-    func stopScan() {
+    public func stopScan() {
         centralManager.stopScan()
     }
     
-    func connectTo(peripheral: CBPeripheral) {
+    public func connectTo(peripheral: CBPeripheral) {
         self.peripheral = peripheral
         centralManager.connect(peripheral, options: nil)
     }
     
-    func reconnect(uuid: UUID) {
+    public func reconnect(uuid: UUID) {
         if let peripheral = centralManager.retrievePeripherals(withIdentifiers: [uuid]).first {
             self.peripheral = peripheral
             centralManager.connect(peripheral, options: nil)
         }
     }
     
-    func disconnect() {
+    public func disconnect() {
         if let peripheral = peripheral {
             UserDefaults.standard.removeObject(forKey: "ble_identifier")
             centralManager.cancelPeripheralConnection(peripheral)
         }
     }
     
-    func powerUp() {
+    public func powerUp() {
         
     }
 }
@@ -87,7 +87,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     
     // MARK: Core Bluetooth manager delegate
     
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOff {
             disconnect()
         }
@@ -101,11 +101,11 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         delegate?.managerDidUpdateState?(self)
     }
     
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+    private func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         delegate?.manager?(self, didDiscover: peripheral)
     }
     
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+    private func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         UserDefaults.standard.set(peripheral.identifier.uuidString, forKey: "ble_identifier")
         self.peripheral?.delegate = self
         
@@ -114,13 +114,13 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         peripheral.discoverServices([serviceUUID])
     }
     
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+    private func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         self.peripheral = nil
         
         delegate?.manager?(self, didFailToConnect: peripheral, error: error)
     }
     
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+    private func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         self.peripheral = nil
         
         delegate?.manager?(self, didDisconnect: peripheral)
@@ -128,7 +128,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     
     // MARK: Core Bluetooth peripheral delegate
     
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+    private func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else {
             return
         }
@@ -138,7 +138,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+    private func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else {
             return
         }
@@ -152,7 +152,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+    private func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard let data = characteristic.value else {
             return
         }

@@ -1,5 +1,6 @@
 import UIKit
 import Instructions
+import QSpiceKit
 
 class ActiveSpicesViewController: UITableViewController {
 

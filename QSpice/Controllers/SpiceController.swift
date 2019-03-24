@@ -1,10 +1,11 @@
 import CoreData
+import QSpiceKit
 
 class SpiceController {
     
     var spiceService: SpiceService
     
-    var activeSpices: [Int: Spice] = [:]
+    public var activeSpices: [Int: Spice] = [:]
     
     var weightBasis: String {
         return UserDefaults.standard.string(forKey: "weight_basis") ?? "Teaspoon"

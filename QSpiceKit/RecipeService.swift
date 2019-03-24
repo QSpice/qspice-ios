@@ -1,13 +1,13 @@
 import CoreData
 
-class RecipeService {
-    private(set) var context: NSManagedObjectContext
+public class RecipeService {
+    public private(set) var context: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext) {
+    public init(context: NSManagedObjectContext) {
         self.context = context
     }
     
-    func addRecipe(recipeDetail: RecipeDetail) -> Recipe {
+    public func addRecipe(recipeDetail: RecipeDetail) -> Recipe {
         let recipe = Recipe(context: context)
         
         recipe.name = recipeDetail.name
@@ -27,7 +27,14 @@ class RecipeService {
         
     }
     
-    func updateRecipe(recipeDetail: RecipeDetail) {
+    public func findRecipe(named name: String) throws -> Recipe? {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name)
+        
+        return try context.fetch(request).first
+    }
+    
+    public func updateRecipe(recipeDetail: RecipeDetail) {
         guard let objectID = recipeDetail.objectID, let recipe = context.object(with: objectID) as? Recipe else {
             return
         }
@@ -50,11 +57,11 @@ class RecipeService {
         
     }
     
-    func deleteRecipe(_ recipe: Recipe) {
+    public func deleteRecipe(_ recipe: Recipe) {
         context.delete(recipe)
     }
     
-    func save() throws {
+    public func save() throws {
         try context.save()
     }
 }

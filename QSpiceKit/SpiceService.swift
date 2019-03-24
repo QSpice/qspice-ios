@@ -1,25 +1,25 @@
 import CoreData
 
-class SpiceService {
+public class SpiceService {
     
-    private(set) var context: NSManagedObjectContext
+    public private(set) var context: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext) {
+    public init(context: NSManagedObjectContext) {
         self.context = context
     }
     
-    func countForSpices() throws -> Int {
+    public func countForSpices() throws -> Int {
         return try context.count(for: Spice.fetchRequest())
     }
     
-    func addSpice(name: String, weight: Float, color: String) {
+    public func addSpice(name: String, weight: Float, color: String) {
         let spice = NSEntityDescription.insertNewObject(forEntityName: "Spice", into: context)
         spice.setValue(name, forKey: "name")
         spice.setValue(weight, forKey: "weight")
         spice.setValue(color, forKey: "color")
     }
     
-    func activeSpice(for slot: Int) throws -> Spice? {
+    public func activeSpice(for slot: Int) throws -> Spice? {
         let request: NSFetchRequest<Spice> = Spice.fetchRequest()
         request.predicate = NSPredicate(format: "slot == %d", slot)
         
@@ -28,7 +28,7 @@ class SpiceService {
         return spices.first
     }
     
-    func activeSpices() throws -> [Spice] {
+    public func activeSpices() throws -> [Spice] {
         let request: NSFetchRequest<Spice> = Spice.fetchRequest()
         request.predicate = NSPredicate(format: "active == 1")
         
@@ -38,7 +38,7 @@ class SpiceService {
         return try context.fetch(request)
     }
     
-    func createListOrder(orderDetail: OrderDetail) -> Order {
+    public func createListOrder(orderDetail: OrderDetail) -> Order {
         let order = Order(context: context)
         
         order.date = Date()
@@ -60,7 +60,7 @@ class SpiceService {
         
     }
     
-    func createRecipeOrder(orderDetail: OrderDetail) -> Order? {
+    public func createRecipeOrder(orderDetail: OrderDetail) -> Order? {
         guard let recipe = orderDetail.recipe else {
             return nil
         }
@@ -81,7 +81,7 @@ class SpiceService {
         return order
     }
     
-    func save() throws {
+    public func save() throws {
         try context.save()
     }
     

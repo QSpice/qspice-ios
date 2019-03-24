@@ -1,7 +1,19 @@
 import Foundation
 
-struct Helpers {
-    static func readCSV(file filename: String) throws -> String? {
+public enum Metric: Int, CaseIterable {
+    case teaspoon = 0
+    case tablespoon = 1
+    
+    public var name: String {
+        switch self {
+        case .teaspoon: return "tsp"
+        case .tablespoon: return "tbsp"
+        }
+    }
+}
+
+public struct Helpers {
+    public static func readCSV(file filename: String) throws -> String? {
         guard let filepath = Bundle.main.path(forResource: filename, ofType: "csv") else {
             return nil
         }
@@ -9,7 +21,7 @@ struct Helpers {
         return try String(contentsOfFile: filepath)
     }
     
-    static func parseLevels(string: String) -> [Int] {
+    public static func parseLevels(string: String) -> [Int] {
         let components = string.split(separator: " ")
         
         guard components.count > 1 else {
@@ -19,7 +31,7 @@ struct Helpers {
         return components[1].split(separator: ",").map { Int($0) ?? 0 }
     }
     
-    static func metricTeaspoonMultiplier(from metric: Metric) -> Float {
+    public static func metricTeaspoonMultiplier(from metric: Metric) -> Float {
         let multiplier: Float
         
         switch metric {

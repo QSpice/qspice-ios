@@ -1,5 +1,4 @@
 import Intents
-import QSpiceKit
 
 class IntentHandler: INExtension {
     
