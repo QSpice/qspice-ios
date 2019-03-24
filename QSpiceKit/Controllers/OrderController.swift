@@ -123,7 +123,9 @@ public class OrderController {
         try spiceService.save()
         
         if let newOrder = spiceService.createRecipeOrder(orderDetail: order) {
-            BLEManager.shared.write(message: generateOrderMessage(order: newOrder))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                BLEManager.shared.write(message: self.generateOrderMessage(order: newOrder))
+            }
         }
     }
     

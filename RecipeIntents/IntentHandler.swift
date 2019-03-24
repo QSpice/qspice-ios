@@ -16,42 +16,28 @@ class DispenseRecipeIntentHandler: NSObject, DispenseRecipeIntentHandling {
     var spiceLevels: [Int] = []
     
     func confirm(intent: DispenseRecipeIntent, completion: @escaping (DispenseRecipeIntentResponse) -> Void) {
+        guard UserDefaults(suiteName: "group.com.electriapp.QSpice")?.string(forKey: "ble_identifier") != nil else {
+            completion(.failure(reason: AlertMessages.noOrderBleConnect.subtitle))
+            return
+        }
         
-        guard let recipeName = intent.name else {
+        BLEManager.shared.powerUp()
+
+        completion(DispenseRecipeIntentResponse(code: .success, userActivity: nil))
+    }
+    
+    func handle(intent: DispenseRecipeIntent, completion: @escaping (DispenseRecipeIntentResponse) -> Void) {
+        let bleIdentifier = UserDefaults(suiteName: "group.com.electriapp.QSpice")?.string(forKey: "ble_identifier")
+        let recipeController = RecipeController(recipeService: RecipeService(context: CoreDataManager.shared.context))
+        let orderController = OrderController(spiceService: SpiceService(context: CoreDataManager.shared.context))
+
+        guard let recipeName = intent.name, let recipe = recipeController.findRecipe(named: recipeName) else {
             completion(.failure(reason: "Recipe not found."))
             return
         }
         
-        if orderController.order.recipe == nil, let recipe = recipeController.findRecipe(named: recipeName) {
-            orderController.selectRecipe(recipe)
-            completion(DispenseRecipeIntentResponse(code: .success, userActivity: nil))
-        } else {
-            guard BLEManager.shared.isReady else {
-                completion(.failure(reason: AlertMessages.noOrderBleConnect.subtitle))
-                return
-            }
-            
-            BLEManager.shared.write(message: "POLL")
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                do {
-                    try self.orderController.verifyRecipe(levels: self.spiceLevels)
-                    
-                } catch OrderError.lowLevel(let levels) {
-                    completion(.failure(reason: "\(AlertMessages.spiceLevels.subtitle) \(levels)"))
-                    return
-                } catch {
-                    completion(.failure(reason: "Could not complete your order"))
-                    return
-                }
-            }
-            
-            completion(DispenseRecipeIntentResponse(code: .success, userActivity: nil))
-        }
-        
-    }
-    
-    func handle(intent: DispenseRecipeIntent, completion: @escaping (DispenseRecipeIntentResponse) -> Void) {
+        orderController.selectRecipe(recipe)
+        BLEManager.shared.reconnect(uuid: UUID(uuidString: bleIdentifier!)!)
         
         do {
             try orderController.createRecipeOrder(spiceLevels: [])
@@ -75,13 +61,4 @@ class DispenseRecipeIntentHandler: NSObject, DispenseRecipeIntentHandling {
         completion(DispenseRecipeIntentResponse(code: .success, userActivity: nil))
     }
     
-}
-
-extension DispenseRecipeIntentHandler: BLEManagerDelegate {
-    func manager(_ manager: BLEManager, didReceive message: String, error: Error?) {
-        if message.contains("OK") {
-            spiceLevels = Helpers.parseLevels(string: message)
-            return
-        }
-    }
 }

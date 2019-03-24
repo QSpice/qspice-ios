@@ -64,7 +64,7 @@
 				<array>
 					<dict>
 						<key>INIntentResponseCodeFormatString</key>
-						<string>${reason} Could not dispense recipe.</string>
+						<string>Could not dispense recipe. ${reason}</string>
 						<key>INIntentResponseCodeFormatStringID</key>
 						<string>LNfqJo</string>
 						<key>INIntentResponseCodeName</key>

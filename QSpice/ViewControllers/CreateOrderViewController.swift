@@ -83,7 +83,7 @@ class CreateOrderViewController: UIViewController {
         
         BLEManager.shared.delegate = self
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             BLEManager.shared.write(message: "POLL")
         }
         

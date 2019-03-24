@@ -29,7 +29,6 @@
 		927D0F5B22316CC400F9487B /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F5A22316CC400F9487B /* IntentHandler.swift */; };
 		927D0F5F22316CC400F9487B /* RecipeIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 927D0F5822316CC400F9487B /* RecipeIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		927D0F6422316F5E00F9487B /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 927D0F52223168D000F9487B /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
-		9280917922481A0000A9A506 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9256179621E4F9140081BFB4 /* BLEManager.swift */; };
 		928B2C1D221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B2C1C221EFA9200D3BDE4 /* QSCoachMarkBodyView.swift */; };
 		92916A4E21CECC87004349C2 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4D21CECC87004349C2 /* RecipeDetailViewController.swift */; };
 		92916A5021CEE3BA004349C2 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92916A4F21CEE3BA004349C2 /* LinkCell.swift */; };
@@ -909,7 +908,6 @@
 				921769B621D9667D00BF231C /* OrderSelectionView.swift in Sources */,
 				9256179521E4F4520081BFB4 /* BLEScanViewController.swift in Sources */,
 				9232157421EAC798002C68BD /* OrderViewController.swift in Sources */,
-				9280917922481A0000A9A506 /* BLEManager.swift in Sources */,
 				92ABEBA221D56E8600ADA054 /* MediaPickerTransitionContext.swift in Sources */,
 				927D0F53223168D000F9487B /* Intents.intentdefinition in Sources */,
 				92ABEBC021D597B300ADA054 /* RecipeDetailController.swift in Sources */,

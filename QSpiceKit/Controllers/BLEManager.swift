@@ -73,7 +73,7 @@ public class BLEManager: NSObject {
     
     public func disconnect() {
         if let peripheral = peripheral {
-            UserDefaults.standard.removeObject(forKey: "ble_identifier")
+            UserDefaults(suiteName: "group.com.electriapp.QSpice")?.removeObject(forKey: "ble_identifier")
             centralManager.cancelPeripheralConnection(peripheral)
         }
     }
@@ -93,7 +93,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         if central.state == .poweredOn {
-            if let uuidString = UserDefaults.standard.string(forKey: "ble_identifier"), let uuid = UUID(uuidString: uuidString) {
+            if let uuidString = UserDefaults(suiteName: "group.com.electriapp.QSpice")?.string(forKey: "ble_identifier"), let uuid = UUID(uuidString: uuidString) {
                 reconnect(uuid: uuid)
             }
         }
@@ -101,12 +101,12 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         delegate?.managerDidUpdateState?(self)
     }
     
-    private func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         delegate?.manager?(self, didDiscover: peripheral)
     }
     
-    private func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        UserDefaults.standard.set(peripheral.identifier.uuidString, forKey: "ble_identifier")
+    public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        UserDefaults(suiteName: "group.com.electriapp.QSpice")?.set(peripheral.identifier.uuidString, forKey: "ble_identifier")
         self.peripheral?.delegate = self
         
         delegate?.manager?(self, didConnect: peripheral)
@@ -114,13 +114,13 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         peripheral.discoverServices([serviceUUID])
     }
     
-    private func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+    public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         self.peripheral = nil
         
         delegate?.manager?(self, didFailToConnect: peripheral, error: error)
     }
     
-    private func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         self.peripheral = nil
         
         delegate?.manager?(self, didDisconnect: peripheral)
@@ -128,7 +128,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     
     // MARK: Core Bluetooth peripheral delegate
     
-    private func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else {
             return
         }
@@ -138,7 +138,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    private func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else {
             return
         }
@@ -152,7 +152,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    private func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+    public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard let data = characteristic.value else {
             return
         }

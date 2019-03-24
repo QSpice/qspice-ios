@@ -9,7 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if UserDefaults.standard.string(forKey: "ble_identifier") != nil {
+        if UserDefaults(suiteName: "group.com.electriapp.QSpice")?.string(forKey: "ble_identifier") != nil {
+            print(UserDefaults(suiteName: "group.com.electriapp.QSpice")?.string(forKey: "ble_identifier"))
             BLEManager.shared.powerUp()
         }
 
