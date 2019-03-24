@@ -3,28 +3,27 @@ import CoreData
 
 @objc(Spice)
 public class Spice: NSManagedObject {
-    static func mapSpiceAmount(value: Float) -> String {
-        if value == 0.25 {
-            return "¼"
-        } else if value == 0.50 {
-            return "½"
-        } else {
-            return "\(Int(value))"
-        }
-    }
-    
     static func spiceQuantity(from index: Int) -> (string: String, float: Float) {
-        switch index {
-        case 0:
-            return ("0", 0)
+        let wholeNumber = index / 4
+        let fractionalPart = index % 4
+        
+        var stringValue = wholeNumber == 0 ? "" : "\(wholeNumber) "
+        let floatValue = Float(wholeNumber) + Float(fractionalPart) * 0.25
+        
+        switch fractionalPart {
         case 1:
-            return ("¼", 0.25)
+            stringValue += "¼"
         case 2:
-            return ("½", 0.5)
+            stringValue += "½"
+        case 3:
+            stringValue += "¾"
         default:
-            let value = index - 2
-            return ("\(value)", Float(value))
+            if wholeNumber == 0 {
+                stringValue = "0"
+            }
         }
+        
+        return (stringValue, floatValue)
         
     }
     

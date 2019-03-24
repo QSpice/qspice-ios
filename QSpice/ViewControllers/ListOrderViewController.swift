@@ -10,6 +10,7 @@ class ListOrderViewController: OrderViewController {
         tableView.register(SpiceCell.self, forCellReuseIdentifier: SpiceCell.reuseId)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.alwaysBounceVertical = false
         
         setupSubviews()
     }
@@ -43,8 +44,10 @@ class ListOrderViewController: OrderViewController {
             isCreatingOrder = false
             let action = AlertAction(title: "Continue", action: continueOrder, color: Colors.maroon)
             showAlert(title: AlertMessages.spiceLevels.title, subtitle: "\(AlertMessages.spiceLevels.subtitle) \(levels)", actions: [action], closeTitle: "Cancel")
-        } catch {
-        }
+        } catch OrderError.exceededAmount {
+            isCreatingOrder = false
+            showAlert(title: AlertMessages.noOrderExceededAmount.title, subtitle: AlertMessages.noOrderExceededAmount.subtitle)
+        } catch {}
     }
     
     private func setupSubviews() {

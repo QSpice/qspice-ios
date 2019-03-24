@@ -13,7 +13,6 @@ class DispenseRecipeIntentHandler: NSObject, DispenseRecipeIntentHandling {
     func confirm(intent: DispenseRecipeIntent, completion: @escaping (DispenseRecipeIntentResponse) -> Void) {
         print("confirm")
         
-        
         completion(DispenseRecipeIntentResponse(code: .success, userActivity: nil))
     }
     

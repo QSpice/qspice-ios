@@ -29,7 +29,7 @@
         <attribute name="active" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="color" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="slot" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="slot" optional="YES" attributeType="Integer 64" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weight" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="spice" inverseEntity="Ingredient" syncable="YES"/>
         <uniquenessConstraints>
@@ -43,6 +43,6 @@
         <element name="Order" positionX="134.69921875" positionY="495.40625" width="121.80859375" height="105"/>
         <element name="OrderItem" positionX="-51.78515625" positionY="480.234375" width="128" height="75"/>
         <element name="Recipe" positionX="306.73828125" positionY="285.0703125" width="128" height="135"/>
-        <element name="Spice" positionX="-266.82421875" positionY="284.81640625" width="128" height="133"/>
+        <element name="Spice" positionX="-266.82421875" positionY="284.81640625" width="128" height="135"/>
     </elements>
 </model>

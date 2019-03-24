@@ -10,7 +10,7 @@ extension Spice {
     @NSManaged public var active: Bool
     @NSManaged public var color: String
     @NSManaged public var name: String
-    @NSManaged public var slot: Int32
+    @NSManaged public var slot: Int64
     @NSManaged public var weight: Float
     @NSManaged public var ingredients: NSSet?
 

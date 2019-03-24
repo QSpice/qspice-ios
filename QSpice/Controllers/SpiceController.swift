@@ -45,7 +45,7 @@ class SpiceController {
             currentActiveSpice.slot = -1
         } else {
             spice.active = true
-            spice.slot = Int32(slot)
+            spice.slot = Int64(slot)
         }
         
         try spiceService.save()

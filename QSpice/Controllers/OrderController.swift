@@ -16,6 +16,7 @@ enum OrderError: Error {
     case lowLevel(String)
     case missingSpices
     case noSpices
+    case exceededAmount
 }
 
 class OrderController {
@@ -98,7 +99,8 @@ class OrderController {
             throw OrderError.notConnected
         }
         
-        try verify(levels: spiceLevels)
+        try verifyListAmount()
+        try verifyList(levels: spiceLevels)
         
         let newOrder = spiceService.createListOrder(orderDetail: order)
         try spiceService.save()
@@ -108,10 +110,13 @@ class OrderController {
         }
     }
     
-    func createRecipeOrder() throws {
+    func createRecipeOrder(spiceLevels: [Int]) throws {
         guard BLEManager.shared.isReady else {
             throw OrderError.notConnected
         }
+        
+        try verifyRecipeAmount()
+        try verifyRecipe(levels: spiceLevels)
         
         let ingredients = order.recipe?.ingredients?.allObjects as? [Ingredient] ?? []
         
@@ -162,7 +167,7 @@ class OrderController {
         }
     }
     
-    private func verify(levels: [Int]) throws {
+    private func verifyList(levels: [Int]) throws {
         if levels.isEmpty {
             return
         }
@@ -175,6 +180,62 @@ class OrderController {
         
         if !lowLevels.isEmpty {
             throw OrderError.lowLevel("\n" + lowLevels.joined(separator: ", "))
+        }
+    }
+    
+    private func verifyRecipe(levels: [Int]) throws {
+        if levels.isEmpty {
+            return
+        }
+        
+        guard let ingredients = order.recipe?.ingredients?.allObjects as? [Ingredient] else {
+            return
+        }
+        
+        let slots: [Int] = ingredients.map { (ingredient) -> Int in
+            return Int(ingredient.spice.slot)
+        }
+        
+        var lowLevels = [String]()
+        
+        for i in 0..<order.orderItems.count where levels[i] <= 15 && slots.contains(i + 1) {
+            lowLevels.append("\(i+1) (\(order.orderItems[i].ingredient.spice.name))")
+        }
+        
+        if !lowLevels.isEmpty {
+            throw OrderError.lowLevel("\n" + lowLevels.joined(separator: ", "))
+        }
+    }
+    
+    private func verifyListAmount() throws {
+        var volume: Float = 0.0
+        
+        for item in order.orderItems {
+            let multiplier = Helpers.metricTeaspoonMultiplier(from: Metric(rawValue: item.ingredient.metric) ?? .teaspoon)
+            let quantity = Spice.spiceQuantity(from: item.ingredient.quantity).float
+            volume +=  quantity * multiplier
+        }
+        
+        if volume * Float(order.quantity) > 30 {
+            throw OrderError.exceededAmount
+        }
+    }
+    
+    private func verifyRecipeAmount() throws {
+        var volume: Float = 0.0
+        
+        guard let ingredients = order.recipe?.ingredients?.allObjects as? [Ingredient] else {
+            return
+        }
+        
+        for ingredient in ingredients {
+            let multiplier = Helpers.metricTeaspoonMultiplier(from: Metric(rawValue: ingredient.metric) ?? .teaspoon)
+            let quantity = Spice.spiceQuantity(from: ingredient.quantity).float
+            volume +=  quantity * multiplier
+        }
+        
+        if volume * Float(order.quantity) > 30 {
+            throw OrderError.exceededAmount
         }
     }
 }

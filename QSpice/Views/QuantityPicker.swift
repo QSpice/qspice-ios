@@ -78,7 +78,7 @@ extension QuantityPicker: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         if component == 0 {
-            return 18
+            return 31
         }
         
         return 40

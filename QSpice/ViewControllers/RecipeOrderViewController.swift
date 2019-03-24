@@ -44,7 +44,7 @@ class RecipeOrderViewController: OrderViewController {
     
     override func placeOrder(spiceLevels: [Int]) {
         do {
-            try controller.createRecipeOrder()
+            try controller.createRecipeOrder(spiceLevels: spiceLevels)
             dismiss(animated: true)
         } catch OrderError.notConnected {
             isCreatingOrder = false
@@ -59,8 +59,10 @@ class RecipeOrderViewController: OrderViewController {
         } catch OrderError.missingSpices {
             isCreatingOrder = false
             showAlert(title: AlertMessages.noOrderMissingSpices.title, subtitle: AlertMessages.noOrderMissingSpices.subtitle)
-        } catch {
-        }
+        } catch OrderError.exceededAmount {
+            isCreatingOrder = false
+            showAlert(title: AlertMessages.noOrderExceededAmount.title, subtitle: AlertMessages.noOrderExceededAmount.subtitle)
+        } catch {}
     }
 
     private func setupSubviews() {

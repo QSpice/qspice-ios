@@ -187,7 +187,7 @@ class SpiceCell: UITableViewCell {
             if type == .ingredientEditable {
             
                 actionView = {
-                    let view = QuantityPicker(min: 0, max: 10)
+                    let view = QuantityPicker(min: 0, max: 39)
                     view.selectRow(0, inComponent: 0, animated: true)
                     view.quantityDelegate = self
                     view.min = minimumQuantity
@@ -197,7 +197,7 @@ class SpiceCell: UITableViewCell {
                 contentView.addSubview(actionView!)
                 actionView?.snp.makeConstraints { (make) in
                     make.height.equalTo(58)
-                    make.width.equalTo(58)
+                    make.width.equalTo(72)
                 }
                 
             } else {
@@ -211,7 +211,7 @@ class SpiceCell: UITableViewCell {
                 contentView.addSubview(actionView!)
             }
             
-            multiplier = 1.8
+            multiplier = 1.75
             
         }
 

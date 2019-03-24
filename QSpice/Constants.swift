@@ -48,6 +48,7 @@ struct AlertMessages {
     static let noOrderBusy = (title: "Order Not Created", subtitle: "An order is currently being dispensed on the device, Would you like to cancel it?")
     static let noOrderNoSpices = (title: "Order Not Created", subtitle: "The recipe contains no spices.")
     static let noOrderMissingSpices = (title: "Order Not Created", subtitle: "The recipe contains spices that are not labelled as active.")
+    static let noOrderExceededAmount = (title: "Order Not Created", subtitle: "Order exceeded maximum amount that can fit inside the bowl (30 tsp). Please create a smaller order")
     static let spiceLevels = (title: "Spice Levels Low", subtitle: "The spice levels are low for spices in container(s):")
     static let resetHints = (title: "Reset All Hints", subtitle: "Resetting all hints is irreversible, are you sure you want to proceed?")
     static let invalidName = (title: "Recipe Name Invalid", subtitle: "The recipe name should not be left empty.")
