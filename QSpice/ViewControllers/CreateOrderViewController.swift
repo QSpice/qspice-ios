@@ -5,6 +5,7 @@ class CreateOrderViewController: UIViewController {
 
     var controller: OrderController
     let coachController = CoachMarksController()
+    var messageTimer: Timer?
     
     init(controller: OrderController) {
         self.controller = controller
@@ -48,6 +49,14 @@ class CreateOrderViewController: UIViewController {
         return stackView
     }()
     
+    let cancelOrderButton: ActionButton = {
+        let button = ActionButton()
+        button.setTitle("Cancel Order", for: .normal)
+        button.labelText = "Cancel Order"
+        button.isHidden = true
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,6 +64,7 @@ class CreateOrderViewController: UIViewController {
         
         listOrderView.addTarget(target: self, action: #selector(orderFromListTapped), for: .touchUpInside)
         recipeOrderView.addTarget(target: self, action: #selector(orderFromRecipeTapped), for: .touchUpInside)
+        cancelOrderButton.addTarget(self, action: #selector(cancelOrder), for: .touchUpInside)
         coachController.dataSource = self
         coachController.delegate = self
         
@@ -69,6 +79,12 @@ class CreateOrderViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        BLEManager.shared.delegate = self
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            BLEManager.shared.write(message: "POLL")
+        }
         
         if UserDefaults.standard.string(forKey: HintMessages.keys["CreateOrder"]!) == nil {
             coachController.start(in: .window(over: self))
@@ -87,9 +103,25 @@ class CreateOrderViewController: UIViewController {
         present(destination, animated: true)
     }
     
+    @objc func cancelOrder() {
+        cancelOrderButton.isLoading = true
+        messageTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(messageTimeout), userInfo: nil, repeats: false)
+        
+        if BLEManager.shared.isReady {
+            BLEManager.shared.write(message: "QUIT")
+        }
+    }
+        
+    @objc func messageTimeout() {
+        messageTimer = nil
+        cancelOrderButton.isLoading = false
+        showAlert(title: AlertMessages.couldNotCancel.title, subtitle: AlertMessages.couldNotCancel.subtitle)
+    }
+    
     private func setupSubviews() {
         view.addSubview(titleLabel)
         view.addSubview(stackView)
+        view.addSubview(cancelOrderButton)
         
         stackView.addArrangedSubview(listOrderView)
         stackView.addArrangedSubview({
@@ -104,6 +136,13 @@ class CreateOrderViewController: UIViewController {
         titleLabel.snp.makeConstraints { make in
             make.bottom.equalTo(stackView.snp.top).offset(-64)
             make.centerX.equalToSuperview()
+        }
+        
+        cancelOrderButton.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom).offset(64)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(stackView.snp.leading).offset(16)
+            make.trailing.equalTo(stackView.snp.trailing).offset(-16)
         }
         
         stackView.snp.makeConstraints { make in
@@ -153,5 +192,23 @@ extension CreateOrderViewController: CoachMarksControllerDataSource {
 extension CreateOrderViewController: CoachMarksControllerDelegate {
     func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
         UserDefaults.standard.set(true, forKey: HintMessages.keys["CreateOrder"]!)
+    }
+}
+
+extension CreateOrderViewController: BLEManagerDelegate {
+    func manager(_ manager: BLEManager, didReceive message: String, error: Error?) {
+        
+        messageTimer?.invalidate()
+        
+        if message.contains("OK") {
+            cancelOrderButton.isLoading = false
+            cancelOrderButton.isHidden = true
+            return
+        }
+        
+        if message.contains("BUSY") {
+            cancelOrderButton.isHidden = false
+        }
+        
     }
 }
